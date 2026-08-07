@@ -1,0 +1,98 @@
+const vzdyzeleneKry = [
+  {
+    id: "buxus-sempervirens",
+    name: "Krušpán vždyzelený",
+    latin: "Buxus sempervirens",
+    family: "Krušpánovité (Buxaceae)",
+    category: "vzdyzelene_kry",
+    image: "vzdyzelene_kry/kruspan.jpg",
+  },
+
+  {
+    id: "berberis-julianae",
+    name: "Dráč Juliin",
+    latin: "Berberis julianae",
+    family: "Dráčovité (Berberidaceae)",
+    category: "vzdyzelene_kry",
+    image: "vzdyzelene_kry/berberis-julianae.jpg",
+  },
+
+  {
+    id: "calluna-vulgaris",
+    name: "Vres obyčajný",
+    latin: "Calluna vulgaris",
+    family: "Vresovcovité (Ericaceae)",
+    category: "vzdyzelene_kry",
+    image: "vzdyzelene_kry/calluna.jpg",
+  },
+
+  {
+    id: "berberis-gagnepainii",
+    name: "Dráč Gagnepainov",
+    latin: "Berberis gagnepainii",
+    family: "Dráčovité (Berberidaceae)",
+    category: "vzdyzelene_kry",
+    image: "vzdyzelene_kry/berberis-gagnepainii.jpg",
+  },
+
+  {
+  id: "cotoneaster-dammeri",
+  name: "Skalník Dammerov",
+  latin: "Cotoneaster dammeri",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/skalnik-dammerov.jpg",
+},
+
+{
+  id: "cotoneaster-microphyllus",
+  name: "Skalník malolistý",
+  latin: "Cotoneaster microphyllus",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/skalnik-malolisty.jpg",
+},
+{
+  id: "cotoneaster-salicifolius",
+  name: "Skalník vŕbolistý",
+  latin: "Cotoneaster salicifolius",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/skalnik-vrbolisty.jpg",
+},
+{
+  id: "daphne-odora",
+  name: "Lykovec voňavý",
+  latin: "Daphne odora",
+  family: "Lykovcovité (Thymelaeaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/lykovec-vonavy.jpg",
+},
+{
+  id: "erica-carnea",
+  name: "Vresovec mäsový",
+  latin: "Erica carnea",
+  family: "Vresovcovité (Ericaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/vresovec-masovy.jpg",
+  detailImage: "vzdyzelene_kry/vresovec-masovy-list.jpg",
+},
+{
+  id: "euonymus-fortunei",
+  name: "Bršlen Fortuneov",
+  latin: "Euonymus fortunei",
+  family: "Bršlenovité (Celastraceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/brslen-fortunei.jpg",
+},
+{
+  id: "lavandula-angustifolia",
+  latin: "Lavandula angustifolia",
+  name: "Levanduľa úzkolistá",
+  family: "Lamiaceae",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/lavandula-angustifolia.jpg",
+}
+];
+
+export default vzdyzeleneKry;
