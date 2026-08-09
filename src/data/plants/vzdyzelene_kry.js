@@ -35,6 +35,7 @@ const vzdyzeleneKry = [
     family: "Dráčovité (Berberidaceae)",
     category: "vzdyzelene_kry",
     image: "vzdyzelene_kry/berberis-gagnepainii.jpg",
+    detailImage: "vzdyzelene_kry/berberis-gagnepainii-list.jpg",
   },
 
   {
