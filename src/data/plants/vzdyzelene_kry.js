@@ -88,6 +88,7 @@ const vzdyzeleneKry = [
   family: "Bršlenovité (Celastraceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/brslen-fortunei.jpg",
+  detailImage: "vzdyzelene_kry/brslen-fortunei-list.jpg",
 },
 {
   id: "lavandula-angustifolia",
