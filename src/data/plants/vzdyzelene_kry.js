@@ -98,7 +98,16 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/lavandula-angustifolia.jpg",
   detailImage: "vzdyzelene_kry/lavandula-angustifolia-list.jpg",
-}
+},
+{
+  id: "ilex-aquifolium",
+  latin: "Ilex aquifolium",
+  name: "Cezmína ostrolistá",
+  family: "Aquifoliaceae",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/ilex-aquifolium.jpg",
+  detailImage: "vzdyzelene_kry/ilex-aquifolium-list.jpg",
+},
 ];
 
 export default vzdyzeleneKry;
