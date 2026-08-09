@@ -66,10 +66,11 @@ const vzdyzeleneKry = [
 {
   id: "daphne-odora",
   name: "Lykovec voňavý",
-  latin: "Daphne odora",
-  family: "Lykovcovité (Thymelaeaceae)",
+  latin: "Daphne cneorum",
+  family: "Vrabcovníkovité (Thymelaeaceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/lykovec-vonavy.jpg",
+  detailImage: "vzdyzelene_kry/lykovec-vonavy-list.jpg",
 },
 {
   id: "erica-carnea",
