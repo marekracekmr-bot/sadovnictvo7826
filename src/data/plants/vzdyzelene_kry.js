@@ -15,6 +15,7 @@ const vzdyzeleneKry = [
     family: "Dráčovité (Berberidaceae)",
     category: "vzdyzelene_kry",
     image: "vzdyzelene_kry/berberis-julianae.jpg",
+    detailImage: "vzdyzelene_kry/berberis-julianae-list.jpg",
   },
 
   {
@@ -24,6 +25,7 @@ const vzdyzeleneKry = [
     family: "Vresovcovité (Ericaceae)",
     category: "vzdyzelene_kry",
     image: "vzdyzelene_kry/calluna.jpg",
+    detailImage: "vzdyzelene_kry/calluna-list.jpg",
   },
 
   {
