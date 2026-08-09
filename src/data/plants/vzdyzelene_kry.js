@@ -97,6 +97,7 @@ const vzdyzeleneKry = [
   family: "Lamiaceae",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/lavandula-angustifolia.jpg",
+  detailImage: "vzdyzelene_kry/lavandula-angustifolia-list.jpg",
 }
 ];
 
