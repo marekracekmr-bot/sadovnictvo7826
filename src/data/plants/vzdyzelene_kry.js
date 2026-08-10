@@ -121,10 +121,19 @@ const vzdyzeleneKry = [
   id: "mahonia-aquifolium",
   latin: "Mahonia aquifolium",
   name: "Mahónia cezmínolistá",
-  family: "Mahóniovité (Berberidaceae)",
+  family: "Dráčovité (Berberidaceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/mahonia-aquifolium.jpg",
   detailImage: "vzdyzelene_kry/mahonia-aquifolium-list.jpg",
+},
+{
+  id: "prunus-laurocerasus",
+  latin: "Prunus laurocerasus",
+  name: "Vavrínovec lekársky",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/prunus-laurocerasus.jpg",
+  detailImage: "vzdyzelene_kry/prunus-laurocerasus-list.jpg",
 },
 ];
 
