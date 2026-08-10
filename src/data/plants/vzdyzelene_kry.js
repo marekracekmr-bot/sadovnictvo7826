@@ -153,6 +153,24 @@ const vzdyzeleneKry = [
   image: "vzdyzelene_kry/rhododendron-hybridum.jpg",
   detailImage: "vzdyzelene_kry/rhododendron-hybridum-list.jpg",
 },
+{
+  id: "viburnum-rhytidophyllum",
+  latin: "Viburnum rhytidophyllum",
+  name: "Kalina vráskavolistá",
+  family: "Zemolezovité (Caprifoliaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/viburnum-rhytidophyllum.jpg",
+  detailImage: "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg",
+},
+{
+  id: "vinca-minor",
+  latin: "Vinca minor",
+  name: "Zimozeleň menšia",
+  family: "Zimozeleňovité (Apocynaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/vinca-minor.jpg",
+  detailImage: "vzdyzelene_kry/vinca-minor-list.jpg",
+},
 ];
 
 export default vzdyzeleneKry;
