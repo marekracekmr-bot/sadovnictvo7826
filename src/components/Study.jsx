@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import plants from "../data/plants";
 
-function Study({ category, goBack }) {
+function Study({ category, plantId, goBack }) {
   
   const [limit, setLimit] = useState("");
-  const [started, setStarted] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [started, setStarted] = useState(!!plantId);
+const [currentIndex, setCurrentIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
 
   const categoryPlants = plants.filter(
     (plant) => plant.category === category
   );
+  const selectedPlantIndex = plantId
+  ? categoryPlants.findIndex((plant) => plant.id === plantId)
+  : 0;
 
-  const studyPlants = categoryPlants.slice(
-    0,
-    limit ? Number(limit) : categoryPlants.length
-  );
+  const studyPlants = plantId
+  ? categoryPlants
+  : categoryPlants.slice(
+      0,
+      limit ? Number(limit) : categoryPlants.length
+    );
+
+    useEffect(() => {
+  if (plantId) {
+    const index = categoryPlants.findIndex(
+      (plant) => plant.id === plantId
+    );
+
+    if (index >= 0) {
+      setCurrentIndex(index);
+    }
+  }
+}, [plantId, category]);
+
   if (!started) {
   return (
     <div className="app">
