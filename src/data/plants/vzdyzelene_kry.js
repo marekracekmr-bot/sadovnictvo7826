@@ -135,6 +135,24 @@ const vzdyzeleneKry = [
   image: "vzdyzelene_kry/prunus-laurocerasus.jpg",
   detailImage: "vzdyzelene_kry/prunus-laurocerasus-list.jpg",
 },
+{
+  id: "pyracantha-coccinea",
+  latin: "Pyracantha coccinea",
+  name: "Hlohyňa šarlátová",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/pyracantha-coccinea.jpg",
+  detailImage: "vzdyzelene_kry/pyracantha-coccinea-list.jpg",
+},
+{
+  id: "rhododendron-hybridum",
+  latin: "Rhododendron hybridum",
+  name: "Rododendron hybridný",
+  family: "Vresovcovité (Ericaceae)",
+  category: "vzdyzelene_kry",
+  image: "vzdyzelene_kry/rhododendron-hybridum.jpg",
+  detailImage: "vzdyzelene_kry/rhododendron-hybridum-list.jpg",
+},
 ];
 
 export default vzdyzeleneKry;
