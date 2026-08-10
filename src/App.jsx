@@ -6,6 +6,7 @@ import plants from "./data/plants";
 function App() {
   const [category, setCategory] = useState(null);
   const [mode, setMode] = useState(null);
+  const [selectedPlant, setSelectedPlant] = useState(null);
 
   const categories = [
   {
@@ -33,12 +34,13 @@ function App() {
   if (category && mode === "study") {
   return (
     <Study
-      category={category}
-      goBack={() => {
-        setMode(null);
-        setCategory(null);
-      }}
-    />
+  category={category}
+  plantId={selectedPlant}
+  goBack={() => {
+    setMode(null);
+    setSelectedPlant(null);
+  }}
+/>
   );
 }
 
@@ -59,24 +61,62 @@ if (category && !mode) {
     (item) => item.value === category
   );
 
+  const categoryPlants = plants
+  .filter((plant) => plant.category === category)
+  .sort((a, b) => a.latin.localeCompare(b.latin));
+
   return (
     <div className="app">
 
-      <h1>{selectedCategory.icon} {selectedCategory.name}</h1>
+      <h1>
+        {selectedCategory.icon} {selectedCategory.name}
+      </h1>
 
-      <button onClick={() => setMode("study")}>
-        📖 Výuka
-      </button>
+      <div className="category-buttons">
+
+  <button onClick={() => setMode("study")}>
+    📖 Výuka
+  </button>
+
+  <button onClick={() => setMode("quiz")}>
+    📝 Test
+  </button>
+
+  <button
+    onClick={() => {
+      setCategory(null);
+      setSelectedPlant(null);
+    }}
+  >
+    ⬅ Späť
+  </button>
+
+</div>
+
+      <h2>🌿 Zoznam rastlín</h2>
+
+      <div className="plant-list">
+        {categoryPlants.map((plant) => (
+          <button
+            key={plant.id}
+            onClick={() => {
+              setSelectedPlant(plant.id);
+              setMode("study");
+            }}
+          >
+            <i>{plant.latin}</i> – {plant.name}
+          </button>
+        ))}
+      </div>
 
       <br />
 
-      <button onClick={() => setMode("quiz")}>
-        📝 Test
-      </button>
-
-      <br /><br />
-
-      <button onClick={() => setCategory(null)}>
+      <button
+        onClick={() => {
+          setCategory(null);
+          setSelectedPlant(null);
+        }}
+      >
         ⬅ Späť
       </button>
 

@@ -138,3 +138,32 @@ button:hover {
     border-width: 3px;
   }
 }
+.plant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 350px;
+  margin: 15px auto;
+}
+
+.plant-list button {
+  background: white;
+  border: 1px solid #4caf50;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.plant-list button:hover {
+  background: #e8f5e9;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.category-buttons button {
+  min-width: 100px;
+}
