@@ -6,6 +6,7 @@ const vzdyzeleneKry = [
     family: "Krušpánovité (Buxaceae)",
     category: "vzdyzelene_kry",
     image: "vzdyzelene_kry/kruspan.jpg",
+    detailImage: "vzdyzelene_kry/kruspan-list.jpg",
   },
 
   {
@@ -45,6 +46,7 @@ const vzdyzeleneKry = [
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/skalnik-dammerov.jpg",
+  detailImage: "vzdyzelene_kry/skalnik-dammerov-list.jpg",
 },
 
 {
@@ -54,6 +56,7 @@ const vzdyzeleneKry = [
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/skalnik-malolisty.jpg",
+  detailImage: "vzdyzelene_kry/skalnik-malolisty-list.jpg",
 },
 {
   id: "cotoneaster-salicifolius",
@@ -62,6 +65,7 @@ const vzdyzeleneKry = [
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
   image: "vzdyzelene_kry/skalnik-vrbolisty.jpg",
+  detailImage: "vzdyzelene_kry/skalnik-vrbolisty-list.jpg",
 },
 {
   id: "daphne-odora",
