@@ -116,22 +116,20 @@ const [currentIndex, setCurrentIndex] = useState(0);
       : plant.image
   }`}
   alt={plant.name}
+  onClick={() => {
+    if (plant.detailImage) {
+      setShowDetail(prev => !prev);
+    }
+  }}
   style={{
     width: "650px",
     maxWidth: "90%",
-    borderRadius: "15px"
+    borderRadius: "15px",
+    cursor: plant.detailImage ? "pointer" : "default"
   }}
 />
 
-{plant.detailImage && (
-  <div style={{ marginTop: "15px" }}>
-    <button onClick={() => setShowDetail(!showDetail)}>
-      {showDetail
-        ? "🌿 Zobraziť hlavnú fotku"
-        : "🔍 Zobraziť detail"}
-    </button>
-  </div>
-)}
+
 
 
       {!showInfo ? (
