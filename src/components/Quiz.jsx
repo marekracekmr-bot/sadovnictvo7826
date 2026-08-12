@@ -1,7 +1,18 @@
 import { useState, useEffect } from "react";
 import plants from "../data/plants";
+import Quiz2 from "./Quiz2";
 
-function Quiz({ category, goBack }) {
+function Quiz({ category, testType, testLimit, goBack }) {
+
+  if (testType === 2) {
+  return (
+    <Quiz2
+      category={category}
+      testLimit={testLimit}
+      goBack={goBack}
+    />
+  );
+}
 
   const [plant, setPlant] = useState(null);
   const [result, setResult] = useState(null);
@@ -10,9 +21,8 @@ function Quiz({ category, goBack }) {
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [usedPlants, setUsedPlants] = useState([]);
-  const [limit, setLimit] = useState("");
-  const [started, setStarted] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15);
 
   const categoryPlants = plants.filter(
     (plant) => plant.category === category
@@ -20,10 +30,11 @@ function Quiz({ category, goBack }) {
 
   const testPlants = categoryPlants.slice(
   0,
-  limit ? Number(limit) : categoryPlants.length
+  testLimit
 );
-  const totalQuestions = Math.min(
-  Number(limit) || categoryPlants.length,
+
+const totalQuestions = Math.min(
+  testLimit,
   categoryPlants.length
 );
 
@@ -45,11 +56,8 @@ function Quiz({ category, goBack }) {
     ];
   }
 
-
-  useEffect(() => {
-
-  if (started && testPlants.length > 0 && !plant) {
-
+useEffect(() => {
+  if (testPlants.length > 0 && !plant) {
     const firstPlant = getRandomPlant([]);
 
     setPlant(firstPlant);
@@ -58,9 +66,8 @@ function Quiz({ category, goBack }) {
       firstPlant.id
     ]);
   }
-
-}, [started]);
-
+}, [testPlants.length]);
+  
 
   useEffect(() => {
 
@@ -71,15 +78,16 @@ function Quiz({ category, goBack }) {
   }, [plant]);
 
   useEffect(() => {
-  if (!started) return;
+
+  if (!plant) return;
 
   const interval = setInterval(() => {
     setShowDetails(prev => !prev);
-  }, 3000);
+  }, 2000);
 
   return () => clearInterval(interval);
-}, [started]);
 
+}, [plant]);
 
   function getOptions(correctPlant) {
 
@@ -163,8 +171,7 @@ function Quiz({ category, goBack }) {
     setResult(null);
     setScore(0);
     setQuestionNumber(1);
-    setStarted(false);
-    setLimit("");
+    setFinished(false);
 
   }
 
@@ -173,46 +180,7 @@ function Quiz({ category, goBack }) {
     return <div>V tejto kategórii nie sú rastliny.</div>;
   }
 
-  if (!started) {
-  return (
-    <div className="app">
-
-      <h1>📝 Test rastlín</h1>
-
-      <p>Koľko otázok chceš?</p>
-
-      <input
-        type="number"
-        value={limit}
-        onChange={(e) => setLimit(e.target.value)}
-      />
-
-      <br /><br />
-
-      <button onClick={() => setStarted(true)}>
-        ▶️ Začať test
-      </button>
-
-      <br />
-
-      <button
-        onClick={() => {
-          setLimit(categoryPlants.length);
-          setStarted(true);
-        }}
-      >
-        🌿 Všetky rastliny
-      </button>
-
-      <br /><br />
-
-      <button onClick={goBack}>
-        ⬅ Späť
-      </button>
-
-    </div>
-  );
-}
+  
 
   if (!plant) {
     return <div>Načítavam...</div>;

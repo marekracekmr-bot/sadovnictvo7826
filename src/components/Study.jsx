@@ -118,7 +118,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
   alt={plant.name}
   onClick={() => {
     if (plant.detailImage) {
-      setShowDetail(prev => !prev);
+      setShowDetail(!showDetail);
     }
   }}
   style={{
