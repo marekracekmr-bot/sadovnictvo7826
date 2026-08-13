@@ -1,12 +1,23 @@
 import { useState, useEffect } from "react";
 import plants from "../data/plants";
 import Quiz2 from "./Quiz2";
+import Quiz3 from "./Quiz3";
 
 function Quiz({ category, testType, testLimit, goBack }) {
 
   if (testType === 2) {
   return (
     <Quiz2
+      category={category}
+      testLimit={testLimit}
+      goBack={goBack}
+    />
+  );
+}
+
+if (testType === 3) {
+  return (
+    <Quiz3
       category={category}
       testLimit={testLimit}
       goBack={goBack}
