@@ -158,6 +158,21 @@ function App() {
             🌱 Test 2
           </button>
 
+          <button
+  onClick={() => {
+    if (!allPlants && !testLimit) {
+      alert("Vyber počet rastlín.");
+      return;
+    }
+
+    setSelectedTest(3);
+    setMode("quiz");
+    setTestMenu(false);
+  }}
+>
+  🌳 Test 3
+</button>
+
         </div>
 
         <br />
