@@ -5,7 +5,11 @@ const ihlicnany = [
     latin: "Abies alba",
     family: "Borovicovité (Pinaceae)",
     category: "ihlicnany",
-    image: "ihlicnany/jedla-biela.jpg",
+    images: [
+    "ihlicnany/jedla-biela.jpg",
+    "ihlicnany/jedla-biela1.jpg",
+    "ihlicnany/jedla-biela2.jpg"
+  ]
   },
   {
   id: "abies-nordmanniana",
