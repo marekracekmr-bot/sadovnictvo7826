@@ -5,8 +5,11 @@ const opadaveStromy = [
     latin: "Acer campestre",
     family: "Mydlovníkovité (Sapindaceae)",
     category: "opadave_stromy",
-    image: "opadave_stromy/javor-polny.jpg",
-    detailImage: "opadave_stromy/javor-polny-list.jpg",
+    images: [
+    "opadave_stromy/javor-polny.jpg",
+    "opadave_stromy/javor-polny-list.jpg",
+  ]
+    
   },
   {
     id: "acer-platanoides",
@@ -14,7 +17,9 @@ const opadaveStromy = [
     latin: "Acer platanoides",
     family: "Mydlovníkovité (Sapindaceae)",
     category: "opadave_stromy",
-    image: "opadave_stromy/javor-mliecny.jpg",
+    images: [
+    
+  ]
   },
   {
     id: "acer-pseudoplatanus",
@@ -22,7 +27,10 @@ const opadaveStromy = [
     latin: "Acer pseudoplatanus",
     family: "Mydlovníkovité (Sapindaceae)",
     category: "opadave_stromy",
-    image: "opadave_stromy/javor-horsky.jpg",
+    images: [
+    
+  ]
+   
   },
   ];
 

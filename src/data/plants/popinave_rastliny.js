@@ -8,7 +8,10 @@ const popinaveRastliny = [
      latin: "Hedera helix",
      family: "Aralkovité (Araliaceae)",
      category: "popinave",
-     image: "popinave_rastliny/brectan-popinavy.jpg",
+     images: [
+    "popinave_rastliny/brectan-popinavy.jpg",
+  ]
+     
    },
 ];
 
