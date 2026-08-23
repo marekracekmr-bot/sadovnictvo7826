@@ -25,7 +25,7 @@ function Quiz3({ category, testLimit, goBack }) {
   const [result, setResult] = useState(null);
   const [finished, setFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
-  const [showDetail, setShowDetail] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
 
   function getRandomPlant(currentUsed = usedPlants) {
@@ -103,6 +103,7 @@ function Quiz3({ category, testLimit, goBack }) {
   }, [testPlants.length]);
 
 
+  // Časovač 15 sekúnd
   useEffect(() => {
 
     if (!plant || result || finished) {
@@ -134,16 +135,19 @@ function Quiz3({ category, testLimit, goBack }) {
   }, [plant, questionNumber, result, finished]);
 
 
+  // Automatická zmena fotografie každé 2 sekundy
   useEffect(() => {
 
     if (!plant || result || finished) {
       return;
     }
 
-    setShowDetail(false);
+    setPhotoIndex(0);
 
     const interval = setInterval(() => {
-      setShowDetail(prev => !prev);
+
+      setPhotoIndex((prev) => prev + 1);
+
     }, 2000);
 
     return () => clearInterval(interval);
@@ -209,6 +213,8 @@ function Quiz3({ category, testLimit, goBack }) {
     setOptions(getOptions(newPlant));
     setResult(null);
     setTimeLeft(15);
+    setPhotoIndex(0);
+
     setQuestionNumber((prev) => prev + 1);
 
   }
@@ -266,6 +272,14 @@ function Quiz3({ category, testLimit, goBack }) {
 
   const genus = getGenusName(plant.latin);
 
+  // Fotografie aktuálnej rastliny
+  const photos = plant.images || [];
+
+  const currentPhoto =
+    photos.length > 0
+      ? photos[photoIndex % photos.length]
+      : null;
+
 
   return (
     <div className="app">
@@ -307,19 +321,17 @@ function Quiz3({ category, testLimit, goBack }) {
         }}
       >
 
-        <img
-          src={`/plants/${
-            showDetail && plant.detailImage
-              ? plant.detailImage
-              : plant.image
-          }`}
-          alt={plant.name}
-          style={{
-            width: "400px",
-            maxWidth: "90%",
-            borderRadius: "15px"
-          }}
-        />
+        {currentPhoto && (
+          <img
+            src={`/plants/${currentPhoto}`}
+            alt={plant.name}
+            style={{
+              width: "400px",
+              maxWidth: "90%",
+              borderRadius: "15px"
+            }}
+          />
+        )}
 
       </div>
 

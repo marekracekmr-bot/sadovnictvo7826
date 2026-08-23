@@ -25,7 +25,7 @@ function Quiz2({ category, testLimit, goBack }) {
   const [result, setResult] = useState(null);
   const [finished, setFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
-  const [showDetail, setShowDetail] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   function getRandomPlant(currentUsed = usedPlants) {
 
@@ -72,6 +72,7 @@ function Quiz2({ category, testLimit, goBack }) {
 
   }, [testPlants.length]);
 
+  // Časovač 15 sekúnd
   useEffect(() => {
 
     if (!plant || result || finished) {
@@ -101,19 +102,24 @@ function Quiz2({ category, testLimit, goBack }) {
 
   }, [plant, questionNumber, result, finished]);
 
+  // Automatická zmena fotografie každé 2 sekundy
   useEffect(() => {
 
-  if (!plant || result || finished) {
-    return;
-  }
+    if (!plant || result || finished) {
+      return;
+    }
 
-  const interval = setInterval(() => {
-    setShowDetail(prev => !prev);
-  }, 2000);
+    setPhotoIndex(0);
 
-  return () => clearInterval(interval);
+    const interval = setInterval(() => {
 
-}, [plant, result, finished]);
+      setPhotoIndex((prev) => prev + 1);
+
+    }, 2000);
+
+    return () => clearInterval(interval);
+
+  }, [plant, result, finished]);
 
   function checkAnswer(selectedPlant) {
 
@@ -166,6 +172,7 @@ function Quiz2({ category, testLimit, goBack }) {
     setOptions(getOptions(newPlant));
     setResult(null);
     setTimeLeft(15);
+    setPhotoIndex(0);
 
     setQuestionNumber((prev) => prev + 1);
   }
@@ -212,6 +219,14 @@ function Quiz2({ category, testLimit, goBack }) {
     );
   }
 
+  // Fotografie aktuálnej rastliny
+  const photos = plant.images || [];
+
+  const currentPhoto =
+    photos.length > 0
+      ? photos[photoIndex % photos.length]
+      : null;
+
   return (
     <div className="app">
 
@@ -235,56 +250,54 @@ function Quiz2({ category, testLimit, goBack }) {
       </div>
 
       <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "25px",
-    flexWrap: "wrap"
-  }}
->
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "25px",
+          flexWrap: "wrap"
+        }}
+      >
 
-  <img
-    src={`/plants/${
-    showDetail && plant.detailImage
-      ? plant.detailImage
-      : plant.image
-  }`}
-    alt={plant.name}
-    style={{
-      width: "400px",
-      maxWidth: "90%",
-      borderRadius: "15px"
-    }}
-  />
+        {currentPhoto && (
+          <img
+            src={`/plants/${currentPhoto}`}
+            alt={plant.name}
+            style={{
+              width: "400px",
+              maxWidth: "90%",
+              borderRadius: "15px"
+            }}
+          />
+        )}
 
-</div>
+      </div>
 
-<div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "20px",
-    marginTop: "15px"
-  }}
->
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px",
+          marginTop: "15px"
+        }}
+      >
 
-  <h2 style={{ margin: 0 }}>
-    Urči rastlinu
-  </h2>
+        <h2 style={{ margin: 0 }}>
+          Urči rastlinu
+        </h2>
 
-  <div
-    style={{
-      fontSize: "30px",
-      fontWeight: "bold"
-    }}
-  >
-    ⏱️ {timeLeft}
-  </div>
+        <div
+          style={{
+            fontSize: "30px",
+            fontWeight: "bold"
+          }}
+        >
+          ⏱️ {timeLeft}
+        </div>
 
-</div>
-      
+      </div>
+
       <div
         style={{
           display: "flex",

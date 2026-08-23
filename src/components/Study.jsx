@@ -83,12 +83,8 @@ function Study({ category, plantId, goBack }) {
 
   // Podpora nového systému images
   // Ak images nemá, použije starý image + detailImage
-  const photos = plant.images
-    ? plant.images
-    : [
-        plant.image,
-        ...(plant.detailImage ? [plant.detailImage] : [])
-      ];
+  
+   const photos = plant.images;
 
   function nextPhoto() {
     if (photos.length > 1) {
