@@ -187,17 +187,6 @@ const vzdyzeleneKry = [
   
 },
 {
-  id: "prunus-laurocerasus",
-  latin: "Prunus laurocerasus",
-  name: "Vavrínovec lekársky",
-  family: "Ružovité (Rosaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/prunus-laurocerasus.jpg",
-    "vzdyzelene_kry/prunus-laurocerasus-list.jpg"
-  ]
-},
-{
   id: "pyracantha-coccinea",
   latin: "Pyracantha coccinea",
   name: "Hlohyňa šarlátová",
