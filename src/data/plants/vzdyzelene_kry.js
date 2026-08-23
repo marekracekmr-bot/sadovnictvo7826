@@ -6,8 +6,11 @@ const vzdyzeleneKry = [
     family: "Krušpánovité (Buxaceae)",
     category: "vzdyzelene_kry",
     height: "2-3 m",
-    image: "vzdyzelene_kry/kruspan.jpg",
-    detailImage: "vzdyzelene_kry/kruspan-list.jpg",
+    images: [
+    "vzdyzelene_kry/kruspan.jpg",
+    "vzdyzelene_kry/kruspan-list.jpg"
+  ]
+    
   },
 
   {
@@ -17,8 +20,11 @@ const vzdyzeleneKry = [
     family: "Dráčovité (Berberidaceae)",
     category: "vzdyzelene_kry",
     height: "2 m",
-    image: "vzdyzelene_kry/berberis-julianae.jpg",
-    detailImage: "vzdyzelene_kry/berberis-julianae-list.jpg",
+    images: [
+    "vzdyzelene_kry/berberis-julianae.jpg",
+    "vzdyzelene_kry/berberis-julianae-list.jpg"
+  ]
+   
   },
 
   {
@@ -28,8 +34,11 @@ const vzdyzeleneKry = [
     family: "Vresovcovité (Ericaceae)",
     category: "vzdyzelene_kry",
     height: "0,4 m",
-    image: "vzdyzelene_kry/calluna.jpg",
-    detailImage: "vzdyzelene_kry/calluna-list.jpg",
+    images: [
+    "vzdyzelene_kry/calluna.jpg",
+    "vzdyzelene_kry/calluna-list.jpg"
+  ]
+    
   },
 
   {
@@ -38,8 +47,11 @@ const vzdyzeleneKry = [
     latin: "Berberis gagnepainii",
     family: "Dráčovité (Berberidaceae)",
     category: "vzdyzelene_kry",
-    image: "vzdyzelene_kry/berberis-gagnepainii.jpg",
-    detailImage: "vzdyzelene_kry/berberis-gagnepainii-list.jpg",
+    images: [
+    "vzdyzelene_kry/berberis-gagnepainii.jpg",
+    "vzdyzelene_kry/berberis-gagnepainii-list.jpg"
+  ]
+    
   },
 
   {
@@ -48,8 +60,11 @@ const vzdyzeleneKry = [
   latin: "Cotoneaster dammeri",
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/skalnik-dammerov.jpg",
-  detailImage: "vzdyzelene_kry/skalnik-dammerov-list.jpg",
+  images: [
+    "vzdyzelene_kry/skalnik-dammerov.jpg",
+    "vzdyzelene_kry/skalnik-dammerov-list.jpg"
+  ]
+  
 },
 
 {
@@ -58,8 +73,11 @@ const vzdyzeleneKry = [
   latin: "Cotoneaster microphyllus",
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/skalnik-malolisty.jpg",
-  detailImage: "vzdyzelene_kry/skalnik-malolisty-list.jpg",
+  images: [
+    "vzdyzelene_kry/skalnik-malolisty.jpg",
+    "vzdyzelene_kry/skalnik-malolisty-list.jpg"
+  ]
+  
 },
 {
   id: "cotoneaster-salicifolius",
@@ -67,8 +85,11 @@ const vzdyzeleneKry = [
   latin: "Cotoneaster salicifolius",
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/skalnik-vrbolisty.jpg",
-  detailImage: "vzdyzelene_kry/skalnik-vrbolisty-list.jpg",
+  images: [
+    "vzdyzelene_kry/skalnik-vrbolisty.jpg",
+    "vzdyzelene_kry/skalnik-vrbolisty-list.jpg"
+  ]
+  
 },
 {
   id: "daphne-odora",
@@ -76,8 +97,11 @@ const vzdyzeleneKry = [
   latin: "Daphne cneorum",
   family: "Vrabcovníkovité (Thymelaeaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/lykovec-vonavy.jpg",
-  detailImage: "vzdyzelene_kry/lykovec-vonavy-list.jpg",
+  images: [
+    "vzdyzelene_kry/lykovec-vonavy.jpg",
+    "vzdyzelene_kry/lykovec-vonavy-list.jpg"
+  ]
+  
 },
 {
   id: "erica-carnea",
@@ -85,17 +109,23 @@ const vzdyzeleneKry = [
   latin: "Erica carnea",
   family: "Vresovcovité (Ericaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/vresovec-masovy.jpg",
-  detailImage: "vzdyzelene_kry/vresovec-masovy-list.jpg",
-},
+  images: [
+    "vzdyzelene_kry/vresovec-masovy.jpg",
+    "vzdyzelene_kry/vresovec-masovy-list.jpg"
+  ]
+  
+},  
 {
   id: "euonymus-fortunei",
   name: "Bršlen Fortuneov",
   latin: "Euonymus fortunei",
   family: "Bršlenovité (Celastraceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/brslen-fortunei.jpg",
-  detailImage: "vzdyzelene_kry/brslen-fortunei-list.jpg",
+  images: [
+    "vzdyzelene_kry/brslen-fortunei.jpg",
+    "vzdyzelene_kry/brslen-fortunei-list.jpg"
+  ]
+  
 },
 {
   id: "lavandula-angustifolia",
@@ -103,8 +133,11 @@ const vzdyzeleneKry = [
   name: "Levanduľa úzkolistá",
   family: "Hluchavkovité (Lamiaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/lavandula-angustifolia.jpg",
-  detailImage: "vzdyzelene_kry/lavandula-angustifolia-list.jpg",
+  images: [
+    "vzdyzelene_kry/lavandula-angustifolia.jpg",
+    "vzdyzelene_kry/lavandula-angustifolia-list.jpg"
+  ]
+  
 },
 {
   id: "ilex-aquifolium",
@@ -112,8 +145,11 @@ const vzdyzeleneKry = [
   name: "Cezmína ostrolistá",
   family: "Cezmínovité (Aquifoliaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/ilex-aquifolium.jpg",
-  detailImage: "vzdyzelene_kry/ilex-aquifolium-list.jpg",
+  images: [
+    "vzdyzelene_kry/ilex-aquifolium.jpg",
+    "vzdyzelene_kry/ilex-aquifolium-list.jpg"
+  ]
+  
 },
 {
   id: "lonicera-pileata",
@@ -121,8 +157,10 @@ const vzdyzeleneKry = [
   name: "Zemolez kapucňovitý",
   family: "Zemolezovité (Caprifoliaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/lonicera-pileata.jpg",
-  detailImage: "vzdyzelene_kry/lonicera-pileata-list.jpg",
+  images: [
+    "vzdyzelene_kry/lonicera-pileata.jpg",
+    "vzdyzelene_kry/lonicera-pileata-list.jpg"
+  ]
 },
 {
   id: "mahonia-aquifolium",
@@ -130,8 +168,11 @@ const vzdyzeleneKry = [
   name: "Mahónia cezmínolistá",
   family: "Dráčovité (Berberidaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/mahonia-aquifolium.jpg",
-  detailImage: "vzdyzelene_kry/mahonia-aquifolium-list.jpg",
+  images: [
+    "vzdyzelene_kry/mahonia-aquifolium.jpg",
+    "vzdyzelene_kry/mahonia-aquifolium-list.jpg"
+  ]
+  
 },
 {
   id: "prunus-laurocerasus",
@@ -139,8 +180,22 @@ const vzdyzeleneKry = [
   name: "Vavrínovec lekársky",
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/prunus-laurocerasus.jpg",
-  detailImage: "vzdyzelene_kry/prunus-laurocerasus-list.jpg",
+  images: [
+    "vzdyzelene_kry/prunus-laurocerasus.jpg",
+    "vzdyzelene_kry/prunus-laurocerasus-list.jpg"
+  ]
+  
+},
+{
+  id: "prunus-laurocerasus",
+  latin: "Prunus laurocerasus",
+  name: "Vavrínovec lekársky",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/prunus-laurocerasus.jpg",
+    "vzdyzelene_kry/prunus-laurocerasus-list.jpg"
+  ]
 },
 {
   id: "pyracantha-coccinea",
@@ -148,8 +203,11 @@ const vzdyzeleneKry = [
   name: "Hlohyňa šarlátová",
   family: "Ružovité (Rosaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/pyracantha-coccinea.jpg",
-  detailImage: "vzdyzelene_kry/pyracantha-coccinea-list.jpg",
+  images: [
+    "vzdyzelene_kry/pyracantha-coccinea.jpg",
+    "vzdyzelene_kry/pyracantha-coccinea-list.jpg"
+  ]
+  
 },
 {
   id: "rhododendron-hybridum",
@@ -157,8 +215,11 @@ const vzdyzeleneKry = [
   name: "Rododendron hybridný",
   family: "Vresovcovité (Ericaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/rhododendron-hybridum.jpg",
-  detailImage: "vzdyzelene_kry/rhododendron-hybridum-list.jpg",
+  images: [
+    "vzdyzelene_kry/rhododendron-hybridum.jpg",
+    "vzdyzelene_kry/rhododendron-hybridum-list.jpg"
+  ]
+  
 },
 {
   id: "viburnum-rhytidophyllum",
@@ -166,17 +227,22 @@ const vzdyzeleneKry = [
   name: "Kalina vráskavolistá",
   family: "Zemolezovité (Caprifoliaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/viburnum-rhytidophyllum.jpg",
-  detailImage: "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg",
+  images: [
+    "vzdyzelene_kry/viburnum-rhytidophyllum.jpg",
+    "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg"
+  ]
 },
+
 {
   id: "vinca-minor",
   latin: "Vinca minor",
   name: "Zimozeleň menšia",
   family: "Zimozeleňovité (Apocynaceae)",
   category: "vzdyzelene_kry",
-  image: "vzdyzelene_kry/vinca-minor.jpg",
-  detailImage: "vzdyzelene_kry/vinca-minor-list.jpg",
+  images: [
+    "vzdyzelene_kry/vinca-minor.jpg",
+    "vzdyzelene_kry/vinca-minor-list.jpg"
+  ]
 },
 ];
 
