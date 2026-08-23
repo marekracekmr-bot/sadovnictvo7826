@@ -17,8 +17,11 @@ const ihlicnany = [
   latin: "Abies nordmanniana",
   family: "Borovicovité (Pinaceae)",
   category: "ihlicnany",
-  image: "ihlicnany/jedla-kaukazska.jpg",
-  detailImage: "ihlicnany/jedla-kaukazska-list.jpg",
+  images: [
+    "ihlicnany/jedla-kaukazska.jpg",
+    "ihlicnany/jedla-kaukazska-list.jpg",
+  ]
+ 
 }
 ];
 
