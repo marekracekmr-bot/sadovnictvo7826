@@ -7,15 +7,11 @@ function Study({ category, plantId, goBack }) {
   const [started, setStarted] = useState(!!plantId);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
-  const [showDetail, setShowDetail] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   const categoryPlants = plants.filter(
     (plant) => plant.category === category
   );
-
-  const selectedPlantIndex = plantId
-    ? categoryPlants.findIndex((plant) => plant.id === plantId)
-    : 0;
 
   const studyPlants = plantId
     ? categoryPlants
@@ -35,6 +31,12 @@ function Study({ category, plantId, goBack }) {
       }
     }
   }, [plantId, category]);
+
+  // Pri zmene rastliny začneme od prvej fotografie
+  useEffect(() => {
+    setPhotoIndex(0);
+    setShowInfo(false);
+  }, [currentIndex]);
 
   if (!started) {
     return (
@@ -79,11 +81,25 @@ function Study({ category, plantId, goBack }) {
 
   const plant = studyPlants[currentIndex];
 
+  // Podpora nového systému images
+  // Ak images nemá, použije starý image + detailImage
+  const photos = plant.images
+    ? plant.images
+    : [
+        plant.image,
+        ...(plant.detailImage ? [plant.detailImage] : [])
+      ];
+
+  function nextPhoto() {
+    if (photos.length > 1) {
+      setPhotoIndex((photoIndex + 1) % photos.length);
+    }
+  }
+
   function nextPlant() {
     if (currentIndex < studyPlants.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setShowInfo(false);
-      setShowDetail(false);
     }
   }
 
@@ -91,7 +107,6 @@ function Study({ category, plantId, goBack }) {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
       setShowInfo(false);
-      setShowDetail(false);
     }
   }
 
@@ -111,7 +126,6 @@ function Study({ category, plantId, goBack }) {
         {currentIndex + 1} / {studyPlants.length}
       </p>
 
-
       {/* FOTOGRAFIA + INFORMÁCIE */}
       <div
         style={{
@@ -123,25 +137,16 @@ function Study({ category, plantId, goBack }) {
       >
 
         <img
-          src={`/plants/${
-            showDetail && plant.detailImage
-              ? plant.detailImage
-              : plant.image
-          }`}
+          src={`/plants/${photos[photoIndex]}`}
           alt={plant.name}
-          onClick={() => {
-            if (plant.detailImage) {
-              setShowDetail(!showDetail);
-            }
-          }}
+          onClick={nextPhoto}
           style={{
             width: "100%",
             display: "block",
             borderRadius: "15px",
-            cursor: plant.detailImage ? "pointer" : "default"
+            cursor: photos.length > 1 ? "pointer" : "default"
           }}
         />
-
 
         {/* INFORMAČNÝ PANEL CEZ FOTOGRAFIU */}
         {showInfo && (
@@ -193,7 +198,6 @@ function Study({ category, plantId, goBack }) {
 
       </div>
 
-
       {/* TLAČIDLO INFORMÁCIE */}
       <div style={{ marginTop: "20px" }}>
 
@@ -207,8 +211,7 @@ function Study({ category, plantId, goBack }) {
 
       </div>
 
-
-      {/* NAVIGÁCIA */}
+      {/* NAVIGÁCIA MEDZI RASTLINAMI */}
       <div
         style={{
           marginTop: "20px",
