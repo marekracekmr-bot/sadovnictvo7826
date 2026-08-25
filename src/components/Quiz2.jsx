@@ -195,29 +195,51 @@ function Quiz2({ category, testLimit, goBack }) {
 
   if (finished) {
 
-    return (
-      <div className="app">
+  const percentage = Math.round(
+    (score / totalQuestions) * 100
+  );
 
-        <h1>🌿 Test 2 dokončený</h1>
+  let resultGif;
 
-        <h2>
-          Výsledok: {score} / {totalQuestions}
-        </h2>
-
-        <h3>
-          Úspešnosť:{" "}
-          {Math.round(
-            (score / totalQuestions) * 100
-          )} %
-        </h3>
-
-        <button onClick={goBack}>
-          ⬅ Späť
-        </button>
-
-      </div>
-    );
+  if (percentage === 100) {
+    resultGif = "/gifs/test100.gif";
+  } else if (percentage > 50) {
+    resultGif = "/gifs/testdo99.gif";
+  } else {
+    resultGif = "/gifs/testdo50.gif";
   }
+
+  return (
+    <div className="app">
+
+      <h1>🌿 Test 2 dokončený</h1>
+
+      <h2>
+        Výsledok: {score} / {totalQuestions}
+      </h2>
+
+      <h3>
+        Úspešnosť: {percentage} %
+      </h3>
+
+      <img
+        src={resultGif}
+        alt="Výsledok testu"
+        style={{
+          maxWidth: "300px",
+          width: "100%",
+          margin: "20px auto",
+          display: "block"
+        }}
+      />
+
+      <button onClick={goBack}>
+        ⬅ Späť
+      </button>
+
+    </div>
+  );
+}
 
   // Fotografie aktuálnej rastliny
   const photos = plant.images || [];
