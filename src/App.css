@@ -11,6 +11,7 @@
   &:hover {
     border-color: var(--accent-border);
   }
+
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -42,8 +43,8 @@
     z-index: 1;
     top: 34px;
     height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg)
+      rotateY(39deg) scale(1.4);
   }
 
   .vite {
@@ -51,8 +52,8 @@
     top: 107px;
     height: 26px;
     width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg)
+      rotateY(39deg) scale(0.8);
   }
 }
 
@@ -78,6 +79,7 @@
   & > div {
     flex: 1 1 0;
     padding: 32px;
+
     @media (max-width: 1024px) {
       padding: 24px 20px;
     }
@@ -130,6 +132,7 @@
     &:hover {
       box-shadow: var(--shadow);
     }
+
     .button-icon {
       height: 18px;
       width: 18px;
@@ -156,6 +159,7 @@
 #spacer {
   height: 88px;
   border-top: 1px solid var(--border);
+
   @media (max-width: 1024px) {
     height: 48px;
   }
@@ -177,9 +181,91 @@
     left: 0;
     border-left-color: var(--border);
   }
+
   &::after {
     right: 0;
     border-right-color: var(--border);
   }
 }
 
+
+/* =========================================
+   ANIMÁCIA SPRÁVNE / NESPRÁVNE
+   ========================================= */
+
+.quiz-image-wrapper {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.quiz-image-wrapper img {
+  display: block;
+}
+
+.answer-overlay {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 100;
+
+  font-size: 42px;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+
+  pointer-events: none;
+
+  text-shadow:
+    3px 3px 5px rgba(0, 0, 0, 0.9),
+    -3px -3px 5px rgba(0, 0, 0, 0.9);
+
+  animation: answerPop 0.7s ease-out forwards;
+}
+
+
+/* SPRÁVNE */
+
+.answer-overlay.correct {
+  color: #00ff00;
+}
+
+
+/* NESPRÁVNE */
+
+.answer-overlay.incorrect {
+  color: #ff2222;
+}
+
+
+/* Samotná animácia */
+
+@keyframes answerPop {
+
+  /* začiatok - malý text */
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+
+  /* veľké vyskočenie */
+  45% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 1;
+  }
+
+  /* mierne zmenšenie */
+  70% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  /* normálna veľkosť */
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}

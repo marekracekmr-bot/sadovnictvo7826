@@ -19,7 +19,6 @@ h2 {
   margin: 8px 0;
 }
 
-
 .categories {
   display: flex;
   flex-direction: column;
@@ -50,20 +49,37 @@ button:hover {
 }
 
 .images {
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(2, 250px);
+
   gap: 20px;
+
   justify-content: center;
+
   margin-top: 30px;
 }
 
-.images img {
+.quiz-image-wrapper {
   width: 250px;
   height: 250px;
+}
+
+.images img {
+  display: block;
+
+  width: 250px;
+  height: 250px;
+
   object-fit: cover;
+
   border-radius: 15px;
+
   cursor: pointer;
+
   border: 4px solid transparent;
+
   transition: 0.3s;
 }
 
@@ -71,24 +87,181 @@ button:hover {
   border-color: #4caf50;
   transform: scale(1.05);
 }
+
+
+/* =========================================
+   SPRÁVNE / NESPRÁVNE
+   ========================================= */
+
+.images > .answer-overlay {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 1000;
+
+  width: max-content;
+  max-width: 90%;
+
+  text-align: center;
+
+  pointer-events: none;
+
+  animation: answerPop 0.7s ease-out forwards;
+}
+
+
+/* Hlavný text */
+
+.answer-title {
+  font-size: 42px;
+  font-weight: 900;
+
+  margin-bottom: 15px;
+
+  white-space: nowrap;
+
+  text-shadow:
+    3px 3px 5px black,
+    -3px -3px 5px black;
+}
+
+
+/* Informácie pod SPRÁVNE */
+
+.answer-info {
+  font-size: 20px;
+  font-weight: bold;
+
+  line-height: 1.4;
+
+  color: white;
+
+  text-shadow:
+    2px 2px 4px black,
+    -2px -2px 4px black;
+}
+
+
+/* Latinský názov */
+
+.answer-latin {
+  font-size: 24px;
+
+  margin-top: 5px;
+}
+
+
+/* Farba výsledku */
+
+.answer-overlay.correct .answer-title {
+  color: #00ff00;
+}
+
+.answer-overlay.incorrect .answer-title {
+  color: #ff2222;
+}
+
+
+/* =========================================
+   TLAČIDLO ĎALŠIA OTÁZKA
+   ========================================= */
+
+.answer-next-button {
+  pointer-events: auto;
+
+  margin-top: 18px;
+
+  padding: 8px 16px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  color: #333;
+
+  background: white;
+
+  border: 2px solid #4caf50;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.answer-next-button:hover {
+  background: #e8f5e9;
+}
+
+
+/* =========================================
+   ANIMÁCIA
+   ========================================= */
+
+@keyframes answerPop {
+
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+
+  45% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================
+   OBRÁZOK PO ODPOVEDI
+   ========================================= */
+
+.correct-image {
+  border: 5px solid #2ecc71 !important;
+}
+
+.wrong-image {
+  border: 5px solid #e74c3c !important;
+}
+
+.disabled-image {
+  opacity: 0.5;
+}
+
+
+/* =========================================
+   VÝSLEDOK TESTU
+   ========================================= */
+
 .result {
   margin: 10px auto;
   padding: 10px;
+
   max-width: 280px;
+
   background: white;
+
   border-radius: 10px;
+
   border: 2px solid #4caf50;
+
   color: #333;
+
   font-size: 14px;
 }
 
-.back-button {
-  font-size: 13px;
-  padding: 5px 10px;
-  background: #4caf50;
-  color: white;
-  margin-bottom: 8px;
-}
 .result h2 {
   font-size: 18px;
   margin: 5px 0;
@@ -103,53 +276,57 @@ button:hover {
   margin: 3px 0;
 }
 
-.images img {
-  transition: 0.3s;
+
+/* =========================================
+   SPÄŤ
+   ========================================= */
+
+.back-button {
+  font-size: 13px;
+
+  padding: 5px 10px;
+
+  background: #4caf50;
+
+  color: white;
+
+  margin-bottom: 8px;
 }
 
-.correct-image {
-  border: 5px solid #2ecc71 !important;
-}
 
-.wrong-image {
-  border: 5px solid #e74c3c !important;
-}
-
-.disabled-image {
-  opacity: 0.5;
-}
+/* =========================================
+   KATEGÓRIE
+   ========================================= */
 
 .categories small {
   font-size: 13px;
   color: #666;
 }
-@media (max-width: 600px) {
-  .images {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-    padding: 0 5px;
-  }
 
-  .images img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    border-width: 3px;
-  }
-}
+
+/* =========================================
+   ZOZNAM RASTLÍN
+   ========================================= */
+
 .plant-list {
   display: flex;
+
   flex-direction: column;
+
   gap: 8px;
+
   max-width: 350px;
+
   margin: 15px auto;
 }
 
 .plant-list button {
   background: white;
+
   border: 1px solid #4caf50;
+
   padding: 8px 12px;
+
   text-align: left;
 }
 
@@ -157,13 +334,80 @@ button:hover {
   background: #e8f5e9;
 }
 
+
+/* =========================================
+   TLAČIDLÁ KATEGÓRIÍ
+   ========================================= */
+
 .category-buttons {
   display: flex;
+
   justify-content: center;
+
   gap: 10px;
+
   margin: 20px auto;
 }
 
 .category-buttons button {
   min-width: 100px;
+}
+
+
+/* =========================================
+   MOBIL
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .images {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding: 0 5px;
+  }
+
+  .quiz-image-wrapper {
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 1 / 1;
+  }
+
+  .images img {
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    border-width: 3px;
+  }
+
+  .images > .answer-overlay {
+    width: 90%;
+  }
+
+  .answer-title {
+    font-size: 34px;
+  }
+
+  .answer-info {
+    font-size: 17px;
+  }
+
+  .answer-latin {
+    font-size: 20px;
+  }
+
+  .answer-next-button {
+    font-size: 14px;
+
+    padding: 7px 12px;
+  }
+
 }
