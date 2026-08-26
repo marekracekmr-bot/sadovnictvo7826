@@ -59,14 +59,18 @@ function Quiz({ category, testType, testLimit, goBack }) {
     }
 
     return availablePlants[
-      Math.floor(Math.random() * availablePlants.length)
+      Math.floor(
+        Math.random() * availablePlants.length
+      )
     ];
   }
 
   useEffect(() => {
+
     if (testPlants.length > 0 && !plant) {
 
-      const firstPlant = getRandomPlant([]);
+      const firstPlant =
+        getRandomPlant([]);
 
       setPlant(firstPlant);
 
@@ -74,47 +78,72 @@ function Quiz({ category, testType, testLimit, goBack }) {
         firstPlant.id
       ]);
     }
+
   }, [testPlants.length]);
 
   useEffect(() => {
 
     if (plant) {
+
       createOptions(plant);
       setPhotoIndex(0);
+
     }
 
   }, [plant]);
 
-  // Automatické menenie fotografií každé 2 sekundy
+  // Automatické menenie fotografií každé 2 sekundy.
+  // Po odpovedi sa zastavia.
+
   useEffect(() => {
 
-    if (!plant || options.length === 0) return;
+    if (
+      !plant ||
+      options.length === 0 ||
+      result
+    ) {
+      return;
+    }
 
     const interval = setInterval(() => {
 
-      setPhotoIndex((prev) => prev + 1);
+      setPhotoIndex(
+        (prev) => prev + 1
+      );
 
     }, 2000);
 
-    return () => clearInterval(interval);
+    return () =>
+      clearInterval(interval);
 
-  }, [plant, options]);
+  }, [plant, options, result]);
 
   function getOptions(correctPlant) {
 
-    const wrongPlants = testPlants
-      .filter((p) => p.id !== correctPlant.id)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
+    const wrongPlants =
+      testPlants
+        .filter(
+          (p) => p.id !== correctPlant.id
+        )
+        .sort(
+          () => Math.random() - 0.5
+        )
+        .slice(0, 3);
 
     return [
       correctPlant,
       ...wrongPlants
-    ].sort(() => Math.random() - 0.5);
+    ].sort(
+      () => Math.random() - 0.5
+    );
   }
 
   function createOptions(newPlant) {
-    setOptions(getOptions(newPlant));
+
+    setOptions(
+      getOptions(newPlant)
+    );
+
   }
 
   function checkAnswer(selectedPlant) {
@@ -127,113 +156,176 @@ function Quiz({ category, testType, testLimit, goBack }) {
       selectedPlant.id === plant.id;
 
     if (correct) {
-      setScore((prev) => prev + 1);
+
+      setScore(
+        (prev) => prev + 1
+      );
+
     }
 
     setResult({
+
       correct: correct,
+
       selected: selectedPlant,
+
     });
+
   }
 
   function nextQuestion() {
 
-    if (questionNumber >= totalQuestions) {
+    if (
+      questionNumber >= totalQuestions
+    ) {
 
+      setFinished(true);
+
+      return;
+    }
+
+    const newPlant =
+      getRandomPlant();
+
+    if (!newPlant) {
       setFinished(true);
       return;
     }
 
-    const newPlant = getRandomPlant();
-
-    setUsedPlants((prev) => [
-      ...prev,
-      newPlant.id
-    ]);
+    setUsedPlants(
+      (prev) => [
+        ...prev,
+        newPlant.id
+      ]
+    );
 
     setPlant(newPlant);
+
     setResult(null);
+
     setPhotoIndex(0);
-    setQuestionNumber((prev) => prev + 1);
+
+    setQuestionNumber(
+      (prev) => prev + 1
+    );
+
   }
 
   function restartTest() {
 
-    const firstPlant = getRandomPlant([]);
+    const firstPlant =
+      getRandomPlant([]);
 
     setUsedPlants([
       firstPlant.id
     ]);
 
     setPlant(firstPlant);
+
     setResult(null);
+
     setPhotoIndex(0);
+
     setScore(0);
+
     setQuestionNumber(1);
+
     setFinished(false);
+
   }
 
   if (testPlants.length === 0) {
-    return <div>V tejto kategórii nie sú rastliny.</div>;
+
+    return (
+      <div>
+        V tejto kategórii nie sú rastliny.
+      </div>
+    );
+
   }
 
   if (!plant) {
-    return <div>Načítavam...</div>;
+
+    return (
+      <div>
+        Načítavam...
+      </div>
+    );
+
   }
 
- if (finished) {
+  if (finished) {
 
-  const percentage = Math.round(
-    (score / totalQuestions) * 100
-  );
+    const percentage =
+      Math.round(
+        (score / totalQuestions) * 100
+      );
 
-  let resultGif;
+    let resultGif;
 
-  if (percentage === 100) {
-    resultGif = "/gifs/test100.gif";
-  } else if (percentage >= 61) {
-    resultGif = "/gifs/testdo99.gif";
-  } else if (percentage >= 26) {
-    resultGif = "/gifs/testdo60.gif";
-  } else {
-    resultGif = "/gifs/testdo25.gif";
+    if (percentage === 100) {
+
+      resultGif =
+        "/gifs/test100.gif";
+
+    } else if (percentage >= 61) {
+
+      resultGif =
+        "/gifs/testdo99.gif";
+
+    } else if (percentage >= 26) {
+
+      resultGif =
+        "/gifs/testdo60.gif";
+
+    } else {
+
+      resultGif =
+        "/gifs/testdo25.gif";
+
+    }
+
+    return (
+
+      <div className="app">
+
+        <h1>
+          🌿 Test dokončený
+        </h1>
+
+        <h2>
+          Výsledok: {score} / {totalQuestions}
+        </h2>
+
+        <h3>
+          Úspešnosť: {percentage} %
+        </h3>
+
+        <img
+          src={resultGif}
+          alt="Výsledok testu"
+          style={{
+            maxWidth: "300px",
+            width: "100%",
+            margin: "20px auto",
+            display: "block"
+          }}
+        />
+
+        <button onClick={goBack}>
+          ⬅ Späť na kategórie
+        </button>
+
+        <button onClick={restartTest}>
+          🔄 Nový test
+        </button>
+
+      </div>
+
+    );
+
   }
 
-  return (
-    <div className="app">
-
-      <h1>🌿 Test dokončený</h1>
-
-      <h2>
-        Výsledok: {score} / {totalQuestions}
-      </h2>
-
-      <h3>
-        Úspešnosť: {percentage} %
-      </h3>
-
-      <img
-        src={resultGif}
-        alt="Výsledok testu"
-        style={{
-          maxWidth: "300px",
-          width: "100%",
-          margin: "20px auto",
-          display: "block"
-        }}
-      />
-
-      <button onClick={goBack}>
-        ⬅ Späť na kategórie
-      </button>
-
-      <button onClick={restartTest}>
-        🔄 Nový test
-      </button>
-
-    </div>
-  );
-}
   return (
 
     <div className="app">
@@ -245,105 +337,170 @@ function Quiz({ category, testType, testLimit, goBack }) {
         ⬅ Späť
       </button>
 
-      <h1>🌿 Poznaj rastlinu</h1>
+      <h1>
+        🌿 Poznaj rastlinu
+      </h1>
 
       <div className="progress">
 
         <p>
+
           Otázka {questionNumber} / {totalQuestions}
+
           &nbsp;&nbsp;&nbsp;
+
           ✅ Správne: {score}
+
         </p>
 
       </div>
 
       <h2>
-        Ktorá rastlina je <i>{plant.latin}</i>?
+
+        Ktorá rastlina je{" "}
+
+        <i>
+          {plant.latin}
+        </i>?
+
       </h2>
 
       <p>
         Vyber správny obrázok.
       </p>
 
+
+      {/* ================================
+          FOTOGRAFIE + VÝSLEDOK
+          ================================ */}
+
       <div className="images">
 
         {options.map((option) => {
 
-          const photos = option.images || [];
+          const photos =
+            option.images || [];
 
-          if (photos.length === 0) {
+          if (
+            photos.length === 0
+          ) {
             return null;
           }
 
           const currentPhoto =
-            photos[photoIndex % photos.length];
+            photos[
+              photoIndex %
+              photos.length
+            ];
+
+          const isSelected =
+            result &&
+            result.selected.id ===
+              option.id;
+
+          const isCorrectPlant =
+            option.id === plant.id;
 
           return (
 
-            <img
+            <div
+              className="quiz-image-wrapper"
               key={option.id}
-              src={`/plants/${currentPhoto}`}
-              alt={option.name}
+            >
 
-              className={
-                result
-                  ? result.selected.id === option.id
-                    ? result.correct
-                      ? "correct-image"
-                      : "wrong-image"
-                    : option.id === plant.id
-                      ? "correct-image"
-                      : "disabled-image"
-                  : ""
-              }
+              <img
+                src={`/plants/${currentPhoto}`}
+                alt={option.name}
 
-              onClick={() =>
-                !result && checkAnswer(option)
-              }
-            />
+                className={
+                  result
+                    ? isSelected
+                      ? result.correct
+                        ? "correct-image"
+                        : "wrong-image"
+                      : isCorrectPlant
+                        ? "correct-image"
+                        : "disabled-image"
+                    : ""
+                }
+
+                onClick={() =>
+                  !result &&
+                  checkAnswer(option)
+                }
+
+              />
+
+            </div>
 
           );
+
         })}
 
+
+        {/* ================================
+            TEXT CEZ VŠETKY FOTOGRAFIE
+            ================================ */}
+
+        {result && (
+
+          <div
+            key={
+              result.correct
+                ? "correct"
+                : "incorrect"
+            }
+
+            className={`answer-overlay ${
+              result.correct
+                ? "correct"
+                : "incorrect"
+            }`}
+          >
+
+            <div className="answer-title">
+
+              {result.correct
+                ? "SPRÁVNE!"
+                : "NESPRÁVNE!"}
+
+            </div>
+
+
+            <div className="answer-info">
+
+              <div>
+                Klikol si na:
+              </div>
+
+              <div className="answer-latin">
+
+                <i>
+                  {result.selected.latin}
+                </i>
+
+              </div>
+
+            </div>
+
+
+            <button
+              className="answer-next-button"
+              onClick={nextQuestion}
+            >
+              ➡️ Ďalšia otázka
+            </button>
+
+          </div>
+
+        )}
+
       </div>
-
-      {result && (
-
-        <div className="result">
-
-          <h2>
-            {result.correct
-              ? "✅ Správne!"
-              : "❌ Nesprávne!"}
-          </h2>
-
-          <p>
-            Klikol si na:
-          </p>
-
-          <h3>
-            <i>{result.selected.latin}</i>
-          </h3>
-
-          <p>
-            {result.selected.name}
-          </p>
-
-          <p>
-            Čeľaď: {result.selected.family}
-          </p>
-
-          <button onClick={nextQuestion}>
-            ➡️ Ďalšia otázka
-          </button>
-
-        </div>
-
-      )}
 
     </div>
 
   );
+
 }
 
 export default Quiz;
