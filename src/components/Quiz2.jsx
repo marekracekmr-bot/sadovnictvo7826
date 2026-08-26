@@ -27,6 +27,11 @@ function Quiz2({ category, testLimit, goBack }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+
+  // =========================================
+  // NÁHODNÁ RASTLINA
+  // =========================================
+
   function getRandomPlant(currentUsed = usedPlants) {
 
     const availablePlants = testPlants.filter(
@@ -43,6 +48,11 @@ function Quiz2({ category, testLimit, goBack }) {
       )
     ];
   }
+
+
+  // =========================================
+  // MOŽNOSTI ODPOVEDÍ
+  // =========================================
 
   function getOptions(correctPlant) {
 
@@ -63,6 +73,11 @@ function Quiz2({ category, testLimit, goBack }) {
     );
   }
 
+
+  // =========================================
+  // PRVÁ OTÁZKA
+  // =========================================
+
   useEffect(() => {
 
     if (
@@ -82,6 +97,7 @@ function Quiz2({ category, testLimit, goBack }) {
       setOptions(
         getOptions(firstPlant)
       );
+
     }
 
   }, [testPlants.length]);
@@ -134,7 +150,7 @@ function Quiz2({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // MENENIE FOTOGRAFIE
+  // AUTOMATICKÉ MENENIE FOTOGRAFIÍ
   // =========================================
 
   useEffect(() => {
@@ -165,6 +181,33 @@ function Quiz2({ category, testLimit, goBack }) {
     result,
     finished
   ]);
+
+
+  // =========================================
+  // KLIKNUTIE NA FOTOGRAFIU
+  // =========================================
+
+  function nextPhoto() {
+
+    if (
+      result ||
+      finished
+    ) {
+      return;
+    }
+
+    const photos =
+      plant.images || [];
+
+    if (photos.length <= 1) {
+      return;
+    }
+
+    setPhotoIndex(
+      (prev) => prev + 1
+    );
+
+  }
 
 
   // =========================================
@@ -320,6 +363,7 @@ function Quiz2({ category, testLimit, goBack }) {
   if (testPlants.length === 0) {
 
     return (
+
       <div className="app">
 
         <p>
@@ -327,13 +371,16 @@ function Quiz2({ category, testLimit, goBack }) {
         </p>
 
       </div>
+
     );
 
   }
 
+
   if (!plant) {
 
     return (
+
       <div className="app">
 
         <p>
@@ -341,6 +388,7 @@ function Quiz2({ category, testLimit, goBack }) {
         </p>
 
       </div>
+
     );
 
   }
@@ -440,7 +488,7 @@ function Quiz2({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // HLAVNÁ STRÁNKA TESTU
+  // HLAVNÁ STRÁNKA
   // =========================================
 
   return (
@@ -453,6 +501,7 @@ function Quiz2({ category, testLimit, goBack }) {
       >
         ⬅ Späť
       </button>
+
 
       <h1>
         🌱 Test 2
@@ -475,10 +524,13 @@ function Quiz2({ category, testLimit, goBack }) {
 
 
       {/* =====================================
-          FOTOGRAFIA + VÝSLEDOK
+          FOTOGRAFIA
           ===================================== */}
 
-      <div className="quiz2-photo-wrapper">
+      <div
+        className="quiz2-photo-wrapper"
+        onClick={nextPhoto}
+      >
 
         {currentPhoto && (
 
@@ -551,9 +603,17 @@ function Quiz2({ category, testLimit, goBack }) {
 
             <button
               className="answer-next-button"
-              onClick={nextQuestion}
+              onClick={(event) => {
+
+                event.stopPropagation();
+
+                nextQuestion();
+
+              }}
             >
+
               ➡️ Ďalšia otázka
+
             </button>
 
           </div>
@@ -587,7 +647,9 @@ function Quiz2({ category, testLimit, goBack }) {
             fontWeight: "bold"
           }}
         >
+
           ⏱️ {timeLeft}
+
         </div>
 
       </div>
@@ -611,9 +673,11 @@ function Quiz2({ category, testLimit, goBack }) {
 
           <button
             key={option.id}
+
             onClick={() =>
               checkAnswer(option)
             }
+
             disabled={!!result}
 
             style={{
