@@ -67,7 +67,9 @@ function Quiz2({ category, testLimit, goBack }) {
         firstPlant.id
       ]);
 
-      setOptions(getOptions(firstPlant));
+      setOptions(
+        getOptions(firstPlant)
+      );
     }
 
   }, [testPlants.length]);
@@ -86,6 +88,7 @@ function Quiz2({ category, testLimit, goBack }) {
       setTimeLeft((prev) => {
 
         if (prev <= 1) {
+
           clearInterval(timer);
 
           handleTimeOut();
@@ -163,6 +166,11 @@ function Quiz2({ category, testLimit, goBack }) {
 
     const newPlant = getRandomPlant();
 
+    if (!newPlant) {
+      setFinished(true);
+      return;
+    }
+
     setUsedPlants((prev) => [
       ...prev,
       newPlant.id
@@ -177,69 +185,109 @@ function Quiz2({ category, testLimit, goBack }) {
     setQuestionNumber((prev) => prev + 1);
   }
 
+  function restartTest() {
+
+    const firstPlant = getRandomPlant([]);
+
+    if (!firstPlant) {
+      return;
+    }
+
+    setUsedPlants([
+      firstPlant.id
+    ]);
+
+    setPlant(firstPlant);
+    setOptions(getOptions(firstPlant));
+    setResult(null);
+    setTimeLeft(15);
+    setPhotoIndex(0);
+    setScore(0);
+    setQuestionNumber(1);
+    setFinished(false);
+  }
+
   if (testPlants.length === 0) {
+
     return (
       <div className="app">
-        <p>V tejto kategórii nie sú rastliny.</p>
+
+        <p>
+          V tejto kategórii nie sú rastliny.
+        </p>
+
       </div>
     );
   }
 
   if (!plant) {
+
     return (
       <div className="app">
-        <p>Načítavam...</p>
+
+        <p>
+          Načítavam...
+        </p>
+
       </div>
     );
   }
 
   if (finished) {
 
-  const percentage = Math.round(
-    (score / totalQuestions) * 100
-  );
+    const percentage = Math.round(
+      (score / totalQuestions) * 100
+    );
 
-  let resultGif;
+    let resultGif;
 
-  if (percentage === 100) {
-    resultGif = "/gifs/test100.gif";
-  } else if (percentage > 50) {
-    resultGif = "/gifs/testdo99.gif";
-  } else {
-    resultGif = "/gifs/testdo50.gif";
+    if (percentage === 100) {
+      resultGif = "/gifs/test100.gif";
+    } else if (percentage >= 61) {
+      resultGif = "/gifs/testdo99.gif";
+    } else if (percentage >= 26) {
+      resultGif = "/gifs/testdo60.gif";
+    } else {
+      resultGif = "/gifs/testdo25.gif";
+    }
+
+    return (
+      <div className="app">
+
+        <h1>
+          🌿 Test 2 dokončený
+        </h1>
+
+        <h2>
+          Výsledok: {score} / {totalQuestions}
+        </h2>
+
+        <h3>
+          Úspešnosť: {percentage} %
+        </h3>
+
+        <img
+          src={resultGif}
+          alt="Výsledok testu"
+          style={{
+            maxWidth: "300px",
+            width: "100%",
+            margin: "20px auto",
+            display: "block"
+          }}
+        />
+
+        <button onClick={goBack}>
+          ⬅ Späť na kategórie
+        </button>
+
+        <button onClick={restartTest}>
+          🔄 Nový test
+        </button>
+
+      </div>
+    );
   }
-
-  return (
-    <div className="app">
-
-      <h1>🌿 Test 2 dokončený</h1>
-
-      <h2>
-        Výsledok: {score} / {totalQuestions}
-      </h2>
-
-      <h3>
-        Úspešnosť: {percentage} %
-      </h3>
-
-      <img
-        src={resultGif}
-        alt="Výsledok testu"
-        style={{
-          maxWidth: "300px",
-          width: "100%",
-          margin: "20px auto",
-          display: "block"
-        }}
-      />
-
-      <button onClick={goBack}>
-        ⬅ Späť
-      </button>
-
-    </div>
-  );
-}
 
   // Fotografie aktuálnej rastliny
   const photos = plant.images || [];
@@ -250,6 +298,7 @@ function Quiz2({ category, testLimit, goBack }) {
       : null;
 
   return (
+
     <div className="app">
 
       <button
@@ -259,7 +308,9 @@ function Quiz2({ category, testLimit, goBack }) {
         ⬅ Späť
       </button>
 
-      <h1>🌱 Test 2</h1>
+      <h1>
+        🌱 Test 2
+      </h1>
 
       <div className="progress">
 
@@ -282,6 +333,7 @@ function Quiz2({ category, testLimit, goBack }) {
       >
 
         {currentPhoto && (
+
           <img
             src={`/plants/${currentPhoto}`}
             alt={plant.name}
@@ -291,6 +343,7 @@ function Quiz2({ category, testLimit, goBack }) {
               borderRadius: "15px"
             }}
           />
+
         )}
 
       </div>
@@ -387,6 +440,7 @@ function Quiz2({ category, testLimit, goBack }) {
       )}
 
     </div>
+
   );
 }
 

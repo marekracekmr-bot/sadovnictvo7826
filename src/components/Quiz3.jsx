@@ -27,7 +27,6 @@ function Quiz3({ category, testLimit, goBack }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-
   function getRandomPlant(currentUsed = usedPlants) {
 
     const availablePlants = testPlants.filter(
@@ -43,7 +42,6 @@ function Quiz3({ category, testLimit, goBack }) {
     ];
   }
 
-
   function getSpeciesName(latin) {
 
     const parts = latin.trim().split(/\s+/);
@@ -51,18 +49,14 @@ function Quiz3({ category, testLimit, goBack }) {
     return parts.length >= 2
       ? parts[1]
       : parts[0];
-
   }
-
 
   function getGenusName(latin) {
 
     const parts = latin.trim().split(/\s+/);
 
     return parts[0];
-
   }
-
 
   function getOptions(correctPlant) {
 
@@ -75,14 +69,11 @@ function Quiz3({ category, testLimit, goBack }) {
       .sort(() => Math.random() - 0.5)
       .slice(0, 3);
 
-
     return [
       correctSpecies,
       ...wrongPlants.map((p) => getSpeciesName(p.latin))
     ].sort(() => Math.random() - 0.5);
-
   }
-
 
   useEffect(() => {
 
@@ -96,12 +87,12 @@ function Quiz3({ category, testLimit, goBack }) {
         firstPlant.id
       ]);
 
-      setOptions(getOptions(firstPlant));
-
+      setOptions(
+        getOptions(firstPlant)
+      );
     }
 
   }, [testPlants.length]);
-
 
   // Časovač 15 sekúnd
   useEffect(() => {
@@ -134,7 +125,6 @@ function Quiz3({ category, testLimit, goBack }) {
 
   }, [plant, questionNumber, result, finished]);
 
-
   // Automatická zmena fotografie každé 2 sekundy
   useEffect(() => {
 
@@ -153,7 +143,6 @@ function Quiz3({ category, testLimit, goBack }) {
     return () => clearInterval(interval);
 
   }, [plant, result, finished]);
-
 
   function checkAnswer(selectedSpecies) {
 
@@ -175,9 +164,7 @@ function Quiz3({ category, testLimit, goBack }) {
       correct: correct,
       selected: selectedSpecies
     });
-
   }
-
 
   function handleTimeOut() {
 
@@ -190,9 +177,7 @@ function Quiz3({ category, testLimit, goBack }) {
       selected: null,
       timeout: true
     });
-
   }
-
 
   function nextQuestion() {
 
@@ -203,6 +188,11 @@ function Quiz3({ category, testLimit, goBack }) {
     }
 
     const newPlant = getRandomPlant();
+
+    if (!newPlant) {
+      setFinished(true);
+      return;
+    }
 
     setUsedPlants((prev) => [
       ...prev,
@@ -216,81 +206,111 @@ function Quiz3({ category, testLimit, goBack }) {
     setPhotoIndex(0);
 
     setQuestionNumber((prev) => prev + 1);
-
   }
 
+  function restartTest() {
+
+    const firstPlant = getRandomPlant([]);
+
+    if (!firstPlant) {
+      return;
+    }
+
+    setUsedPlants([
+      firstPlant.id
+    ]);
+
+    setPlant(firstPlant);
+    setOptions(getOptions(firstPlant));
+    setResult(null);
+    setTimeLeft(15);
+    setPhotoIndex(0);
+    setScore(0);
+    setQuestionNumber(1);
+    setFinished(false);
+  }
 
   if (testPlants.length === 0) {
 
     return (
       <div className="app">
-        <p>V tejto kategórii nie sú rastliny.</p>
+
+        <p>
+          V tejto kategórii nie sú rastliny.
+        </p>
+
       </div>
     );
-
   }
-
 
   if (!plant) {
 
     return (
       <div className="app">
-        <p>Načítavam...</p>
+
+        <p>
+          Načítavam...
+        </p>
+
       </div>
     );
-
   }
-
 
   if (finished) {
 
-  const percentage = Math.round(
-    (score / totalQuestions) * 100
-  );
+    const percentage = Math.round(
+      (score / totalQuestions) * 100
+    );
 
-  let resultGif;
+    let resultGif;
 
-  if (percentage === 100) {
-    resultGif = "/gifs/test100.gif";
-  } else if (percentage > 50) {
-    resultGif = "/gifs/testdo99.gif";
-  } else {
-    resultGif = "/gifs/testdo50.gif";
+    if (percentage === 100) {
+      resultGif = "/gifs/test100.gif";
+    } else if (percentage >= 61) {
+      resultGif = "/gifs/testdo99.gif";
+    } else if (percentage >= 26) {
+      resultGif = "/gifs/testdo60.gif";
+    } else {
+      resultGif = "/gifs/testdo25.gif";
+    }
+
+    return (
+      <div className="app">
+
+        <h1>
+          🌿 Test 3 dokončený
+        </h1>
+
+        <h2>
+          Výsledok: {score} / {totalQuestions}
+        </h2>
+
+        <h3>
+          Úspešnosť: {percentage} %
+        </h3>
+
+        <img
+          src={resultGif}
+          alt="Výsledok testu"
+          style={{
+            maxWidth: "300px",
+            width: "100%",
+            margin: "20px auto",
+            display: "block"
+          }}
+        />
+
+        <button onClick={goBack}>
+          ⬅ Späť na kategórie
+        </button>
+
+        <button onClick={restartTest}>
+          🔄 Nový test
+        </button>
+
+      </div>
+    );
   }
-
-  return (
-    <div className="app">
-
-      <h1>🌿 Test 3 dokončený</h1>
-
-      <h2>
-        Výsledok: {score} / {totalQuestions}
-      </h2>
-
-      <h3>
-        Úspešnosť: {percentage} %
-      </h3>
-
-      <img
-        src={resultGif}
-        alt="Výsledok testu"
-        style={{
-          maxWidth: "300px",
-          width: "100%",
-          margin: "20px auto",
-          display: "block"
-        }}
-      />
-
-      <button onClick={goBack}>
-        ⬅ Späť
-      </button>
-
-    </div>
-  );
-
-}
-
 
   const genus = getGenusName(plant.latin);
 
@@ -302,8 +322,8 @@ function Quiz3({ category, testLimit, goBack }) {
       ? photos[photoIndex % photos.length]
       : null;
 
-
   return (
+
     <div className="app">
 
       <button
@@ -313,9 +333,9 @@ function Quiz3({ category, testLimit, goBack }) {
         ⬅ Späť
       </button>
 
-
-      <h1>🌱 Test 3</h1>
-
+      <h1>
+        🌱 Test 3
+      </h1>
 
       <div className="progress">
 
@@ -327,11 +347,9 @@ function Quiz3({ category, testLimit, goBack }) {
 
       </div>
 
-
       <h2>
         {genus}
       </h2>
-
 
       <div
         style={{
@@ -344,6 +362,7 @@ function Quiz3({ category, testLimit, goBack }) {
       >
 
         {currentPhoto && (
+
           <img
             src={`/plants/${currentPhoto}`}
             alt={plant.name}
@@ -353,10 +372,10 @@ function Quiz3({ category, testLimit, goBack }) {
               borderRadius: "15px"
             }}
           />
+
         )}
 
       </div>
-
 
       <div
         style={{
@@ -382,7 +401,6 @@ function Quiz3({ category, testLimit, goBack }) {
         </div>
 
       </div>
-
 
       <div
         style={{
@@ -428,8 +446,8 @@ function Quiz3({ category, testLimit, goBack }) {
 
           }
 
-
           return (
+
             <button
               key={option}
               onClick={() => checkAnswer(option)}
@@ -438,12 +456,12 @@ function Quiz3({ category, testLimit, goBack }) {
             >
               <i>{option}</i>
             </button>
+
           );
 
         })}
 
       </div>
-
 
       {result && (
 
@@ -457,26 +475,21 @@ function Quiz3({ category, testLimit, goBack }) {
               : "❌ Nesprávne!"}
           </h2>
 
-
           <p>
             Správna odpoveď:
           </p>
-
 
           <h3>
             <i>{plant.latin}</i>
           </h3>
 
-
           <p>
             {plant.name}
           </p>
 
-
           <p>
             Čeľaď: {plant.family}
           </p>
-
 
           <button onClick={nextQuestion}>
             ➡️ Ďalšia otázka

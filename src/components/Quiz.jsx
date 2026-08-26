@@ -191,10 +191,12 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
   if (percentage === 100) {
     resultGif = "/gifs/test100.gif";
-  } else if (percentage > 50) {
+  } else if (percentage >= 61) {
     resultGif = "/gifs/testdo99.gif";
+  } else if (percentage >= 26) {
+    resultGif = "/gifs/testdo60.gif";
   } else {
-    resultGif = "/gifs/testdo50.gif";
+    resultGif = "/gifs/testdo25.gif";
   }
 
   return (
