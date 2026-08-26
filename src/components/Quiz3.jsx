@@ -27,6 +27,14 @@ function Quiz3({ category, testLimit, goBack }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // Určuje, či sa fotografie ešte automaticky menia
+  const [autoPhoto, setAutoPhoto] = useState(true);
+
+
+  // =========================================
+  // NÁHODNÁ RASTLINA
+  // =========================================
+
   function getRandomPlant(currentUsed = usedPlants) {
 
     const availablePlants = testPlants.filter(
@@ -44,6 +52,11 @@ function Quiz3({ category, testLimit, goBack }) {
     ];
   }
 
+
+  // =========================================
+  // DRUHOVÉ MENO
+  // =========================================
+
   function getSpeciesName(latin) {
 
     const parts = latin.trim().split(/\s+/);
@@ -53,12 +66,22 @@ function Quiz3({ category, testLimit, goBack }) {
       : parts[0];
   }
 
+
+  // =========================================
+  // RODOVÉ MENO
+  // =========================================
+
   function getGenusName(latin) {
 
     const parts = latin.trim().split(/\s+/);
 
     return parts[0];
   }
+
+
+  // =========================================
+  // MOŽNOSTI
+  // =========================================
 
   function getOptions(correctPlant) {
 
@@ -88,6 +111,11 @@ function Quiz3({ category, testLimit, goBack }) {
     );
   }
 
+
+  // =========================================
+  // PRVÁ OTÁZKA
+  // =========================================
+
   useEffect(() => {
 
     if (
@@ -107,6 +135,7 @@ function Quiz3({ category, testLimit, goBack }) {
       setOptions(
         getOptions(firstPlant)
       );
+
     }
 
   }, [testPlants.length]);
@@ -159,7 +188,7 @@ function Quiz3({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // MENENIE FOTOGRAFIE
+  // AUTOMATICKÉ MENENIE FOTOGRAFIÍ
   // =========================================
 
   useEffect(() => {
@@ -167,12 +196,20 @@ function Quiz3({ category, testLimit, goBack }) {
     if (
       !plant ||
       result ||
-      finished
+      finished ||
+      !autoPhoto
     ) {
       return;
     }
 
-    setPhotoIndex(0);
+    const photos =
+      plant.images || [];
+
+    // Ak má rastlina iba jednu fotografiu,
+    // nič automaticky nemeníme.
+    if (photos.length <= 1) {
+      return;
+    }
 
     const interval = setInterval(() => {
 
@@ -188,8 +225,40 @@ function Quiz3({ category, testLimit, goBack }) {
   }, [
     plant,
     result,
-    finished
+    finished,
+    autoPhoto
   ]);
+
+
+  // =========================================
+  // KLIKNUTIE NA FOTOGRAFIU
+  // =========================================
+
+  function nextPhoto() {
+
+    if (
+      result ||
+      finished
+    ) {
+      return;
+    }
+
+    const photos =
+      plant.images || [];
+
+    if (photos.length <= 1) {
+      return;
+    }
+
+    // Prvý klik zastaví automatické menenie
+    setAutoPhoto(false);
+
+    // A zároveň zobrazí ďalšiu fotografiu
+    setPhotoIndex(
+      (prev) => prev + 1
+    );
+
+  }
 
 
   // =========================================
@@ -296,6 +365,10 @@ function Quiz3({ category, testLimit, goBack }) {
 
     setPhotoIndex(0);
 
+    // Pri novej otázke sa automatické
+    // menenie fotografií znovu zapne
+    setAutoPhoto(true);
+
     setQuestionNumber(
       (prev) => prev + 1
     );
@@ -332,6 +405,9 @@ function Quiz3({ category, testLimit, goBack }) {
 
     setPhotoIndex(0);
 
+    // Znovu zapnúť automatické fotografie
+    setAutoPhoto(true);
+
     setScore(0);
 
     setQuestionNumber(1);
@@ -342,7 +418,7 @@ function Quiz3({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // KONTROLY
+  // KONTROLA RASTLÍN
   // =========================================
 
   if (testPlants.length === 0) {
@@ -358,6 +434,7 @@ function Quiz3({ category, testLimit, goBack }) {
     );
 
   }
+
 
   if (!plant) {
 
@@ -515,7 +592,10 @@ function Quiz3({ category, testLimit, goBack }) {
           FOTOGRAFIA + VÝSLEDOK
           ===================================== */}
 
-      <div className="quiz2-photo-wrapper">
+      <div
+        className="quiz2-photo-wrapper"
+        onClick={nextPhoto}
+      >
 
         {currentPhoto && (
 
@@ -588,9 +668,17 @@ function Quiz3({ category, testLimit, goBack }) {
 
             <button
               className="answer-next-button"
-              onClick={nextQuestion}
+              onClick={(event) => {
+
+                event.stopPropagation();
+
+                nextQuestion();
+
+              }}
             >
+
               ➡️ Ďalšia otázka
+
             </button>
 
           </div>
@@ -624,7 +712,9 @@ function Quiz3({ category, testLimit, goBack }) {
             fontWeight: "bold"
           }}
         >
+
           ⏱️ {timeLeft}
+
         </div>
 
       </div>
