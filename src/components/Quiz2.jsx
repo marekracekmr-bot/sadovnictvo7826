@@ -27,6 +27,11 @@ function Quiz2({ category, testLimit, goBack }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // NOVÉ:
+  // false = fotografie sa automaticky menia
+  // true = automatika je vypnutá a fotografie meníme kliknutím
+  const [manualPhotoChange, setManualPhotoChange] = useState(false);
+
 
   // =========================================
   // NÁHODNÁ RASTLINA
@@ -98,6 +103,9 @@ function Quiz2({ category, testLimit, goBack }) {
         getOptions(firstPlant)
       );
 
+      setPhotoIndex(0);
+
+      setManualPhotoChange(false);
     }
 
   }, [testPlants.length]);
@@ -155,10 +163,13 @@ function Quiz2({ category, testLimit, goBack }) {
 
   useEffect(() => {
 
+    // Ak používateľ už klikol na fotografiu,
+    // automatické menenie je vypnuté.
     if (
       !plant ||
       result ||
-      finished
+      finished ||
+      manualPhotoChange
     ) {
       return;
     }
@@ -179,7 +190,8 @@ function Quiz2({ category, testLimit, goBack }) {
   }, [
     plant,
     result,
-    finished
+    finished,
+    manualPhotoChange
   ]);
 
 
@@ -199,14 +211,19 @@ function Quiz2({ category, testLimit, goBack }) {
     const photos =
       plant.images || [];
 
+    // Ak má rastlina iba jednu fotografiu,
+    // nič nerobíme.
     if (photos.length <= 1) {
       return;
     }
 
+    // Prvý klik vypne automatické menenie.
+    setManualPhotoChange(true);
+
+    // A zároveň okamžite zmení fotografiu.
     setPhotoIndex(
       (prev) => prev + 1
     );
-
   }
 
 
@@ -311,6 +328,10 @@ function Quiz2({ category, testLimit, goBack }) {
 
     setPhotoIndex(0);
 
+    // Pri novej otázke sa automatické
+    // menenie fotografií znova zapne.
+    setManualPhotoChange(false);
+
     setQuestionNumber(
       (prev) => prev + 1
     );
@@ -346,6 +367,9 @@ function Quiz2({ category, testLimit, goBack }) {
     setTimeLeft(15);
 
     setPhotoIndex(0);
+
+    // Automatické menenie znova zapnuté.
+    setManualPhotoChange(false);
 
     setScore(0);
 
