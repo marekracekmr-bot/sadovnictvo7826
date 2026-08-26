@@ -411,3 +411,184 @@ button:hover {
   }
 
 }
+/* =========================================
+   QUIZ 2 – FOTOGRAFIA
+   ========================================= */
+
+.quiz2-photo-wrapper {
+  position: relative;
+
+  width: 400px;
+  max-width: 90%;
+
+  margin: 20px auto 0;
+}
+
+.quiz2-photo {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  border-radius: 15px;
+}
+
+
+/* =========================================
+   QUIZ 2 – VÝSLEDOK CEZ FOTOGRAFIU
+   ========================================= */
+
+.quiz2-answer-overlay {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 100;
+
+  width: 90%;
+
+  text-align: center;
+
+  pointer-events: none;
+
+  animation: answerPopQuiz2 0.7s ease-out forwards;
+}
+
+.quiz2-answer-overlay .answer-title {
+  font-size: 42px;
+  font-weight: 900;
+
+  margin-bottom: 15px;
+
+  text-shadow:
+    3px 3px 5px black,
+    -3px -3px 5px black;
+}
+
+.quiz2-answer-overlay.correct .answer-title {
+  color: #00ff00;
+}
+
+.quiz2-answer-overlay.incorrect .answer-title {
+  color: #ff2222;
+}
+
+.quiz2-answer-overlay.timeout .answer-title {
+  color: #ffff00;
+}
+
+.quiz2-answer-overlay .answer-info {
+  color: white;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  line-height: 1.4;
+
+  text-shadow:
+    2px 2px 4px black,
+    -2px -2px 4px black;
+}
+
+.quiz2-answer-overlay .answer-latin {
+  font-size: 24px;
+
+  margin-top: 5px;
+}
+
+.quiz2-answer-overlay .answer-name {
+  font-size: 20px;
+
+  margin-top: 3px;
+}
+
+.quiz2-answer-overlay .answer-next-button {
+  pointer-events: auto;
+
+  margin-top: 18px;
+
+  padding: 8px 16px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  color: #333;
+
+  background: white;
+
+  border: 2px solid #4caf50;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.quiz2-answer-overlay .answer-next-button:hover {
+  background: #e8f5e9;
+}
+
+
+/* =========================================
+   ANIMÁCIA
+   ========================================= */
+
+@keyframes answerPopQuiz2 {
+
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+
+  45% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================
+   MOBIL
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .quiz2-photo-wrapper {
+    width: 90%;
+  }
+
+  .quiz2-answer-overlay .answer-title {
+    font-size: 32px;
+  }
+
+  .quiz2-answer-overlay .answer-info {
+    font-size: 17px;
+  }
+
+  .quiz2-answer-overlay .answer-latin {
+    font-size: 20px;
+  }
+
+  .quiz2-answer-overlay .answer-name {
+    font-size: 17px;
+  }
+
+  .quiz2-answer-overlay .answer-next-button {
+    font-size: 14px;
+
+    padding: 7px 12px;
+  }
+
+}
