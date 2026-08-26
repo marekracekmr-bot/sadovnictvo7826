@@ -38,28 +38,40 @@ function Quiz2({ category, testLimit, goBack }) {
     }
 
     return availablePlants[
-      Math.floor(Math.random() * availablePlants.length)
+      Math.floor(
+        Math.random() * availablePlants.length
+      )
     ];
   }
 
   function getOptions(correctPlant) {
 
     const wrongPlants = testPlants
-      .filter((p) => p.id !== correctPlant.id)
-      .sort(() => Math.random() - 0.5)
+      .filter(
+        (p) => p.id !== correctPlant.id
+      )
+      .sort(
+        () => Math.random() - 0.5
+      )
       .slice(0, 3);
 
     return [
       correctPlant,
       ...wrongPlants
-    ].sort(() => Math.random() - 0.5);
+    ].sort(
+      () => Math.random() - 0.5
+    );
   }
 
   useEffect(() => {
 
-    if (testPlants.length > 0 && !plant) {
+    if (
+      testPlants.length > 0 &&
+      !plant
+    ) {
 
-      const firstPlant = getRandomPlant([]);
+      const firstPlant =
+        getRandomPlant([]);
 
       setPlant(firstPlant);
 
@@ -74,10 +86,18 @@ function Quiz2({ category, testLimit, goBack }) {
 
   }, [testPlants.length]);
 
-  // Časovač 15 sekúnd
+
+  // =========================================
+  // ČASOVAČ
+  // =========================================
+
   useEffect(() => {
 
-    if (!plant || result || finished) {
+    if (
+      !plant ||
+      result ||
+      finished
+    ) {
       return;
     }
 
@@ -97,18 +117,33 @@ function Quiz2({ category, testLimit, goBack }) {
         }
 
         return prev - 1;
+
       });
 
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () =>
+      clearInterval(timer);
 
-  }, [plant, questionNumber, result, finished]);
+  }, [
+    plant,
+    questionNumber,
+    result,
+    finished
+  ]);
 
-  // Automatická zmena fotografie každé 2 sekundy
+
+  // =========================================
+  // MENENIE FOTOGRAFIE
+  // =========================================
+
   useEffect(() => {
 
-    if (!plant || result || finished) {
+    if (
+      !plant ||
+      result ||
+      finished
+    ) {
       return;
     }
 
@@ -116,13 +151,25 @@ function Quiz2({ category, testLimit, goBack }) {
 
     const interval = setInterval(() => {
 
-      setPhotoIndex((prev) => prev + 1);
+      setPhotoIndex(
+        (prev) => prev + 1
+      );
 
     }, 2000);
 
-    return () => clearInterval(interval);
+    return () =>
+      clearInterval(interval);
 
-  }, [plant, result, finished]);
+  }, [
+    plant,
+    result,
+    finished
+  ]);
+
+
+  // =========================================
+  // ODPOVEĎ
+  // =========================================
 
   function checkAnswer(selectedPlant) {
 
@@ -134,14 +181,29 @@ function Quiz2({ category, testLimit, goBack }) {
       selectedPlant.id === plant.id;
 
     if (correct) {
-      setScore((prev) => prev + 1);
+
+      setScore(
+        (prev) => prev + 1
+      );
+
     }
 
     setResult({
+
       correct: correct,
-      selected: selectedPlant
+
+      selected: selectedPlant,
+
+      timeout: false
+
     });
+
   }
+
+
+  // =========================================
+  // ČAS VYPRŠAL
+  // =========================================
 
   function handleTimeOut() {
 
@@ -150,44 +212,77 @@ function Quiz2({ category, testLimit, goBack }) {
     }
 
     setResult({
+
       correct: false,
+
       selected: null,
+
       timeout: true
+
     });
+
   }
+
+
+  // =========================================
+  // ĎALŠIA OTÁZKA
+  // =========================================
 
   function nextQuestion() {
 
-    if (questionNumber >= totalQuestions) {
+    if (
+      questionNumber >= totalQuestions
+    ) {
 
       setFinished(true);
+
       return;
     }
 
-    const newPlant = getRandomPlant();
+    const newPlant =
+      getRandomPlant();
 
     if (!newPlant) {
+
       setFinished(true);
+
       return;
     }
 
-    setUsedPlants((prev) => [
-      ...prev,
-      newPlant.id
-    ]);
+    setUsedPlants(
+      (prev) => [
+        ...prev,
+        newPlant.id
+      ]
+    );
 
     setPlant(newPlant);
-    setOptions(getOptions(newPlant));
+
+    setOptions(
+      getOptions(newPlant)
+    );
+
     setResult(null);
+
     setTimeLeft(15);
+
     setPhotoIndex(0);
 
-    setQuestionNumber((prev) => prev + 1);
+    setQuestionNumber(
+      (prev) => prev + 1
+    );
+
   }
+
+
+  // =========================================
+  // NOVÝ TEST
+  // =========================================
 
   function restartTest() {
 
-    const firstPlant = getRandomPlant([]);
+    const firstPlant =
+      getRandomPlant([]);
 
     if (!firstPlant) {
       return;
@@ -198,14 +293,29 @@ function Quiz2({ category, testLimit, goBack }) {
     ]);
 
     setPlant(firstPlant);
-    setOptions(getOptions(firstPlant));
+
+    setOptions(
+      getOptions(firstPlant)
+    );
+
     setResult(null);
+
     setTimeLeft(15);
+
     setPhotoIndex(0);
+
     setScore(0);
+
     setQuestionNumber(1);
+
     setFinished(false);
+
   }
+
+
+  // =========================================
+  // KONTROLY
+  // =========================================
 
   if (testPlants.length === 0) {
 
@@ -218,6 +328,7 @@ function Quiz2({ category, testLimit, goBack }) {
 
       </div>
     );
+
   }
 
   if (!plant) {
@@ -231,27 +342,47 @@ function Quiz2({ category, testLimit, goBack }) {
 
       </div>
     );
+
   }
+
+
+  // =========================================
+  // KONIEC TESTU
+  // =========================================
 
   if (finished) {
 
-    const percentage = Math.round(
-      (score / totalQuestions) * 100
-    );
+    const percentage =
+      Math.round(
+        (score / totalQuestions) * 100
+      );
 
     let resultGif;
 
     if (percentage === 100) {
-      resultGif = "/gifs/test100.gif";
+
+      resultGif =
+        "/gifs/test100.gif";
+
     } else if (percentage >= 61) {
-      resultGif = "/gifs/testdo99.gif";
+
+      resultGif =
+        "/gifs/testdo99.gif";
+
     } else if (percentage >= 26) {
-      resultGif = "/gifs/testdo60.gif";
+
+      resultGif =
+        "/gifs/testdo60.gif";
+
     } else {
-      resultGif = "/gifs/testdo25.gif";
+
+      resultGif =
+        "/gifs/testdo25.gif";
+
     }
 
     return (
+
       <div className="app">
 
         <h1>
@@ -286,16 +417,31 @@ function Quiz2({ category, testLimit, goBack }) {
         </button>
 
       </div>
+
     );
+
   }
 
-  // Fotografie aktuálnej rastliny
-  const photos = plant.images || [];
+
+  // =========================================
+  // AKTUÁLNA FOTOGRAFIA
+  // =========================================
+
+  const photos =
+    plant.images || [];
 
   const currentPhoto =
     photos.length > 0
-      ? photos[photoIndex % photos.length]
+      ? photos[
+          photoIndex %
+          photos.length
+        ]
       : null;
+
+
+  // =========================================
+  // HLAVNÁ STRÁNKA TESTU
+  // =========================================
 
   return (
 
@@ -312,41 +458,114 @@ function Quiz2({ category, testLimit, goBack }) {
         🌱 Test 2
       </h1>
 
+
       <div className="progress">
 
         <p>
+
           Otázka {questionNumber} / {totalQuestions}
+
           &nbsp;&nbsp;&nbsp;
+
           ✅ Správne: {score}
+
         </p>
 
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "25px",
-          flexWrap: "wrap"
-        }}
-      >
+
+      {/* =====================================
+          FOTOGRAFIA + VÝSLEDOK
+          ===================================== */}
+
+      <div className="quiz2-photo-wrapper">
 
         {currentPhoto && (
 
           <img
+            className="quiz2-photo"
             src={`/plants/${currentPhoto}`}
             alt={plant.name}
-            style={{
-              width: "400px",
-              maxWidth: "90%",
-              borderRadius: "15px"
-            }}
           />
 
         )}
 
+
+        {/* ===================================
+            VÝSLEDOK CEZ FOTOGRAFIU
+            =================================== */}
+
+        {result && (
+
+          <div
+            key={
+              result.timeout
+                ? "timeout"
+                : result.correct
+                ? "correct"
+                : "incorrect"
+            }
+
+            className={`quiz2-answer-overlay ${
+              result.timeout
+                ? "timeout"
+                : result.correct
+                ? "correct"
+                : "incorrect"
+            }`}
+          >
+
+            <div className="answer-title">
+
+              {result.timeout
+                ? "ČAS VYPRŠAL!"
+                : result.correct
+                ? "SPRÁVNE!"
+                : "NESPRÁVNE!"}
+
+            </div>
+
+
+            <div className="answer-info">
+
+              <div>
+                Správna odpoveď:
+              </div>
+
+              <div className="answer-latin">
+
+                <i>
+                  {plant.latin}
+                </i>
+
+              </div>
+
+              <div className="answer-name">
+
+                {plant.name}
+
+              </div>
+
+            </div>
+
+
+            <button
+              className="answer-next-button"
+              onClick={nextQuestion}
+            >
+              ➡️ Ďalšia otázka
+            </button>
+
+          </div>
+
+        )}
+
       </div>
+
+
+      {/* =====================================
+          OTÁZKA + ČAS
+          ===================================== */}
 
       <div
         style={{
@@ -373,6 +592,11 @@ function Quiz2({ category, testLimit, goBack }) {
 
       </div>
 
+
+      {/* =====================================
+          ODPOVEDE
+          ===================================== */}
+
       <div
         style={{
           display: "flex",
@@ -387,8 +611,11 @@ function Quiz2({ category, testLimit, goBack }) {
 
           <button
             key={option.id}
-            onClick={() => checkAnswer(option)}
+            onClick={() =>
+              checkAnswer(option)
+            }
             disabled={!!result}
+
             style={{
               width: "350px",
               maxWidth: "90%",
@@ -396,52 +623,25 @@ function Quiz2({ category, testLimit, goBack }) {
               padding: "10px"
             }}
           >
-            <i>{option.latin}</i> – {option.name}
+
+            <i>
+              {option.latin}
+            </i>
+
+            {" – "}
+
+            {option.name}
+
           </button>
 
         ))}
 
       </div>
 
-      {result && (
-
-        <div className="result">
-
-          <h2>
-            {result.timeout
-              ? "⏰ Čas vypršal!"
-              : result.correct
-              ? "✅ Správne!"
-              : "❌ Nesprávne!"}
-          </h2>
-
-          <p>
-            Správna odpoveď:
-          </p>
-
-          <h3>
-            <i>{plant.latin}</i>
-          </h3>
-
-          <p>
-            {plant.name}
-          </p>
-
-          <p>
-            Čeľaď: {plant.family}
-          </p>
-
-          <button onClick={nextQuestion}>
-            ➡️ Ďalšia otázka
-          </button>
-
-        </div>
-
-      )}
-
     </div>
 
   );
+
 }
 
 export default Quiz2;
