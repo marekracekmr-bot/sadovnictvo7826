@@ -34,6 +34,10 @@ function Quiz({ category, testType, testLimit, goBack }) {
   const [usedPlants, setUsedPlants] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // Čas testu
+  const [startTime, setStartTime] = useState(null);
+  const [testTime, setTestTime] = useState(0);
+
   const categoryPlants = plants.filter(
     (plant) => plant.category === category
   );
@@ -65,6 +69,7 @@ function Quiz({ category, testType, testLimit, goBack }) {
     ];
   }
 
+  // Začiatok testu
   useEffect(() => {
 
     if (testPlants.length > 0 && !plant) {
@@ -77,10 +82,13 @@ function Quiz({ category, testType, testLimit, goBack }) {
       setUsedPlants([
         firstPlant.id
       ]);
+
+      setStartTime(Date.now());
     }
 
   }, [testPlants.length]);
 
+  // Vytvorenie možností po zmene rastliny
   useEffect(() => {
 
     if (plant) {
@@ -94,7 +102,6 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
   // Automatické menenie fotografií každé 2 sekundy.
   // Po odpovedi sa zastavia.
-
   useEffect(() => {
 
     if (
@@ -179,6 +186,13 @@ function Quiz({ category, testType, testLimit, goBack }) {
       questionNumber >= totalQuestions
     ) {
 
+      const elapsed =
+        Math.floor(
+          (Date.now() - startTime) / 1000
+        );
+
+      setTestTime(elapsed);
+
       setFinished(true);
 
       return;
@@ -188,7 +202,16 @@ function Quiz({ category, testType, testLimit, goBack }) {
       getRandomPlant();
 
     if (!newPlant) {
+
+      const elapsed =
+        Math.floor(
+          (Date.now() - startTime) / 1000
+        );
+
+      setTestTime(elapsed);
+
       setFinished(true);
+
       return;
     }
 
@@ -232,6 +255,11 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
     setFinished(false);
 
+    // Nový čas
+    setStartTime(Date.now());
+
+    setTestTime(0);
+
   }
 
   if (testPlants.length === 0) {
@@ -253,6 +281,10 @@ function Quiz({ category, testType, testLimit, goBack }) {
     );
 
   }
+
+  // ================================
+  // VYHODNOTENIE TESTU
+  // ================================
 
   if (finished) {
 
@@ -285,32 +317,149 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
     }
 
+    const minutes =
+      Math.floor(testTime / 60);
+
+    const seconds =
+      testTime % 60;
+
+    const formattedTime =
+      `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
     return (
 
       <div className="app">
 
         <h1>
-          🌿 Test dokončený
+          🏆 Vyhodnotenie
         </h1>
-
-        <h2>
-          Výsledok: {score} / {totalQuestions}
-        </h2>
-
-        <h3>
-          Úspešnosť: {percentage} %
-        </h3>
 
         <img
           src={resultGif}
           alt="Výsledok testu"
           style={{
-            maxWidth: "300px",
-            width: "100%",
+            maxWidth: "270px",
+            width: "90%",
             margin: "20px auto",
             display: "block"
           }}
         />
+
+        {/* ================================
+            TABUĽKA VÝSLEDKU
+            ================================ */}
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(3, 1fr)",
+            maxWidth: "500px",
+            width: "90%",
+            margin: "20px auto",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            overflow: "hidden",
+            background: "white"
+          }}
+        >
+
+          {/* OTÁZKY */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center",
+              borderRight:
+                "1px solid #ccc"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Otázky
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {score} / {totalQuestions}
+            </strong>
+
+          </div>
+
+
+          {/* ÚSPEŠNOSŤ */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center",
+              borderRight:
+                "1px solid #ccc"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Úspešnosť
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {percentage} %
+            </strong>
+
+          </div>
+
+
+          {/* ČAS */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Čas
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {formattedTime}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        {/* ================================
+            TLAČIDLÁ
+            ================================ */}
 
         <button onClick={goBack}>
           ⬅ Späť na kategórie
@@ -439,7 +588,7 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
 
         {/* ================================
-            TEXT CEZ VŠETKY FOTOGRAFIE
+            TEXT CEZ FOTOGRAFIE
             ================================ */}
 
         {result && (
@@ -488,7 +637,9 @@ function Quiz({ category, testType, testLimit, goBack }) {
               className="answer-next-button"
               onClick={nextQuestion}
             >
-              ➡️ Ďalšia otázka
+              {questionNumber === totalQuestions
+                ? "🏆 Vyhodnotenie"
+                : "➡️ Ďalšia otázka"}
             </button>
 
           </div>
