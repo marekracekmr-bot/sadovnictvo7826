@@ -27,6 +27,10 @@ function Quiz3({ category, testLimit, goBack }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // ČAS CELÉHO TESTU
+  const [startTime, setStartTime] = useState(null);
+  const [testTime, setTestTime] = useState(0);
+
   // Určuje, či sa fotografie ešte automaticky menia
   const [autoPhoto, setAutoPhoto] = useState(true);
 
@@ -136,13 +140,20 @@ function Quiz3({ category, testLimit, goBack }) {
         getOptions(firstPlant)
       );
 
+      setPhotoIndex(0);
+
+      setAutoPhoto(true);
+
+      // ZAČIATOK MERANIA ČASU
+      setStartTime(Date.now());
+
     }
 
   }, [testPlants.length]);
 
 
   // =========================================
-  // ČASOVAČ
+  // ČASOVAČ 15 SEKÚND
   // =========================================
 
   useEffect(() => {
@@ -322,29 +333,46 @@ function Quiz3({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // ĎALŠIA OTÁZKA
+  // ĎALŠIA OTÁZKA / VYHODNOTENIE
   // =========================================
 
   function nextQuestion() {
 
+    // POSLEDNÁ OTÁZKA
     if (
       questionNumber >= totalQuestions
     ) {
+
+      const elapsed =
+        Math.floor(
+          (Date.now() - startTime) / 1000
+        );
+
+      setTestTime(elapsed);
 
       setFinished(true);
 
       return;
     }
+
 
     const newPlant =
       getRandomPlant();
 
     if (!newPlant) {
 
+      const elapsed =
+        Math.floor(
+          (Date.now() - startTime) / 1000
+        );
+
+      setTestTime(elapsed);
+
       setFinished(true);
 
       return;
     }
+
 
     setUsedPlants(
       (prev) => [
@@ -414,6 +442,11 @@ function Quiz3({ category, testLimit, goBack }) {
 
     setFinished(false);
 
+    // NOVÝ TEST = NOVÉ MERANIE ČASU
+    setStartTime(Date.now());
+
+    setTestTime(0);
+
   }
 
 
@@ -452,7 +485,7 @@ function Quiz3({ category, testLimit, goBack }) {
 
 
   // =========================================
-  // KONIEC TESTU
+  // VYHODNOTENIE TESTU
   // =========================================
 
   if (finished) {
@@ -486,32 +519,161 @@ function Quiz3({ category, testLimit, goBack }) {
 
     }
 
+
+    // PREVOD SEKÚND NA MM:SS
+
+    const minutes =
+      Math.floor(testTime / 60);
+
+    const seconds =
+      testTime % 60;
+
+    const formattedTime =
+      `${String(minutes).padStart(2, "0")}:${String(
+        seconds
+      ).padStart(2, "0")}`;
+
+
     return (
 
       <div className="app">
 
+        {/* NADPIS */}
+
         <h1>
-          🌿 Test 3 dokončený
+          🏆 Vyhodnotenie
         </h1>
 
-        <h2>
-          Výsledok: {score} / {totalQuestions}
-        </h2>
 
-        <h3>
-          Úspešnosť: {percentage} %
-        </h3>
+        {/* GIF RAKA */}
 
         <img
           src={resultGif}
           alt="Výsledok testu"
           style={{
-            maxWidth: "300px",
-            width: "100%",
+            maxWidth: "270px",
+            width: "90%",
             margin: "20px auto",
             display: "block"
           }}
         />
+
+
+        {/* =================================
+            TABUĽKA VÝSLEDKU
+            ================================= */}
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(3, 1fr)",
+            maxWidth: "500px",
+            width: "90%",
+            margin: "20px auto",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            overflow: "hidden",
+            background: "white"
+          }}
+        >
+
+          {/* OTÁZKY */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center",
+              borderRight:
+                "1px solid #ccc"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Otázky
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {score} / {totalQuestions}
+            </strong>
+
+          </div>
+
+
+          {/* ÚSPEŠNOSŤ */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center",
+              borderRight:
+                "1px solid #ccc"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Úspešnosť
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {percentage} %
+            </strong>
+
+          </div>
+
+
+          {/* ČAS */}
+
+          <div
+            style={{
+              padding: "10px 5px",
+              textAlign: "center"
+            }}
+          >
+
+            <div
+              style={{
+                fontSize: "14px",
+                marginBottom: "5px"
+              }}
+            >
+              Čas
+            </div>
+
+            <strong
+              style={{
+                fontSize: "18px"
+              }}
+            >
+              {formattedTime}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            TLAČIDLÁ
+            ================================= */}
 
         <button onClick={goBack}>
           ⬅ Späť na kategórie
@@ -666,6 +828,8 @@ function Quiz3({ category, testLimit, goBack }) {
             </div>
 
 
+            {/* POSLEDNÁ OTÁZKA = VYHODNOTENIE */}
+
             <button
               className="answer-next-button"
               onClick={(event) => {
@@ -677,7 +841,9 @@ function Quiz3({ category, testLimit, goBack }) {
               }}
             >
 
-              ➡️ Ďalšia otázka
+              {questionNumber === totalQuestions
+                ? "🏆 Vyhodnotenie"
+                : "➡️ Ďalšia otázka"}
 
             </button>
 
