@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Quiz from "./components/Quiz";
+import Quiz4 from "./components/Quiz4";
 import Study from "./components/Study";
 import plants from "./data/plants";
 
@@ -36,7 +37,9 @@ function App() {
     }
   ];
 
-  /* VÝUKA */
+  /* =========================================
+     VÝUKA
+     ========================================= */
 
   if (category && mode === "study") {
     return (
@@ -51,25 +54,61 @@ function App() {
     );
   }
 
-  /* TEST */
+  /* =========================================
+     TEST 4
+     ========================================= */
+
+  if (mode === "quiz4") {
+  return (
+    <Quiz4
+      category={category}
+      testLimit={
+        allPlants
+          ? plants.filter(
+              (plant) =>
+                plant.category === category
+            ).length
+          : Number(testLimit)
+      }
+      goBack={() => {
+        setMode(null);
+        setSelectedTest(null);
+        setTestLimit("");
+        setAllPlants(false);
+      }}
+    />
+  );
+}
+
+  /* =========================================
+     TESTY 1 – 3
+     ========================================= */
 
   if (category && mode === "quiz") {
     return (
       <Quiz
-  category={category}
-  testType={selectedTest}
-  testLimit={allPlants ? plants.filter(
-    (plant) => plant.category === category
-  ).length : Number(testLimit)}
-  goBack={() => {
-    setMode(null);
-    setSelectedPlant(null);
-  }}
-/>
+        category={category}
+        testType={selectedTest}
+        testLimit={
+          allPlants
+            ? plants.filter(
+                (plant) =>
+                  plant.category === category
+              ).length
+            : Number(testLimit)
+        }
+        goBack={() => {
+          setMode(null);
+          setSelectedPlant(null);
+          setSelectedTest(null);
+        }}
+      />
     );
   }
 
-  /* MENU TESTOV */
+  /* =========================================
+     MENU TESTOV
+     ========================================= */
 
   if (category && testMenu) {
     const selectedCategory = categories.find(
@@ -84,12 +123,15 @@ function App() {
       <div className="app">
 
         <h1>
-          {selectedCategory.icon} {selectedCategory.name}
+          {selectedCategory.icon}{" "}
+          {selectedCategory.name}
         </h1>
 
         <h2>📝 Testy</h2>
 
-        <p>Koľko rastlín chceš v teste?</p>
+        <p>
+          Koľko rastlín chceš v teste?
+        </p>
 
         <input
           type="number"
@@ -103,8 +145,8 @@ function App() {
         />
 
         <div style={{ margin: "15px 0" }}>
-
           <label>
+
             <input
               type="checkbox"
               checked={allPlants}
@@ -112,7 +154,9 @@ function App() {
                 setAllPlants(e.target.checked);
 
                 if (e.target.checked) {
-                  setTestLimit(categoryPlants.length);
+                  setTestLimit(
+                    categoryPlants.length
+                  );
                 } else {
                   setTestLimit("");
                 }
@@ -120,18 +164,24 @@ function App() {
             />
 
             {" "}Všetky rastliny
-          </label>
 
+          </label>
         </div>
 
-        <h3>Vyber test:</h3>
+        <h3>
+          Vyber test:
+        </h3>
 
         <div className="test-list">
+
+          {/* TEST 1 */}
 
           <button
             onClick={() => {
               if (!allPlants && !testLimit) {
-                alert("Vyber počet rastlín.");
+                alert(
+                  "Vyber počet rastlín."
+                );
                 return;
               }
 
@@ -143,10 +193,15 @@ function App() {
             🌿 Test 1
           </button>
 
+
+          {/* TEST 2 */}
+
           <button
             onClick={() => {
               if (!allPlants && !testLimit) {
-                alert("Vyber počet rastlín.");
+                alert(
+                  "Vyber počet rastlín."
+                );
                 return;
               }
 
@@ -158,20 +213,47 @@ function App() {
             🌱 Test 2
           </button>
 
-          <button
-  onClick={() => {
-    if (!allPlants && !testLimit) {
-      alert("Vyber počet rastlín.");
-      return;
-    }
 
-    setSelectedTest(3);
-    setMode("quiz");
-    setTestMenu(false);
-  }}
->
-  🌳 Test 3
-</button>
+          {/* TEST 3 */}
+
+          <button
+            onClick={() => {
+              if (!allPlants && !testLimit) {
+                alert(
+                  "Vyber počet rastlín."
+                );
+                return;
+              }
+
+              setSelectedTest(3);
+              setMode("quiz");
+              setTestMenu(false);
+            }}
+          >
+            🌳 Test 3
+          </button>
+
+
+          {/* TEST 4 */}
+
+          <button
+            onClick={() => {
+              if (!allPlants && !testLimit) {
+                alert(
+                  "Vyber počet rastlín."
+                );
+                return;
+              }
+
+              setSelectedTest(4);
+
+              setMode("quiz4");
+
+              setTestMenu(false);
+            }}
+          >
+            🪴 Test 4
+          </button>
 
         </div>
 
@@ -191,7 +273,9 @@ function App() {
     );
   }
 
-  /* VÝBER KATEGÓRIE */
+  /* =========================================
+     VÝBER KATEGÓRIE
+     ========================================= */
 
   if (category && !mode) {
     const selectedCategory = categories.find(
@@ -199,23 +283,38 @@ function App() {
     );
 
     const categoryPlants = plants
-      .filter((plant) => plant.category === category)
-      .sort((a, b) => a.latin.localeCompare(b.latin));
+      .filter(
+        (plant) =>
+          plant.category === category
+      )
+      .sort(
+        (a, b) =>
+          a.latin.localeCompare(b.latin)
+      );
 
     return (
       <div className="app">
 
         <h1>
-          {selectedCategory.icon} {selectedCategory.name}
+          {selectedCategory.icon}{" "}
+          {selectedCategory.name}
         </h1>
 
         <div className="category-buttons">
 
-          <button onClick={() => setMode("study")}>
+          <button
+            onClick={() =>
+              setMode("study")
+            }
+          >
             📖 Výuka
           </button>
 
-          <button onClick={() => setTestMenu(true)}>
+          <button
+            onClick={() =>
+              setTestMenu(true)
+            }
+          >
             📝 Testy
           </button>
 
@@ -230,21 +329,31 @@ function App() {
 
         </div>
 
-        <h2>🌿 Zoznam rastlín</h2>
+        <h2>
+          🌿 Zoznam rastlín
+        </h2>
 
         <div className="plant-list">
 
-          {categoryPlants.map((plant) => (
-            <button
-              key={plant.id}
-              onClick={() => {
-                setSelectedPlant(plant.id);
-                setMode("study");
-              }}
-            >
-              <i>{plant.latin}</i> – {plant.name}
-            </button>
-          ))}
+          {categoryPlants.map(
+            (plant) => (
+              <button
+                key={plant.id}
+                onClick={() => {
+                  setSelectedPlant(
+                    plant.id
+                  );
+                  setMode("study");
+                }}
+              >
+                <i>
+                  {plant.latin}
+                </i>
+                {" – "}
+                {plant.name}
+              </button>
+            )
+          )}
 
         </div>
 
@@ -252,42 +361,58 @@ function App() {
     );
   }
 
-  /* HLAVNÁ STRÁNKA */
+  /* =========================================
+     HLAVNÁ STRÁNKA
+     ========================================= */
 
   return (
     <div className="app">
 
-      <h1>🌿 Sadovníctvo</h1>
+      <h1>
+        🌿 Sadovníctvo
+      </h1>
 
-      <p>Precvičovanie a testovanie rastlín</p>
+      <p>
+        Precvičovanie a testovanie rastlín
+      </p>
 
-      <h2>Vyber kategóriu</h2>
+      <h2>
+        Vyber kategóriu
+      </h2>
 
       <div className="categories">
 
-        {categories.map((item) => (
+        {categories.map(
+          (item) => (
+            <button
+              key={item.value}
+              onClick={() =>
+                setCategory(
+                  item.value
+                )
+              }
+            >
 
-          <button
-            key={item.value}
-            onClick={() => setCategory(item.value)}
-          >
-            {item.icon} {item.name}
+              {item.icon}{" "}
+              {item.name}
 
-            <br />
+              <br />
 
-            <small>
-              (
-              {
-                plants.filter(
-                  (plant) => plant.category === item.value
-                ).length
-              }{" "}
-              rastlín)
-            </small>
+              <small>
+                (
+                {
+                  plants.filter(
+                    (plant) =>
+                      plant.category ===
+                      item.value
+                  ).length
+                }{" "}
+                rastlín)
+              </small>
 
-          </button>
-
-        ))}
+            </button>
+          )
+        )}
 
       </div>
 
