@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Quiz from "./components/Quiz";
 import Quiz4 from "./components/Quiz4";
+import Quiz5 from "./components/Quiz5";
 import Study from "./components/Study";
 import GroupOrganizer from "./components/GroupOrganizer";
 import SharedTest from "./components/SharedTest";
@@ -95,6 +96,31 @@ function App() {
 
     return (
       <Quiz4
+        category={category}
+        testLimit={numberOfQuestions}
+        goBack={() => {
+          setMode(null);
+          setSelectedTest(null);
+          setTestLimit("");
+          setAllPlants(false);
+        }}
+      />
+    );
+  }
+
+  // =========================================
+  // TEST 5
+  // =========================================
+
+  if (mode === "quiz5") {
+    const numberOfQuestions = allPlants
+      ? plants.filter(
+          (plant) => plant.category === category
+        ).length
+      : Number(testLimit);
+
+    return (
+      <Quiz5
         category={category}
         testLimit={numberOfQuestions}
         goBack={() => {
@@ -234,6 +260,11 @@ function App() {
         <h3>Vyber test:</h3>
 
         <div className="test-list">
+
+          {/* =====================================
+              TEST 1
+              ===================================== */}
+
           <button
             onClick={() => {
               if (!allPlants && !testLimit) {
@@ -250,6 +281,10 @@ function App() {
           >
             🌿 Test 1
           </button>
+
+          {/* =====================================
+              TEST 2
+              ===================================== */}
 
           <button
             onClick={() => {
@@ -268,6 +303,10 @@ function App() {
             🌱 Test 2
           </button>
 
+          {/* =====================================
+              TEST 3
+              ===================================== */}
+
           <button
             onClick={() => {
               if (!allPlants && !testLimit) {
@@ -285,6 +324,10 @@ function App() {
             🌳 Test 3
           </button>
 
+          {/* =====================================
+              TEST 4
+              ===================================== */}
+
           <button
             onClick={() => {
               if (!allPlants && !testLimit) {
@@ -301,6 +344,28 @@ function App() {
           >
             🪴 Test 4
           </button>
+
+          {/* =====================================
+              TEST 5
+              ===================================== */}
+
+          <button
+            onClick={() => {
+              if (!allPlants && !testLimit) {
+                alert(
+                  "Vyber počet rastlín."
+                );
+                return;
+              }
+
+              setSelectedTest(5);
+              setMode("quiz5");
+              setTestMenu(false);
+            }}
+          >
+            🎯 Test 5
+          </button>
+
         </div>
 
         <br />
@@ -339,6 +404,7 @@ function App() {
         </h1>
 
         <div className="category-buttons">
+
           <button
             onClick={() => {
               setMode("study");
@@ -362,6 +428,7 @@ function App() {
           >
             👥 Skupinové testovanie
           </button>
+
         </div>
 
         <br />
