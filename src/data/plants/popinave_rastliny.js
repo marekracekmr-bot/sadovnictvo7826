@@ -9,7 +9,9 @@ const popinaveRastliny = [
      family: "Aralkovité (Araliaceae)",
      category: "popinave",
      images: [
-    "popinave_rastliny/brectan-popinavy.jpg",
+    "popinave_rastliny/Hedera-helix.jpg",
+    "popinave_rastliny/Hedera-helix1.jpg",
+    "popinave_rastliny/Hedera-helix2.jpg",
   ]
      
    },
