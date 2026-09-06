@@ -7,7 +7,11 @@ function Quiz5({ category, testLimit, goBack }) {
   );
 
   const selectedLimit = Number(testLimit);
-  const testPlants = categoryPlants.slice(0, selectedLimit);
+
+  const testPlants = categoryPlants.slice(
+    0,
+    selectedLimit
+  );
 
   const totalCircles = Math.min(
     selectedLimit,
@@ -24,16 +28,86 @@ function Quiz5({ category, testLimit, goBack }) {
   const [startTime, setStartTime] = useState(null);
   const [testTime, setTestTime] = useState(0);
 
-  function getRandomPlant() {
+  const [questionQueue, setQuestionQueue] = useState([]);
+  const [wrongPlants, setWrongPlants] = useState([]);
+  const [lastPlantId, setLastPlantId] = useState(null);
+
+  const [purplePosition, setPurplePosition] = useState(null);
+
+  function shufflePlants(list) {
+    const shuffled = list.slice();
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(
+        Math.random() * (i + 1)
+      );
+
+      const temporary = shuffled[i];
+
+      shuffled[i] = shuffled[randomIndex];
+      shuffled[randomIndex] = temporary;
+    }
+
+    return shuffled;
+  }
+
+  function createPurplePosition() {
+    if (totalCircles < 5) {
+      return null;
+    }
+
+    const minimumPosition = 4;
+    const maximumPosition = totalCircles - 1;
+
+    const randomPosition =
+      Math.floor(
+        Math.random() *
+          (maximumPosition - minimumPosition + 1)
+      ) + minimumPosition;
+
+    return randomPosition;
+  }
+
+  function createFirstQueue() {
+    return shufflePlants(testPlants);
+  }
+
+  function getRandomNextPlant(currentWrongPlants) {
     if (testPlants.length === 0) {
       return null;
     }
 
-    const randomIndex = Math.floor(
-      Math.random() * testPlants.length
+    let availablePlants = testPlants.filter(
+      (item) => item.id !== lastPlantId
     );
 
-    return testPlants[randomIndex];
+    if (availablePlants.length === 0) {
+      availablePlants = testPlants.slice();
+    }
+
+    const priorityPlants = availablePlants.filter(
+      (item) =>
+        currentWrongPlants.some(
+          (wrongPlant) =>
+            wrongPlant.id === item.id
+        )
+    );
+
+    let pool = availablePlants;
+
+    if (priorityPlants.length > 0) {
+      const randomValue = Math.random();
+
+      if (randomValue < 0.65) {
+        pool = priorityPlants;
+      }
+    }
+
+    const randomIndex = Math.floor(
+      Math.random() * pool.length
+    );
+
+    return pool[randomIndex];
   }
 
   function getOptions(correctPlant) {
@@ -45,23 +119,21 @@ function Quiz5({ category, testLimit, goBack }) {
       (item) => item.id !== correctPlant.id
     );
 
-    const shuffledPlants = otherPlants.sort(
-      () => Math.random() - 0.5
-    );
+    const shuffledPlants =
+      shufflePlants(otherPlants);
 
-    const wrongPlants = shuffledPlants.slice(0, 3);
+    const wrongOptions =
+      shuffledPlants.slice(0, 3);
 
     const allOptions = [];
 
     allOptions.push(correctPlant);
 
-    wrongPlants.forEach((wrongPlant) => {
+    wrongOptions.forEach((wrongPlant) => {
       allOptions.push(wrongPlant);
     });
 
-    return allOptions.sort(
-      () => Math.random() - 0.5
-    );
+    return shufflePlants(allOptions);
   }
 
   useEffect(() => {
@@ -69,19 +141,37 @@ function Quiz5({ category, testLimit, goBack }) {
       testPlants.length > 0 &&
       plant === null
     ) {
-      const firstPlant = getRandomPlant();
+      const firstQueue =
+        createFirstQueue();
 
-      setPlant(firstPlant);
-      setStartTime(Date.now());
+      if (firstQueue.length > 0) {
+        const firstPlant =
+          firstQueue[0];
+
+        setQuestionQueue(
+          firstQueue.slice(1)
+        );
+
+        setPlant(firstPlant);
+        setStartTime(Date.now());
+        setLastPlantId(firstPlant.id);
+        setPurplePosition(
+          createPurplePosition()
+        );
+      }
     }
-  }, [testPlants.length, plant]);
+  }, [
+    testPlants.length,
+    plant
+  ]);
 
   useEffect(() => {
     if (!plant) {
       return;
     }
 
-    const newOptions = getOptions(plant);
+    const newOptions =
+      getOptions(plant);
 
     setOptions(newOptions);
     setPhotoIndex(0);
@@ -99,7 +189,8 @@ function Quiz5({ category, testLimit, goBack }) {
 
     const interval = setInterval(() => {
       setPhotoIndex(
-        (previousIndex) => previousIndex + 1
+        (previousIndex) =>
+          previousIndex + 1
       );
     }, 2000);
 
@@ -112,6 +203,40 @@ function Quiz5({ category, testLimit, goBack }) {
     finished,
     gaveUp
   ]);
+
+  function resetAfterPurpleMistake() {
+    const firstQueue =
+      createFirstQueue();
+
+    if (firstQueue.length === 0) {
+      return;
+    }
+
+    const firstPlant =
+      firstQueue[0];
+
+    const newPurplePosition =
+      createPurplePosition();
+
+    setGreenCircles(0);
+    setWrongPlants([]);
+    setQuestionQueue(
+      firstQueue.slice(1)
+    );
+
+    setPlant(firstPlant);
+
+    setOptions(
+      getOptions(firstPlant)
+    );
+
+    setLastPlantId(firstPlant.id);
+    setPurplePosition(
+      newPurplePosition
+    );
+    setResult(null);
+    setPhotoIndex(0);
+  }
 
   function checkAnswer(selectedPlant) {
     if (
@@ -126,12 +251,60 @@ function Quiz5({ category, testLimit, goBack }) {
     const correct =
       selectedPlant.id === plant.id;
 
+    const isPurpleQuestion =
+      purplePosition !== null &&
+      greenCircles === purplePosition;
+
+    if (isPurpleQuestion) {
+      if (!correct) {
+        setResult({
+          correct: false,
+          selected: selectedPlant,
+          purpleMistake: true
+        });
+
+        return;
+      }
+
+      setGreenCircles(
+        (previousValue) =>
+          Math.min(
+            previousValue + 1,
+            totalCircles
+          )
+      );
+
+      setWrongPlants(
+        (previousPlants) =>
+          previousPlants.filter(
+            (item) =>
+              item.id !== plant.id
+          )
+      );
+
+      setResult({
+        correct: true,
+        selected: selectedPlant,
+        purpleCorrect: true
+      });
+
+      return;
+    }
+
     if (correct) {
       setGreenCircles(
         (previousValue) =>
           Math.min(
             previousValue + 1,
             totalCircles
+          )
+      );
+
+      setWrongPlants(
+        (previousPlants) =>
+          previousPlants.filter(
+            (item) =>
+              item.id !== plant.id
           )
       );
     } else {
@@ -142,15 +315,45 @@ function Quiz5({ category, testLimit, goBack }) {
             0
           )
       );
+
+      setWrongPlants(
+        (previousPlants) => {
+          const alreadyThere =
+            previousPlants.some(
+              (item) =>
+                item.id === plant.id
+            );
+
+          if (alreadyThere) {
+            return previousPlants;
+          }
+
+          const updatedPlants =
+            previousPlants.slice();
+
+          updatedPlants.push(plant);
+
+          return updatedPlants;
+        }
+      );
     }
 
     setResult({
       correct: correct,
-      selected: selectedPlant
+      selected: selectedPlant,
+      purpleMistake: false
     });
   }
 
   function nextPlant() {
+    if (
+      result !== null &&
+      result.purpleMistake
+    ) {
+      resetAfterPurpleMistake();
+      return;
+    }
+
     if (
       result !== null &&
       result.correct &&
@@ -160,16 +363,41 @@ function Quiz5({ category, testLimit, goBack }) {
       return;
     }
 
-    const newPlant = getRandomPlant();
+    let nextPlantToShow = null;
 
-    if (!newPlant) {
+    if (questionQueue.length > 0) {
+      nextPlantToShow =
+        questionQueue[0];
+
+      const remainingQueue =
+        questionQueue.slice(1);
+
+      setQuestionQueue(
+        remainingQueue
+      );
+    } else {
+      nextPlantToShow =
+        getRandomNextPlant(
+          wrongPlants
+        );
+    }
+
+    if (!nextPlantToShow) {
       return;
     }
 
-    setPlant(newPlant);
-setOptions(getOptions(newPlant));
-setResult(null);
-setPhotoIndex(0);
+    setLastPlantId(
+      nextPlantToShow.id
+    );
+
+    setPlant(nextPlantToShow);
+
+    setOptions(
+      getOptions(nextPlantToShow)
+    );
+
+    setResult(null);
+    setPhotoIndex(0);
   }
 
   function finishTest() {
@@ -186,9 +414,10 @@ setPhotoIndex(0);
   }
 
   function giveUp() {
-    const confirmed = window.confirm(
-      "Naozaj sa chceš vzdať testu?"
-    );
+    const confirmed =
+      window.confirm(
+        "Naozaj sa chceš vzdať testu?"
+      );
 
     if (!confirmed) {
       return;
@@ -206,10 +435,22 @@ setPhotoIndex(0);
   }
 
   function restartTest() {
-    const firstPlant = getRandomPlant();
+    const firstQueue =
+      createFirstQueue();
+
+    if (firstQueue.length === 0) {
+      return;
+    }
+
+    const firstPlant =
+      firstQueue[0];
 
     setPlant(firstPlant);
-    setOptions([]);
+
+    setOptions(
+      getOptions(firstPlant)
+    );
+
     setGreenCircles(0);
     setResult(null);
     setPhotoIndex(0);
@@ -217,6 +458,18 @@ setPhotoIndex(0);
     setGaveUp(false);
     setStartTime(Date.now());
     setTestTime(0);
+    setWrongPlants([]);
+    setLastPlantId(
+      firstPlant.id
+    );
+
+    setQuestionQueue(
+      firstQueue.slice(1)
+    );
+
+    setPurplePosition(
+      createPurplePosition()
+    );
   }
 
   if (testPlants.length === 0) {
@@ -236,7 +489,7 @@ setPhotoIndex(0);
   if (!plant) {
     return (
       <div className="app">
-        Načítavam...
+        Načítavam
       </div>
     );
   }
@@ -259,11 +512,13 @@ setPhotoIndex(0);
     let resultGif = "";
 
     if (gaveUp) {
-      resultGif = "/gifs/testdo25.gif";
+      resultGif =
+        "/gifs/testdo25.gif";
     }
 
     if (completed && !gaveUp) {
-      resultGif = "/gifs/test100.gif";
+      resultGif =
+        "/gifs/test100.gif";
     }
 
     return (
@@ -309,8 +564,6 @@ setPhotoIndex(0);
           ))}
         </div>
 
-       
-
         {resultGif && (
           <div
             style={{
@@ -351,8 +604,6 @@ setPhotoIndex(0);
             backgroundColor: "white"
           }}
         >
-        
-
           <p>
             <strong>
               Čas:
@@ -389,6 +640,10 @@ setPhotoIndex(0);
       photos[photoPosition];
   }
 
+  const isPurpleQuestion =
+    purplePosition !== null &&
+    greenCircles === purplePosition;
+
   return (
     <div className="app">
       <button
@@ -418,26 +673,40 @@ setPhotoIndex(0);
       >
         {Array.from({
           length: totalCircles
-        }).map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              border: "2px solid #777",
-              backgroundColor:
-                index < greenCircles
-                  ? "#4caf50"
-                  : "transparent",
-              transition:
-                "background-color 0.3s"
-            }}
-          />
-        ))}
+        }).map((_, index) => {
+          let circleColor =
+            "transparent";
+
+          if (index < greenCircles) {
+            circleColor = "#4caf50";
+          }
+
+          if (
+            purplePosition !== null &&
+            index === purplePosition &&
+            index >= greenCircles
+          ) {
+            circleColor = "#9c27b0";
+          }
+
+          return (
+            <div
+              key={index}
+              style={{
+                width: "12px",
+                height: "12px",
+                borderRadius: "50%",
+                border: "2px solid #777",
+                backgroundColor:
+                  circleColor,
+                transition:
+                  "background-color 0.3s"
+              }}
+            />
+          );
+        })}
       </div>
 
-      
       <div
         className="quiz5-photo-wrapper"
         style={{
@@ -464,6 +733,29 @@ setPhotoIndex(0);
             }}
           />
         )}
+
+        {isPurpleQuestion &&
+          result === null && (
+            <div
+              style={{
+                position: "absolute",
+                top: "8px",
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                color: "white",
+                fontSize: "30px",
+fontWeight: "bold",
+color: "red",
+textShadow:
+  "0 1px 3px rgba(0,0,0,0.9)",
+                zIndex: 50,
+                lineHeight: "normal"
+              }}
+            >
+              POZOR
+            </div>
+          )}
 
         {result !== null && (
           <div
@@ -514,33 +806,48 @@ setPhotoIndex(0);
                   : "NESPRÁVNE!"}
               </div>
 
-              <div
-                style={{
-                  fontSize: "18px"
-                }}
-              >
-                Správna odpoveď:
-              </div>
+              {result.purpleMistake ? (
+                <div
+                  style={{
+                    fontSize: "18px",
+                    marginBottom: "10px"
+                  }}
+                >
+                  Stratil si všetky zelené kruhy.
+                  <br />
+                  Začíname od začiatku.
+                </div>
+              ) : (
+                <>
+                  <div
+                    style={{
+                      fontSize: "18px"
+                    }}
+                  >
+                    Správna odpoveď:
+                  </div>
 
-              <div
-                style={{
-                  fontSize: "22px",
-                  marginTop: "5px"
-                }}
-              >
-                <i>
-                  {plant.latin}
-                </i>
-              </div>
+                  <div
+                    style={{
+                      fontSize: "22px",
+                      marginTop: "5px"
+                    }}
+                  >
+                    <i>
+                      {plant.latin}
+                    </i>
+                  </div>
 
-              <div
-                style={{
-                  fontSize: "22px",
-                  fontWeight: "bold"
-                }}
-              >
-                {plant.name}
-              </div>
+                  <div
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {plant.name}
+                  </div>
+                </>
+              )}
 
               <button
                 onClick={nextPlant}
@@ -552,8 +859,11 @@ setPhotoIndex(0);
                   cursor: "pointer"
                 }}
               >
-                {result.correct &&
-                greenCircles >= totalCircles
+                {result.purpleMistake
+                  ? "Začať od začiatku"
+                  : result.correct &&
+                    greenCircles >=
+                      totalCircles
                   ? "Dokončiť test"
                   : "Ďalšia rastlina"}
               </button>
@@ -561,8 +871,6 @@ setPhotoIndex(0);
           </div>
         )}
       </div>
-
-      
 
       <div
         style={{
@@ -578,7 +886,8 @@ setPhotoIndex(0);
         {options.map((option) => {
           const isSelected =
             result !== null &&
-            result.selected.id === option.id;
+            result.selected.id ===
+              option.id;
 
           const isCorrect =
             option.id === plant.id;
