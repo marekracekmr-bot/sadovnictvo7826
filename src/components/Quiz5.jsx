@@ -296,8 +296,8 @@ setPhotoIndex(0);
             <div
               key={index}
               style={{
-                width: "30px",
-                height: "30px",
+                width: "12px",
+                height: "12px",
                 borderRadius: "50%",
                 border: "2px solid #777",
                 backgroundColor:
@@ -418,10 +418,10 @@ setPhotoIndex(0);
           <div
             key={index}
             style={{
-              width: "25px",
-              height: "25px",
+              width: "12px",
+              height: "12px",
               borderRadius: "50%",
-              border: "3px solid #777",
+              border: "2px solid #777",
               backgroundColor:
                 index < greenCircles
                   ? "#4caf50"
