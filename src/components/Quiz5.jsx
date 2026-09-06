@@ -8,10 +8,7 @@ function Quiz5({ category, testLimit, goBack }) {
 
   const selectedLimit = Number(testLimit);
 
-  const testPlants = categoryPlants.slice(
-    0,
-    selectedLimit
-  );
+  const testPlants = categoryPlants.slice(0, selectedLimit);
 
   const totalCircles = Math.min(
     selectedLimit,
@@ -33,6 +30,7 @@ function Quiz5({ category, testLimit, goBack }) {
   const [lastPlantId, setLastPlantId] = useState(null);
 
   const [purplePosition, setPurplePosition] = useState(null);
+  const [purpleAnimating, setPurpleAnimating] = useState(false);
 
   function shufflePlants(list) {
     const shuffled = list.slice();
@@ -231,9 +229,12 @@ function Quiz5({ category, testLimit, goBack }) {
     );
 
     setLastPlantId(firstPlant.id);
+
     setPurplePosition(
       newPurplePosition
     );
+
+    setPurpleAnimating(false);
     setResult(null);
     setPhotoIndex(0);
   }
@@ -282,10 +283,13 @@ function Quiz5({ category, testLimit, goBack }) {
           )
       );
 
+      setPurpleAnimating(true);
+
       setResult({
         correct: true,
         selected: selectedPlant,
-        purpleCorrect: true
+        purpleCorrect: true,
+        purpleMistake: false
       });
 
       return;
@@ -396,6 +400,7 @@ function Quiz5({ category, testLimit, goBack }) {
       getOptions(nextPlantToShow)
     );
 
+    setPurpleAnimating(false);
     setResult(null);
     setPhotoIndex(0);
   }
@@ -470,6 +475,8 @@ function Quiz5({ category, testLimit, goBack }) {
     setPurplePosition(
       createPurplePosition()
     );
+
+    setPurpleAnimating(false);
   }
 
   if (testPlants.length === 0) {
@@ -646,6 +653,27 @@ function Quiz5({ category, testLimit, goBack }) {
 
   return (
     <div className="app">
+      <style>
+        {`
+          @keyframes purpleToGreen {
+            0% {
+              background-color: #9c27b0;
+              transform: scale(1);
+            }
+
+            40% {
+              background-color: #d06be0;
+              transform: scale(1.35);
+            }
+
+            100% {
+              background-color: #4caf50;
+              transform: scale(1);
+            }
+          }
+        `}
+      </style>
+
       <button
         className="back-button"
         onClick={goBack}
@@ -689,6 +717,10 @@ function Quiz5({ category, testLimit, goBack }) {
             circleColor = "#9c27b0";
           }
 
+          const animatePurple =
+            purpleAnimating &&
+            purplePosition === index;
+
           return (
             <div
               key={index}
@@ -700,7 +732,11 @@ function Quiz5({ category, testLimit, goBack }) {
                 backgroundColor:
                   circleColor,
                 transition:
-                  "background-color 0.3s"
+                  "background-color 0.3s",
+                animation:
+                  animatePurple
+                    ? "purpleToGreen 0.7s ease-in-out"
+                    : "none"
               }}
             />
           );
@@ -743,17 +779,16 @@ function Quiz5({ category, testLimit, goBack }) {
                 left: 0,
                 right: 0,
                 textAlign: "center",
-                color: "white",
-                fontSize: "30px",
-fontWeight: "bold",
-color: "red",
-textShadow:
-  "0 1px 3px rgba(0,0,0,0.9)",
+                color: "red",
+                fontSize: "24px",
+                fontWeight: "bold",
+                textShadow:
+                  "0 1px 3px rgba(0,0,0,0.9)",
                 zIndex: 50,
                 lineHeight: "normal"
               }}
             >
-              POZOR
+              POZOR – riskuješ všetko!
             </div>
           )}
 
@@ -818,7 +853,7 @@ textShadow:
                   Začíname od začiatku.
                 </div>
               ) : (
-                <>
+                <div>
                   <div
                     style={{
                       fontSize: "18px"
@@ -846,7 +881,7 @@ textShadow:
                   >
                     {plant.name}
                   </div>
-                </>
+                </div>
               )}
 
               <button
@@ -862,8 +897,7 @@ textShadow:
                 {result.purpleMistake
                   ? "Začať od začiatku"
                   : result.correct &&
-                    greenCircles >=
-                      totalCircles
+                    greenCircles >= totalCircles
                   ? "Dokončiť test"
                   : "Ďalšia rastlina"}
               </button>
