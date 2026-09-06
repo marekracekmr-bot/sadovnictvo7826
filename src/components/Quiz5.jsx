@@ -402,6 +402,10 @@ setPhotoIndex(0);
         Test 5
       </h1>
 
+      <h2>
+        Ktorá rastlina je na obrázku?
+      </h2>
+
       <div
         style={{
           display: "flex",
@@ -558,9 +562,7 @@ setPhotoIndex(0);
         )}
       </div>
 
-      <h2>
-        Ktorá rastlina je na obrázku?
-      </h2>
+      
 
       <div
         style={{
