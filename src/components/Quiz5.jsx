@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import plants from "../data/plants";
 
@@ -31,6 +32,14 @@ function Quiz5({ category, testLimit, goBack }) {
 
   const [purplePosition, setPurplePosition] = useState(null);
   const [purpleAnimating, setPurpleAnimating] = useState(false);
+
+  // Počet správnych odpovedí po sebe
+  const [correctStreak, setCorrectStreak] = useState(0);
+
+  // Špeciálna animácia po presne 5 správnych odpovediach
+  const [superCelebration, setSuperCelebration] = useState(false);
+  const [showSuperGif, setShowSuperGif] = useState(false);
+  const [showSuperText, setShowSuperText] = useState(false);
 
   function shufflePlants(list) {
     const shuffled = list.slice();
@@ -180,7 +189,8 @@ function Quiz5({ category, testLimit, goBack }) {
       !plant ||
       result !== null ||
       finished ||
-      gaveUp
+      gaveUp ||
+      superCelebration
     ) {
       return;
     }
@@ -199,8 +209,56 @@ function Quiz5({ category, testLimit, goBack }) {
     plant,
     result,
     finished,
-    gaveUp
+    gaveUp,
+    superCelebration
   ]);
+
+  // =========================================================
+  // SUPER ANIMÁCIA
+  //
+  // 0 - 2 sekundy:
+  // GIF sa zväčšuje z 0 % na 80 %
+  //
+  // 2 - 4 sekundy:
+  // GIF zostáva na 80 %
+  //
+  // 4 - 7 sekundy:
+  // červený pulzujúci text
+  //
+  // po 7 sekundách:
+  // ďalšia otázka
+  // =========================================================
+  useEffect(() => {
+    if (!superCelebration) {
+      return;
+    }
+
+    setShowSuperGif(true);
+    setShowSuperText(false);
+
+    const textTimer = setTimeout(() => {
+      setShowSuperGif(false);
+      setShowSuperText(true);
+    }, 4000);
+
+    const nextQuestionTimer = setTimeout(() => {
+      setSuperCelebration(false);
+      setShowSuperGif(false);
+      setShowSuperText(false);
+
+      if (greenCircles >= totalCircles) {
+        finishTest();
+        return;
+      }
+
+      nextPlant();
+    }, 7000);
+
+    return () => {
+      clearTimeout(textTimer);
+      clearTimeout(nextQuestionTimer);
+    };
+  }, [superCelebration]);
 
   function resetAfterPurpleMistake() {
     const firstQueue =
@@ -217,6 +275,10 @@ function Quiz5({ category, testLimit, goBack }) {
       createPurplePosition();
 
     setGreenCircles(0);
+
+    // Nesprávna odpoveď = nová séria
+    setCorrectStreak(0);
+
     setWrongPlants([]);
     setQuestionQueue(
       firstQueue.slice(1)
@@ -237,6 +299,10 @@ function Quiz5({ category, testLimit, goBack }) {
     setPurpleAnimating(false);
     setResult(null);
     setPhotoIndex(0);
+
+    setSuperCelebration(false);
+    setShowSuperGif(false);
+    setShowSuperText(false);
   }
 
   function checkAnswer(selectedPlant) {
@@ -244,7 +310,8 @@ function Quiz5({ category, testLimit, goBack }) {
       result !== null ||
       finished ||
       gaveUp ||
-      !plant
+      !plant ||
+      superCelebration
     ) {
       return;
     }
@@ -256,8 +323,14 @@ function Quiz5({ category, testLimit, goBack }) {
       purplePosition !== null &&
       greenCircles === purplePosition;
 
+    // =========================================================
+    // PURPLE QUESTION
+    // =========================================================
     if (isPurpleQuestion) {
       if (!correct) {
+        // Nesprávna odpoveď zruší sériu
+        setCorrectStreak(0);
+
         setResult({
           correct: false,
           selected: selectedPlant,
@@ -283,6 +356,24 @@ function Quiz5({ category, testLimit, goBack }) {
           )
       );
 
+      const newStreak =
+        correctStreak + 1;
+
+      // =====================================================
+      // DÔLEŽITÉ:
+      // Animácia sa spustí IBA pri presne 5.
+      // Nie pri 6, 7, 8...
+      // =====================================================
+      if (newStreak === 5) {
+        setSuperCelebration(true);
+
+        // Po aktivácii SUPER začíname novú sériu.
+        // Tým pádom 6. správna už animáciu nespustí.
+        setCorrectStreak(0);
+      } else {
+        setCorrectStreak(newStreak);
+      }
+
       setPurpleAnimating(true);
 
       setResult({
@@ -295,6 +386,9 @@ function Quiz5({ category, testLimit, goBack }) {
       return;
     }
 
+    // =========================================================
+    // BEŽNÁ OTÁZKA
+    // =========================================================
     if (correct) {
       setGreenCircles(
         (previousValue) =>
@@ -311,7 +405,32 @@ function Quiz5({ category, testLimit, goBack }) {
               item.id !== plant.id
           )
       );
+
+      const newStreak =
+        correctStreak + 1;
+
+      // =====================================================
+      // IBA PRESNE 5 SPRÁVNYCH
+      // =====================================================
+      if (newStreak === 5) {
+        setSuperCelebration(true);
+
+        // Nová séria po SUPER.
+        // Ďalšia správna odpoveď bude 1/5.
+        setCorrectStreak(0);
+      } else {
+        setCorrectStreak(newStreak);
+      }
+
+      setResult({
+        correct: true,
+        selected: selectedPlant,
+        purpleMistake: false
+      });
     } else {
+      // Nesprávna odpoveď = séria sa vynuluje
+      setCorrectStreak(0);
+
       setGreenCircles(
         (previousValue) =>
           Math.max(
@@ -340,13 +459,13 @@ function Quiz5({ category, testLimit, goBack }) {
           return updatedPlants;
         }
       );
-    }
 
-    setResult({
-      correct: correct,
-      selected: selectedPlant,
-      purpleMistake: false
-    });
+      setResult({
+        correct: false,
+        selected: selectedPlant,
+        purpleMistake: false
+      });
+    }
   }
 
   function nextPlant() {
@@ -457,6 +576,10 @@ function Quiz5({ category, testLimit, goBack }) {
     );
 
     setGreenCircles(0);
+
+    // Nová séria správnych odpovedí
+    setCorrectStreak(0);
+
     setResult(null);
     setPhotoIndex(0);
     setFinished(false);
@@ -477,6 +600,10 @@ function Quiz5({ category, testLimit, goBack }) {
     );
 
     setPurpleAnimating(false);
+
+    setSuperCelebration(false);
+    setShowSuperGif(false);
+    setShowSuperText(false);
   }
 
   if (testPlants.length === 0) {
@@ -671,6 +798,32 @@ function Quiz5({ category, testLimit, goBack }) {
               transform: scale(1);
             }
           }
+
+          @keyframes superGifGrow {
+            0% {
+              width: 0%;
+              opacity: 0;
+            }
+
+            100% {
+              width: 65%;
+              opacity: 1;
+            }
+          }
+
+          @keyframes superTextPulse {
+            0% {
+              transform: scale(1);
+            }
+
+            50% {
+              transform: scale(1.12);
+            }
+
+            100% {
+              transform: scale(1);
+            }
+          }
         `}
       </style>
 
@@ -770,7 +923,79 @@ function Quiz5({ category, testLimit, goBack }) {
           />
         )}
 
-        {isPurpleQuestion &&
+        {/* ===================================================
+            SUPER ANIMÁCIA
+        =================================================== */}
+        {superCelebration && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              zIndex: 200,
+              pointerEvents: "none"
+            }}
+          >
+            {/* GIF:
+                2 sekundy rastie z 0 % na 80 %.
+                Potom zostáva ďalšie 2 sekundy. */}
+            {showSuperGif && (
+              <img
+                src="/gifs/testdo99.gif"
+                alt="Super"
+                style={{
+                  display: "block",
+                  width: "0%",
+                  maxWidth: "65%",
+                  height: "auto",
+                  borderRadius: "12px",
+                  animation:
+                    "superGifGrow 2s ease-out forwards"
+                }}
+              />
+            )}
+
+            {/* TEXT:
+                červený, jemne pulzuje 3 sekundy */}
+            {showSuperText && (
+              <div
+                style={{
+                  fontSize:
+                    "clamp(26px, 5vw, 46px)",
+                  fontWeight: "bold",
+                  color: "red",
+                  textShadow:
+                    "0 2px 4px rgba(255,255,255,0.9), 0 2px 5px rgba(0,0,0,0.8)",
+                  lineHeight: "1.2",
+                  padding: "20px",
+                  animation:
+                    "superTextPulse 0.7s ease-in-out infinite"
+                }}
+              >
+                SUPER!
+                <br />
+
+                <span
+                  style={{
+                    fontSize:
+                      "clamp(20px, 4vw, 32px)"
+                  }}
+                >
+                  Máš 5 správnych po sebe!
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {!superCelebration &&
+          isPurpleQuestion &&
           result === null && (
             <div
               style={{
@@ -792,118 +1017,119 @@ function Quiz5({ category, testLimit, goBack }) {
             </div>
           )}
 
-        {result !== null && (
-          <div
-            className="quiz5-answer-overlay"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              boxSizing: "border-box",
-              padding: "20px",
-              borderRadius: "12px",
-              backgroundColor:
-                result.correct
-                  ? "rgba(46, 125, 50, 0.88)"
-                  : "rgba(198, 40, 40, 0.88)",
-              color: "white",
-              zIndex: 100,
-              lineHeight: "normal"
-            }}
-          >
+        {!superCelebration &&
+          result !== null && (
             <div
-              className="quiz5-answer-content"
+              className="quiz5-answer-overlay"
               style={{
-                width: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
                 display: "flex",
-                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                textAlign: "center"
+                width: "100%",
+                height: "100%",
+                boxSizing: "border-box",
+                padding: "20px",
+                borderRadius: "12px",
+                backgroundColor:
+                  result.correct
+                    ? "rgba(46, 125, 50, 0.88)"
+                    : "rgba(198, 40, 40, 0.88)",
+                color: "white",
+                zIndex: 100,
+                lineHeight: "normal"
               }}
             >
               <div
+                className="quiz5-answer-content"
                 style={{
-                  fontSize: "38px",
-                  fontWeight: "bold",
-                  marginBottom: "15px"
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center"
                 }}
               >
-                {result.correct
-                  ? "SPRÁVNE!"
-                  : "NESPRÁVNE!"}
-              </div>
-
-              {result.purpleMistake ? (
                 <div
                   style={{
-                    fontSize: "18px",
-                    marginBottom: "10px"
+                    fontSize: "38px",
+                    fontWeight: "bold",
+                    marginBottom: "15px"
                   }}
                 >
-                  Stratil si všetky zelené kruhy.
-                  <br />
-                  Začíname od začiatku.
+                  {result.correct
+                    ? "SPRÁVNE!"
+                    : "NESPRÁVNE!"}
                 </div>
-              ) : (
-                <div>
+
+                {result.purpleMistake ? (
                   <div
                     style={{
-                      fontSize: "18px"
+                      fontSize: "18px",
+                      marginBottom: "10px"
                     }}
                   >
-                    Správna odpoveď:
+                    Stratil si všetky zelené kruhy.
+                    <br />
+                    Začíname od začiatku.
                   </div>
+                ) : (
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "18px"
+                      }}
+                    >
+                      Správna odpoveď:
+                    </div>
 
-                  <div
-                    style={{
-                      fontSize: "22px",
-                      marginTop: "5px"
-                    }}
-                  >
-                    <i>
-                      {plant.latin}
-                    </i>
+                    <div
+                      style={{
+                        fontSize: "22px",
+                        marginTop: "5px"
+                      }}
+                    >
+                      <i>
+                        {plant.latin}
+                      </i>
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      {plant.name}
+                    </div>
                   </div>
+                )}
 
-                  <div
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {plant.name}
-                  </div>
-                </div>
-              )}
-
-              <button
-                onClick={nextPlant}
-                style={{
-                  marginTop: "20px",
-                  fontSize: "18px",
-                  padding: "12px 25px",
-                  lineHeight: "normal",
-                  cursor: "pointer"
-                }}
-              >
-                {result.purpleMistake
-                  ? "Začať od začiatku"
-                  : result.correct &&
-                    greenCircles >= totalCircles
-                  ? "Dokončiť test"
-                  : "Ďalšia rastlina"}
-              </button>
+                <button
+                  onClick={nextPlant}
+                  style={{
+                    marginTop: "20px",
+                    fontSize: "18px",
+                    padding: "12px 25px",
+                    lineHeight: "normal",
+                    cursor: "pointer"
+                  }}
+                >
+                  {result.purpleMistake
+                    ? "Začať od začiatku"
+                    : result.correct &&
+                      greenCircles >= totalCircles
+                    ? "Dokončiť test"
+                    : "Ďalšia rastlina"}
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
 
       <div
@@ -948,11 +1174,17 @@ function Quiz5({ category, testLimit, goBack }) {
             <button
               key={option.id}
               onClick={() => {
-                if (result === null) {
+                if (
+                  result === null &&
+                  !superCelebration
+                ) {
                   checkAnswer(option);
                 }
               }}
-              disabled={result !== null}
+              disabled={
+                result !== null ||
+                superCelebration
+              }
               style={{
                 fontSize: "16px",
                 padding: "15px 10px",
@@ -962,7 +1194,8 @@ function Quiz5({ category, testLimit, goBack }) {
                 borderRadius: "10px",
                 border: "1px solid #bbb",
                 cursor:
-                  result !== null
+                  result !== null ||
+                  superCelebration
                     ? "default"
                     : "pointer"
               }}
@@ -979,20 +1212,22 @@ function Quiz5({ category, testLimit, goBack }) {
         })}
       </div>
 
-      {result === null && (
-        <button
-          onClick={giveUp}
-          style={{
-            marginTop: "25px",
-            padding: "10px 25px",
-            fontSize: "16px"
-          }}
-        >
-          Vzdávam sa
-        </button>
-      )}
+      {result === null &&
+        !superCelebration && (
+          <button
+            onClick={giveUp}
+            style={{
+              marginTop: "25px",
+              padding: "10px 25px",
+              fontSize: "16px"
+            }}
+          >
+            Vzdávam sa
+          </button>
+        )}
     </div>
   );
 }
 
 export default Quiz5;
+
