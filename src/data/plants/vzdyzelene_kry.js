@@ -233,6 +233,61 @@ const vzdyzeleneKry = [
     "vzdyzelene_kry/vinca-minor-list.jpg"
   ]
 },
+
+{
+  id: "pieris-japonica",
+  latin: "Pieris japonica",
+  name: "Pieris japonský",
+  family: "Vresovcovité (Ericaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/pieris-japonica.jpg",
+    "vzdyzelene_kry/pieris-japonica1.jpg",    
+    "vzdyzelene_kry/pieris-japonica2.jpg",
+    "vzdyzelene_kry/pieris-japonica3.jpg",
+  ]
+},
+
+{
+  id: "skimmia-japonica",
+  latin: "Skimmia japonica",
+  name: "Skimia japonská",
+  family: "Rutovité (Rutaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/skimmia-japonica.jpg",
+    "vzdyzelene_kry/skimmia-japonica1.jpg",
+    "vzdyzelene_kry/skimmia-japonica2.jpg",
+    "vzdyzelene_kry/skimmia-japonica3.jpg",
+  ]
+},
+
+{
+  id: "photinia-fraseri",
+  latin: "Photinia × fraseri",
+  name: "Fotínia Fraserova",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/photinia-fraseri.jpg",
+    "vzdyzelene_kry/photinia-fraseri1.jpg",
+    "vzdyzelene_kry/photinia-fraseri2.jpg",
+  ]
+},
+
+{
+  id: "pachysandra-terminalis",
+  latin: "Pachysandra terminalis",
+  name: "Pachysandra vrcholová",
+  family: "Zimozeleňovité (Buxaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/pachysandra-terminalis.jpg",
+    "vzdyzelene_kry/pachysandra-terminalis1.jpg",
+    "vzdyzelene_kry/pachysandra-terminalis2.jpg",
+  ]
+},
+
 ];
 
 export default vzdyzeleneKry;
