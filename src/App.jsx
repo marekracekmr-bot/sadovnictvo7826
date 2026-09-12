@@ -47,7 +47,12 @@ function App() {
       name: "Opadavé listnaté stromy",
       value: "opadave_stromy",
       icon: "🌳"
-    }
+    },
+    {
+    name: "Buriny",
+    value: "buriny",
+    icon: "🌾"
+  }
   ];
 
   // =========================================
