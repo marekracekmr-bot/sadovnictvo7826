@@ -1200,11 +1200,15 @@ function Quiz5({ category, testLimit, goBack }) {
                     : "pointer"
               }}
             >
-              <i>
-                {option.latin}
-              </i>
+              <strong>
+  {option.name}
+</strong>
 
-              <br />
+<br />
+
+<i>
+  {option.latin}
+</i>
 
               {option.name}
             </button>

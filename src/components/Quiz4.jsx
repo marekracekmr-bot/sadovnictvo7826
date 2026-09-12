@@ -23,6 +23,11 @@ function Quiz4({ category, testLimit, goBack }) {
       name: "Opadavé listnaté stromy",
       value: "opadave_stromy",
       icon: "🌳"
+    },
+    {
+      name: "Buriny",
+      value: "buriny",
+      icon: "🌾"
     }
   ];
 

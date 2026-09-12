@@ -505,14 +505,18 @@ function Quiz({ category, testType, testLimit, goBack }) {
       </div>
 
       <h2>
-
-        Ktorá rastlina je{" "}
-
-        <i>
-          {plant.latin}
-        </i>?
-
-      </h2>
+  {category === "buriny" ? (
+    <>
+      Ktorá rastlina je{" "}
+      <strong>{plant.name}</strong>?
+    </>
+  ) : (
+    <>
+      Ktorá rastlina je{" "}
+      <i>{plant.latin}</i>?
+    </>
+  )}
+</h2>
 
       <p>
         Vyber správny obrázok.
@@ -624,11 +628,17 @@ function Quiz({ category, testType, testLimit, goBack }) {
 
               <div className="answer-latin">
 
-                <i>
-                  {result.selected.latin}
-                </i>
+  {category === "buriny" ? (
+    <strong>
+      {result.selected.name}
+    </strong>
+  ) : (
+    <i>
+      {result.selected.latin}
+    </i>
+  )}
 
-              </div>
+</div>
 
             </div>
 

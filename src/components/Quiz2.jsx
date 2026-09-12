@@ -856,31 +856,47 @@ function Quiz2({ category, testLimit, goBack }) {
         {options.map((option) => (
 
           <button
-            key={option.id}
+  key={option.id}
 
-            onClick={() =>
-              checkAnswer(option)
-            }
+  onClick={() =>
+    checkAnswer(option)
+  }
 
-            disabled={!!result}
+  disabled={!!result}
 
-            style={{
-              width: "350px",
-              maxWidth: "90%",
-              fontSize: "16px",
-              padding: "10px"
-            }}
-          >
+  style={{
+    width: "350px",
+    maxWidth: "90%",
+    fontSize: "16px",
+    padding: "10px"
+  }}
+>
 
-            <i>
-              {option.latin}
-            </i>
+  {category === "buriny" ? (
+    <>
+      <strong>
+        {option.name}
+      </strong>
 
-            {" – "}
+      {" – "}
 
-            {option.name}
+      <i>
+        {option.latin}
+      </i>
+    </>
+  ) : (
+    <>
+      <i>
+        {option.latin}
+      </i>
 
-          </button>
+      {" – "}
+
+      {option.name}
+    </>
+  )}
+
+</button>
 
         ))}
 

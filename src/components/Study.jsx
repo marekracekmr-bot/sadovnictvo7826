@@ -167,11 +167,23 @@ function Study({ category, plantId, goBack }) {
             }}
           >
 
-            <h2>
-              <i>{plant.latin}</i>
-            </h2>
+            {category === "buriny" ? (
+  <>
+    <h2>{plant.name}</h2>
 
-            <h3>{plant.name}</h3>
+    <h3>
+      <i>{plant.latin}</i>
+    </h3>
+  </>
+) : (
+  <>
+    <h2>
+      <i>{plant.latin}</i>
+    </h2>
+
+    <h3>{plant.name}</h3>
+  </>
+)}
 
             <p>
               <strong>Čeľaď:</strong> {plant.family}

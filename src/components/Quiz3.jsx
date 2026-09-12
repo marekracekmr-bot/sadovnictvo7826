@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import plants from "../data/plants";
 
@@ -61,9 +62,21 @@ function Quiz3({ category, testLimit, goBack }) {
   // DRUHOVÉ MENO
   // =========================================
 
-  function getSpeciesName(latin) {
+  function getSpeciesName(plant) {
 
-    const parts = latin.trim().split(/\s+/);
+    if (category === "buriny") {
+
+      const parts =
+        plant.name.trim().split(/\s+/);
+
+      return parts.length >= 2
+        ? parts[parts.length - 1]
+        : parts[0];
+
+    }
+
+    const parts =
+      plant.latin.trim().split(/\s+/);
 
     return parts.length >= 2
       ? parts[1]
@@ -75,9 +88,19 @@ function Quiz3({ category, testLimit, goBack }) {
   // RODOVÉ MENO
   // =========================================
 
-  function getGenusName(latin) {
+  function getGenusName(plant) {
 
-    const parts = latin.trim().split(/\s+/);
+    if (category === "buriny") {
+
+      const parts =
+        plant.name.trim().split(/\s+/);
+
+      return parts[0];
+
+    }
+
+    const parts =
+      plant.latin.trim().split(/\s+/);
 
     return parts[0];
   }
@@ -90,7 +113,7 @@ function Quiz3({ category, testLimit, goBack }) {
   function getOptions(correctPlant) {
 
     const correctSpecies =
-      getSpeciesName(correctPlant.latin);
+      getSpeciesName(correctPlant);
 
     const wrongPlants = testPlants
       .filter(
@@ -98,7 +121,7 @@ function Quiz3({ category, testLimit, goBack }) {
       )
       .filter(
         (p) =>
-          getSpeciesName(p.latin) !== correctSpecies
+          getSpeciesName(p) !== correctSpecies
       )
       .sort(
         () => Math.random() - 0.5
@@ -108,7 +131,7 @@ function Quiz3({ category, testLimit, goBack }) {
     return [
       correctSpecies,
       ...wrongPlants.map(
-        (p) => getSpeciesName(p.latin)
+        (p) => getSpeciesName(p)
       )
     ].sort(
       () => Math.random() - 0.5
@@ -283,7 +306,7 @@ function Quiz3({ category, testLimit, goBack }) {
     }
 
     const correctSpecies =
-      getSpeciesName(plant.latin);
+      getSpeciesName(plant);
 
     const correct =
       selectedSpecies === correctSpecies;
@@ -695,7 +718,7 @@ function Quiz3({ category, testLimit, goBack }) {
   // =========================================
 
   const genus =
-    getGenusName(plant.latin);
+    getGenusName(plant);
 
   const photos =
     plant.images || [];
@@ -903,7 +926,7 @@ function Quiz3({ category, testLimit, goBack }) {
         {options.map((option) => {
 
           const correctSpecies =
-            getSpeciesName(plant.latin);
+            getSpeciesName(plant);
 
           let buttonStyle = {
 
