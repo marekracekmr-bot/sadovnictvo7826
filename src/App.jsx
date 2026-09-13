@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Quiz from "./components/Quiz";
 import Quiz4 from "./components/Quiz4";
@@ -49,10 +50,10 @@ function App() {
       icon: "🌳"
     },
     {
-    name: "Buriny",
-    value: "buriny",
-    icon: "🌾"
-  }
+      name: "Buriny",
+      value: "buriny",
+      icon: "🌾"
+    }
   ];
 
   // =========================================
@@ -114,7 +115,7 @@ function App() {
   }
 
   // =========================================
-  // TEST 5
+  // ZAHRAJME SA - QUIZ 5
   // =========================================
 
   if (mode === "quiz5") {
@@ -350,27 +351,6 @@ function App() {
             🪴 Test 4
           </button>
 
-          {/* =====================================
-              TEST 5
-              ===================================== */}
-
-          <button
-            onClick={() => {
-              if (!allPlants && !testLimit) {
-                alert(
-                  "Vyber počet rastlín."
-                );
-                return;
-              }
-
-              setSelectedTest(5);
-              setMode("quiz5");
-              setTestMenu(false);
-            }}
-          >
-            🎯 Test 5
-          </button>
-
         </div>
 
         <br />
@@ -378,6 +358,99 @@ function App() {
         <button
           onClick={() => {
             setTestMenu(false);
+            setTestLimit("");
+            setAllPlants(false);
+          }}
+        >
+          ⬅ Späť
+        </button>
+      </div>
+    );
+  }
+
+  // =========================================
+  // ZAHRAJME SA - NASTAVENIE
+  // =========================================
+
+  if (category && mode === "game-menu") {
+    const selectedCategory = getSelectedCategory();
+    const categoryPlants = getCategoryPlants();
+
+    return (
+      <div className="app">
+        <h1>
+          {selectedCategory?.icon}{" "}
+          {selectedCategory?.name}
+        </h1>
+
+        <h2>🎮 Zahrajme sa</h2>
+
+        <p>
+          Koľko rastlín chceš v hre?
+        </p>
+
+        <input
+          type="number"
+          min="1"
+          max={categoryPlants.length}
+          value={testLimit}
+          disabled={allPlants}
+          onChange={(e) => {
+            setTestLimit(e.target.value);
+            setAllPlants(false);
+          }}
+        />
+
+        <div
+          style={{
+            margin: "15px 0"
+          }}
+        >
+          <label>
+            <input
+              type="checkbox"
+              checked={allPlants}
+              onChange={(e) => {
+                const checked = e.target.checked;
+
+                setAllPlants(checked);
+
+                if (checked) {
+                  setTestLimit(
+                    categoryPlants.length
+                  );
+                } else {
+                  setTestLimit("");
+                }
+              }}
+            />
+
+            {" "}
+            Všetky rastliny
+          </label>
+        </div>
+
+        <button
+          onClick={() => {
+            if (!allPlants && !testLimit) {
+              alert(
+                "Vyber počet rastlín."
+              );
+              return;
+            }
+
+            setMode("quiz5");
+          }}
+        >
+          🎯 Spustiť hru
+        </button>
+
+        <br />
+        <br />
+
+        <button
+          onClick={() => {
+            setMode(null);
             setTestLimit("");
             setAllPlants(false);
           }}
@@ -424,6 +497,14 @@ function App() {
             }}
           >
             📝 Testy
+          </button>
+
+          <button
+            onClick={() => {
+              setMode("game-menu");
+            }}
+          >
+            🎮 Zahrajme sa
           </button>
 
           <button
