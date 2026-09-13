@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import plants from "../data/plants";
 
@@ -36,10 +35,22 @@ function Quiz5({ category, testLimit, goBack }) {
   // Počet správnych odpovedí po sebe
   const [correctStreak, setCorrectStreak] = useState(0);
 
+  // Životy
+  const [lives, setLives] = useState(3);
+
+  // Štatistiky testu
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+
   // Špeciálna animácia po presne 5 správnych odpovediach
-  const [superCelebration, setSuperCelebration] = useState(false);
-  const [showSuperGif, setShowSuperGif] = useState(false);
-  const [showSuperText, setShowSuperText] = useState(false);
+  const [superCelebration, setSuperCelebration] =
+    useState(false);
+
+  const [showSuperGif, setShowSuperGif] =
+    useState(false);
+
+  const [showSuperText, setShowSuperText] =
+    useState(false);
 
   function shufflePlants(list) {
     const shuffled = list.slice();
@@ -52,6 +63,7 @@ function Quiz5({ category, testLimit, goBack }) {
       const temporary = shuffled[i];
 
       shuffled[i] = shuffled[randomIndex];
+
       shuffled[randomIndex] = temporary;
     }
 
@@ -217,10 +229,10 @@ function Quiz5({ category, testLimit, goBack }) {
   // SUPER ANIMÁCIA
   //
   // 0 - 2 sekundy:
-  // GIF sa zväčšuje z 0 % na 80 %
+  // GIF sa zväčšuje z 0 % na 65 %
   //
   // 2 - 4 sekundy:
-  // GIF zostáva na 80 %
+  // GIF zostáva na 65 %
   //
   // 4 - 7 sekundy:
   // červený pulzujúci text
@@ -280,6 +292,7 @@ function Quiz5({ category, testLimit, goBack }) {
     setCorrectStreak(0);
 
     setWrongPlants([]);
+
     setQuestionQueue(
       firstQueue.slice(1)
     );
@@ -323,13 +336,51 @@ function Quiz5({ category, testLimit, goBack }) {
       purplePosition !== null &&
       greenCircles === purplePosition;
 
+    // Počítanie odpovedí
+    const newAnsweredQuestions =
+      answeredQuestions + 1;
+
+    const newCorrectAnswers =
+      correctAnswers + (correct ? 1 : 0);
+
+    setAnsweredQuestions(
+      newAnsweredQuestions
+    );
+
+    if (correct) {
+      setCorrectAnswers(
+        newCorrectAnswers
+      );
+    }
+
     // =========================================================
     // PURPLE QUESTION
     // =========================================================
     if (isPurpleQuestion) {
       if (!correct) {
+        // Nesprávna odpoveď = strata života
+        const newLives = Math.max(
+          lives - 1,
+          0
+        );
+
+        setLives(newLives);
+
         // Nesprávna odpoveď zruší sériu
         setCorrectStreak(0);
+
+        // Ak hráč prišiel o posledný život,
+        // test sa okamžite končí.
+        if (newLives === 0) {
+          setResult(null);
+
+          finishTest(
+            newCorrectAnswers,
+            newAnsweredQuestions
+          );
+
+          return;
+        }
 
         setResult({
           correct: false,
@@ -360,15 +411,22 @@ function Quiz5({ category, testLimit, goBack }) {
         correctStreak + 1;
 
       // =====================================================
-      // DÔLEŽITÉ:
-      // Animácia sa spustí IBA pri presne 5.
-      // Nie pri 6, 7, 8...
+      // PRESNE 5 SPRÁVNYCH
       // =====================================================
       if (newStreak === 5) {
         setSuperCelebration(true);
 
+        // Za 5 správnych po sebe +1 život.
+        // Maximum sú 3 životy.
+        setLives(
+          (previousLives) =>
+            Math.min(
+              previousLives + 1,
+              3
+            )
+        );
+
         // Po aktivácii SUPER začíname novú sériu.
-        // Tým pádom 6. správna už animáciu nespustí.
         setCorrectStreak(0);
       } else {
         setCorrectStreak(newStreak);
@@ -415,6 +473,16 @@ function Quiz5({ category, testLimit, goBack }) {
       if (newStreak === 5) {
         setSuperCelebration(true);
 
+        // Za 5 správnych po sebe +1 život.
+        // Maximum sú 3 životy.
+        setLives(
+          (previousLives) =>
+            Math.min(
+              previousLives + 1,
+              3
+            )
+        );
+
         // Nová séria po SUPER.
         // Ďalšia správna odpoveď bude 1/5.
         setCorrectStreak(0);
@@ -428,6 +496,18 @@ function Quiz5({ category, testLimit, goBack }) {
         purpleMistake: false
       });
     } else {
+      // =====================================================
+      // NESPRÁVNA ODPOVEĎ
+      // =====================================================
+
+      // Strata jedného života
+      const newLives = Math.max(
+        lives - 1,
+        0
+      );
+
+      setLives(newLives);
+
       // Nesprávna odpoveď = séria sa vynuluje
       setCorrectStreak(0);
 
@@ -459,6 +539,19 @@ function Quiz5({ category, testLimit, goBack }) {
           return updatedPlants;
         }
       );
+
+      // Ak hráč stratil posledný život,
+      // test sa okamžite končí.
+      if (newLives === 0) {
+        setResult(null);
+
+        finishTest(
+          newCorrectAnswers,
+          newAnsweredQuestions
+        );
+
+        return;
+      }
 
       setResult({
         correct: false,
@@ -524,7 +617,10 @@ function Quiz5({ category, testLimit, goBack }) {
     setPhotoIndex(0);
   }
 
-  function finishTest() {
+  function finishTest(
+    finalCorrectAnswers = correctAnswers,
+    finalAnsweredQuestions = answeredQuestions
+  ) {
     if (!startTime) {
       return;
     }
@@ -534,6 +630,15 @@ function Quiz5({ category, testLimit, goBack }) {
     );
 
     setTestTime(elapsed);
+
+    setCorrectAnswers(
+      finalCorrectAnswers
+    );
+
+    setAnsweredQuestions(
+      finalAnsweredQuestions
+    );
+
     setFinished(true);
   }
 
@@ -579,6 +684,13 @@ function Quiz5({ category, testLimit, goBack }) {
 
     // Nová séria správnych odpovedí
     setCorrectStreak(0);
+
+    // Nové životy
+    setLives(3);
+
+    // Vynulovanie štatistík
+    setCorrectAnswers(0);
+    setAnsweredQuestions(0);
 
     setResult(null);
     setPhotoIndex(0);
@@ -630,7 +742,18 @@ function Quiz5({ category, testLimit, goBack }) {
 
   if (finished || gaveUp) {
     const completed =
-      greenCircles >= totalCircles;
+      greenCircles >= totalCircles &&
+      lives > 0 &&
+      !gaveUp;
+
+    const percentage =
+      answeredQuestions > 0
+        ? Math.round(
+            (correctAnswers /
+              answeredQuestions) *
+              100
+          )
+        : 0;
 
     const minutes = Math.floor(
       testTime / 60
@@ -645,15 +768,17 @@ function Quiz5({ category, testLimit, goBack }) {
 
     let resultGif = "";
 
-    if (gaveUp) {
-      resultGif =
-        "/gifs/testdo25.gif";
-    }
-
-    if (completed && !gaveUp) {
-      resultGif =
-        "/gifs/test100.gif";
-    }
+if (gaveUp) {
+  resultGif = "/gifs/testdo25.gif";
+} else if (percentage === 100) {
+  resultGif = "/gifs/test100.gif";
+} else if (percentage > 60) {
+  resultGif = "/gifs/testdo99.gif";
+} else if (percentage > 25) {
+  resultGif = "/gifs/testdo60.gif";
+} else {
+  resultGif = "/gifs/testdo25.gif";
+}
 
     return (
       <div className="app">
@@ -665,7 +790,7 @@ function Quiz5({ category, testLimit, goBack }) {
         </button>
 
         <h1>
-          {completed && !gaveUp
+          {completed
             ? "Test dokončený"
             : "Test ukončený"}
         </h1>
@@ -725,6 +850,8 @@ function Quiz5({ category, testLimit, goBack }) {
         <p>
           {gaveUp
             ? "Test si ukončil vzdaním sa."
+            : lives === 0
+            ? "Stratil si všetky životy."
             : "Výborne! Získal si všetky zelené kruhy."}
         </p>
 
@@ -738,6 +865,21 @@ function Quiz5({ category, testLimit, goBack }) {
             backgroundColor: "white"
           }}
         >
+          <p>
+            <strong>
+              Správne odpovede:
+            </strong>{" "}
+            {correctAnswers} /{" "}
+            {answeredQuestions}
+          </p>
+
+          <p>
+            <strong>
+              Úspešnosť:
+            </strong>{" "}
+            {percentage} %
+          </p>
+
           <p>
             <strong>
               Čas:
@@ -848,7 +990,7 @@ function Quiz5({ category, testLimit, goBack }) {
           justifyContent: "center",
           flexWrap: "wrap",
           gap: "7px",
-          margin: "20px auto 30px",
+          margin: "20px auto 15px",
           maxWidth: "700px"
         }}
       >
@@ -894,6 +1036,26 @@ function Quiz5({ category, testLimit, goBack }) {
             />
           );
         })}
+      </div>
+
+      {/* ŽIVOTY */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "5px",
+          margin: "0 auto 20px",
+          fontSize: "28px",
+          minHeight: "34px"
+        }}
+      >
+        {Array.from({
+          length: lives
+        }).map((_, index) => (
+          <span key={index}>
+            ❤️
+          </span>
+        ))}
       </div>
 
       <div
@@ -942,9 +1104,6 @@ function Quiz5({ category, testLimit, goBack }) {
               pointerEvents: "none"
             }}
           >
-            {/* GIF:
-                2 sekundy rastie z 0 % na 80 %.
-                Potom zostáva ďalšie 2 sekundy. */}
             {showSuperGif && (
               <img
                 src="/gifs/testdo99.gif"
@@ -961,8 +1120,6 @@ function Quiz5({ category, testLimit, goBack }) {
               />
             )}
 
-            {/* TEXT:
-                červený, jemne pulzuje 3 sekundy */}
             {showSuperText && (
               <div
                 style={{
@@ -1088,25 +1245,53 @@ function Quiz5({ category, testLimit, goBack }) {
                       Správna odpoveď:
                     </div>
 
-                    <div
-                      style={{
-                        fontSize: "22px",
-                        marginTop: "5px"
-                      }}
-                    >
-                      <i>
-                        {plant.latin}
-                      </i>
-                    </div>
+                    {category === "buriny" ? (
+                      <>
+                        <div
+                          style={{
+                            fontSize: "22px",
+                            fontWeight: "bold",
+                            marginTop: "5px"
+                          }}
+                        >
+                          {plant.name}
+                        </div>
 
-                    <div
-                      style={{
-                        fontSize: "22px",
-                        fontWeight: "bold"
-                      }}
-                    >
-                      {plant.name}
-                    </div>
+                        <div
+                          style={{
+                            fontSize: "22px",
+                            marginTop: "5px"
+                          }}
+                        >
+                          <i>
+                            {plant.latin}
+                          </i>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          style={{
+                            fontSize: "22px",
+                            fontWeight: "bold",
+                            marginTop: "5px"
+                          }}
+                        >
+                          <i>
+                            {plant.latin}
+                          </i>
+                        </div>
+
+                        <div
+                          style={{
+                            fontSize: "22px",
+                            marginTop: "5px"
+                          }}
+                        >
+                          {plant.name}
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
 
@@ -1200,17 +1385,31 @@ function Quiz5({ category, testLimit, goBack }) {
                     : "pointer"
               }}
             >
-              <strong>
-  {option.name}
-</strong>
+              {category === "buriny" ? (
+                <>
+                  <strong>
+                    {option.name}
+                  </strong>
 
-<br />
+                  <br />
 
-<i>
-  {option.latin}
-</i>
+                  <i>
+                    {option.latin}
+                  </i>
+                </>
+              ) : (
+                <>
+                  <strong>
+                    <i>
+                      {option.latin}
+                    </i>
+                  </strong>
 
-              {option.name}
+                  <br />
+
+                  {option.name}
+                </>
+              )}
             </button>
           );
         })}
@@ -1234,4 +1433,3 @@ function Quiz5({ category, testLimit, goBack }) {
 }
 
 export default Quiz5;
-
