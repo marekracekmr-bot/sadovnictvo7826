@@ -463,16 +463,19 @@ function App() {
 
   // =========================================
   // VÝBER KATEGÓRIE
+  //
+  // Po výbere kategórie sa zobrazí iba
+  // menu možností.
+  //
+  // Tlačidlá používajú rovnakú triedu
+  // "categories" ako hlavná stránka,
+  // takže majú rovnaký vzhľad.
+  //
+  // Zoznam rastlín sa tu už nezobrazuje.
   // =========================================
 
   if (category && !mode) {
     const selectedCategory = getSelectedCategory();
-
-    const categoryPlants = [
-      ...getCategoryPlants()
-    ].sort((a, b) =>
-      a.latin.localeCompare(b.latin)
-    );
 
     return (
       <div className="app">
@@ -481,7 +484,11 @@ function App() {
           {selectedCategory?.name}
         </h1>
 
-        <div className="category-buttons">
+        <div className="categories">
+
+          {/* =====================================
+              VÝUKA
+              ===================================== */}
 
           <button
             onClick={() => {
@@ -491,6 +498,10 @@ function App() {
             📖 Výuka
           </button>
 
+          {/* =====================================
+              TESTY
+              ===================================== */}
+
           <button
             onClick={() => {
               setTestMenu(true);
@@ -498,6 +509,10 @@ function App() {
           >
             📝 Testy
           </button>
+
+          {/* =====================================
+              ZAHRAJME SA
+              ===================================== */}
 
           <button
             onClick={() => {
@@ -507,6 +522,10 @@ function App() {
             🎮 Zahrajme sa
           </button>
 
+          {/* =====================================
+              SKUPINOVÉ TESTOVANIE
+              ===================================== */}
+
           <button
             onClick={() => {
               setMode("shared-test");
@@ -515,41 +534,25 @@ function App() {
             👥 Skupinové testovanie
           </button>
 
-        </div>
+          {/* =====================================
+              SPÄŤ
+              ===================================== */}
 
-        <br />
+          <button
+            onClick={() => {
+              setCategory(null);
+              setSelectedPlant(null);
+              setGroupMenu(false);
+              setTestMenu(false);
+              setMode(null);
+              setSelectedTest(null);
+              setTestLimit("");
+              setAllPlants(false);
+            }}
+          >
+            ⬅ Späť
+          </button>
 
-        <button
-          onClick={() => {
-            setCategory(null);
-            setSelectedPlant(null);
-            setGroupMenu(false);
-            setTestMenu(false);
-            setMode(null);
-            setSelectedTest(null);
-            setTestLimit("");
-            setAllPlants(false);
-          }}
-        >
-          ⬅ Späť
-        </button>
-
-        <h2>🌿 Zoznam rastlín</h2>
-
-        <div className="plant-list">
-          {categoryPlants.map((plant) => (
-            <button
-              key={plant.id}
-              onClick={() => {
-                setSelectedPlant(plant.id);
-                setMode("study");
-              }}
-            >
-              <i>{plant.latin}</i>
-              {" – "}
-              {plant.name}
-            </button>
-          ))}
         </div>
       </div>
     );
