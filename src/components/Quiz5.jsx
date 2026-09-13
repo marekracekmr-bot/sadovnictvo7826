@@ -10,6 +10,7 @@ function Quiz5({ category, testLimit, goBack }) {
 
   const testPlants = categoryPlants.slice(0, selectedLimit);
 
+  
   const totalCircles = Math.min(
     selectedLimit,
     categoryPlants.length
