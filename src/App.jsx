@@ -8,6 +8,7 @@ import GroupOrganizer from "./components/GroupOrganizer";
 import SharedTest from "./components/SharedTest";
 import plants from "./data/plants";
 
+
 function App() {
   // =========================================
   // ZÁKLADNÝ STAV
