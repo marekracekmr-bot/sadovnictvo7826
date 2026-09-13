@@ -772,8 +772,6 @@ if (gaveUp) {
   resultGif = "/gifs/testdo25.gif";
 } else if (percentage === 100) {
   resultGif = "/gifs/test100.gif";
-} else if (percentage > 60) {
-  resultGif = "/gifs/testdo99.gif";
 } else if (percentage > 25) {
   resultGif = "/gifs/testdo60.gif";
 } else {
