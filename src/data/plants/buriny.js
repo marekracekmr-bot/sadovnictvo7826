@@ -138,6 +138,18 @@ const buriny = [
   ]
 },
 
+{
+  id: "phytolacca-americana",
+  latin: "Phytolacca americana",
+  name: "Ličidlo americké",
+  family: "Ličidlovité (Phytolaccaceae)",
+  category: "buriny",
+  images: [
+    "buriny/phytolacca-americana1.jpg",
+    "buriny/phytolacca-americana2.jpg",
+  ]
+},
+
 ];
 
 export default buriny;
