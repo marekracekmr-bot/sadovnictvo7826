@@ -21,6 +21,7 @@ const buriny = [
   category: "buriny",
   images: [
     "buriny/echinochloa-crus-galli1.jpg",
+    "buriny/echinochloa-crus-galli2.jpg",
   ]
 },
 
@@ -94,6 +95,46 @@ const buriny = [
   category: "buriny",
   images: [
     "buriny/portulaca-oleracea1.jpg",
+  ]
+},
+
+{
+  id: "solanum-nigrum",
+  latin: "Solanum nigrum",
+  name: "Lúľok čierny",
+  family: "Ľuľkovité (Solanaceae)",
+  category: "buriny",
+  images: [
+    "buriny/solanum-nigrum1.jpg",
+    "buriny/solanum-nigrum2.jpg",
+    "buriny/solanum-nigrum3.jpg",
+    "buriny/solanum-nigrum4.jpg",
+  ]
+},
+
+{
+  id: "panicum-effusum",
+  latin: "Panicum effusum",
+  name: "Proso rozložité",
+  family: "Lipnicovité (Poaceae)",
+  category: "buriny",
+  images: [
+    "buriny/panicum-effusum1.jpg",
+    "buriny/panicum-effusum2.jpg",
+    "buriny/panicum-effusum3.jpg",
+    "buriny/panicum-effusum4.jpg",
+  ]
+},
+
+{
+  id: "setaria-pumila",
+  latin: "Setaria pumila",
+  name: "Mohar sivý",
+  family: "Lipnicovité (Poaceae)",
+  category: "buriny",
+  images: [
+    "buriny/setaria-pumila1.jpg",
+    "buriny/setaria-pumila2.jpg",
   ]
 },
 
