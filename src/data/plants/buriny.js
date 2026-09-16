@@ -10,6 +10,8 @@ const buriny = [
   category: "buriny",
   images: [
     "buriny/amaranthus-retroflexus1.jpg",
+    "buriny/amaranthus-retroflexus2.jpg",
+    "buriny/amaranthus-retroflexus3.jpg",
   ]
 },
 
@@ -34,6 +36,19 @@ const buriny = [
   images: [
     "buriny/oxalis-corniculata1.jpg",
     "buriny/oxalis-corniculata2.jpg",
+  ]
+},
+
+{
+  id: "chenopodium-album",
+  latin: "Chenopodium album",
+  name: "Mrlík biely",
+  family: "Láskavcovité (Amaranthaceae)",
+  category: "buriny",
+  images: [
+    "buriny/chenopodium-album1.jpg",
+    "buriny/chenopodium-album2.jpg",    
+    "buriny/chenopodium-album3.jpg",
   ]
 },
 
@@ -95,6 +110,7 @@ const buriny = [
   category: "buriny",
   images: [
     "buriny/portulaca-oleracea1.jpg",
+    "buriny/portulaca-oleracea2.jpg",
   ]
 },
 
@@ -135,6 +151,7 @@ const buriny = [
   images: [
     "buriny/setaria-pumila1.jpg",
     "buriny/setaria-pumila2.jpg",
+    "buriny/setaria-pumila3.jpg",
   ]
 },
 

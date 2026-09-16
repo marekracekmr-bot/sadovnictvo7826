@@ -288,6 +288,19 @@ const vzdyzeleneKry = [
   ]
 },
 
+{
+  id: "rosmarinus-officinalis",
+  latin: "Rosmarinus officinalis",
+  name: "Rozmarín lekársky",
+  family: "Hluchavkovité (Lamiaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/rosmarinus-officinalis1.jpg",
+    "vzdyzelene_kry/rosmarinus-officinalis2.jpg",
+    "vzdyzelene_kry/rosmarinus-officinalis3.jpg",
+  ]
+},
+
 ];
 
 export default vzdyzeleneKry;
