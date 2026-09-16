@@ -27,6 +27,20 @@ const vzdyzeleneKry = [
    
   },
 
+  
+  {
+    id: "berberis-gagnepainii",
+    name: "Dráč Gagnepainov",
+    latin: "Berberis gagnepainii",
+    family: "Dráčovité (Berberidaceae)",
+    category: "vzdyzelene_kry",
+    images: [
+    "vzdyzelene_kry/berberis-gagnepainii.jpg",
+    "vzdyzelene_kry/berberis-gagnepainii-list.jpg"
+  ]
+    
+  },
+
   {
     id: "calluna-vulgaris",
     name: "Vres obyčajný",
@@ -37,19 +51,6 @@ const vzdyzeleneKry = [
     images: [
     "vzdyzelene_kry/calluna.jpg",
     "vzdyzelene_kry/calluna-list.jpg"
-  ]
-    
-  },
-
-  {
-    id: "berberis-gagnepainii",
-    name: "Dráč Gagnepainov",
-    latin: "Berberis gagnepainii",
-    family: "Dráčovité (Berberidaceae)",
-    category: "vzdyzelene_kry",
-    images: [
-    "vzdyzelene_kry/berberis-gagnepainii.jpg",
-    "vzdyzelene_kry/berberis-gagnepainii-list.jpg"
   ]
     
   },
@@ -127,18 +128,7 @@ const vzdyzeleneKry = [
   ]
   
 },
-{
-  id: "lavandula-angustifolia",
-  latin: "Lavandula angustifolia",
-  name: "Levanduľa úzkolistá",
-  family: "Hluchavkovité (Lamiaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/lavandula-angustifolia.jpg",
-    "vzdyzelene_kry/lavandula-angustifolia-list.jpg"
-  ]
-  
-},
+
 {
   id: "ilex-aquifolium",
   latin: "Ilex aquifolium",
@@ -151,6 +141,20 @@ const vzdyzeleneKry = [
   ]
   
 },
+
+{
+  id: "lavandula-angustifolia",
+  latin: "Lavandula angustifolia",
+  name: "Levanduľa úzkolistá",
+  family: "Hluchavkovité (Lamiaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/lavandula-angustifolia.jpg",
+    "vzdyzelene_kry/lavandula-angustifolia-list.jpg"
+  ]
+  
+},
+
 {
   id: "lonicera-pileata",
   latin: "Lonicera pileata",
@@ -174,6 +178,22 @@ const vzdyzeleneKry = [
   ]
   
 },
+
+
+{
+  id: "pieris-japonica",
+  latin: "Pieris japonica",
+  name: "Pieris japonský",
+  family: "Vresovcovité (Ericaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/pieris-japonica.jpg",
+    "vzdyzelene_kry/pieris-japonica1.jpg",    
+    "vzdyzelene_kry/pieris-japonica2.jpg",
+    "vzdyzelene_kry/pieris-japonica3.jpg",
+  ]
+},
+
 {
   id: "prunus-laurocerasus",
   latin: "Prunus laurocerasus",
@@ -198,6 +218,8 @@ const vzdyzeleneKry = [
   ]
   
 },
+
+
 {
   id: "rhododendron-hybridum",
   latin: "Rhododendron hybridum",
@@ -210,6 +232,36 @@ const vzdyzeleneKry = [
   ]
   
 },
+
+
+{
+  id: "rosmarinus-officinalis",
+  latin: "Rosmarinus officinalis",
+  name: "Rozmarín lekársky",
+  family: "Hluchavkovité (Lamiaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/rosmarinus-officinalis1.jpg",
+    "vzdyzelene_kry/rosmarinus-officinalis2.jpg",
+    "vzdyzelene_kry/rosmarinus-officinalis3.jpg",
+  ]
+},
+
+
+{
+  id: "skimmia-japonica",
+  latin: "Skimmia japonica",
+  name: "Skimia japonská",
+  family: "Rutovité (Rutaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/skimmia-japonica.jpg",
+    "vzdyzelene_kry/skimmia-japonica1.jpg",
+    "vzdyzelene_kry/skimmia-japonica2.jpg",
+    "vzdyzelene_kry/skimmia-japonica3.jpg",
+  ]
+},
+
 {
   id: "viburnum-rhytidophyllum",
   latin: "Viburnum rhytidophyllum",
@@ -231,34 +283,6 @@ const vzdyzeleneKry = [
   images: [
     "vzdyzelene_kry/vinca-minor.jpg",
     "vzdyzelene_kry/vinca-minor-list.jpg"
-  ]
-},
-
-{
-  id: "pieris-japonica",
-  latin: "Pieris japonica",
-  name: "Pieris japonský",
-  family: "Vresovcovité (Ericaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/pieris-japonica.jpg",
-    "vzdyzelene_kry/pieris-japonica1.jpg",    
-    "vzdyzelene_kry/pieris-japonica2.jpg",
-    "vzdyzelene_kry/pieris-japonica3.jpg",
-  ]
-},
-
-{
-  id: "skimmia-japonica",
-  latin: "Skimmia japonica",
-  name: "Skimia japonská",
-  family: "Rutovité (Rutaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/skimmia-japonica.jpg",
-    "vzdyzelene_kry/skimmia-japonica1.jpg",
-    "vzdyzelene_kry/skimmia-japonica2.jpg",
-    "vzdyzelene_kry/skimmia-japonica3.jpg",
   ]
 },
 
@@ -285,19 +309,6 @@ const vzdyzeleneKry = [
     "vzdyzelene_kry/pachysandra-terminalis.jpg",
     "vzdyzelene_kry/pachysandra-terminalis1.jpg",
     "vzdyzelene_kry/pachysandra-terminalis2.jpg",
-  ]
-},
-
-{
-  id: "rosmarinus-officinalis",
-  latin: "Rosmarinus officinalis",
-  name: "Rozmarín lekársky",
-  family: "Hluchavkovité (Lamiaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/rosmarinus-officinalis1.jpg",
-    "vzdyzelene_kry/rosmarinus-officinalis2.jpg",
-    "vzdyzelene_kry/rosmarinus-officinalis3.jpg",
   ]
 },
 
