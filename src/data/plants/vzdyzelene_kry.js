@@ -36,7 +36,9 @@ const vzdyzeleneKry = [
     category: "vzdyzelene_kry",
     images: [
     "vzdyzelene_kry/berberis-gagnepainii.jpg",
-    "vzdyzelene_kry/berberis-gagnepainii-list.jpg"
+    "vzdyzelene_kry/berberis-gagnepainii-list.jpg",
+    "vzdyzelene_kry/berberis-gagnepainii2.jpg",
+    "vzdyzelene_kry/berberis-gagnepainii3.jpg",
   ]
     
   },
@@ -76,7 +78,9 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/skalnik-malolisty.jpg",
-    "vzdyzelene_kry/skalnik-malolisty-list.jpg"
+    "vzdyzelene_kry/skalnik-malolisty-list.jpg",
+    "vzdyzelene_kry/skalnik-malolisty3.jpg",
+    "vzdyzelene_kry/skalnik-malolisty4.jpg",
   ]
   
 },
@@ -130,6 +134,19 @@ const vzdyzeleneKry = [
 },
 
 {
+  id: "choisya-ternata",
+  latin: "Choisya ternata",
+  name: "Šoazia trojpočetná",
+  family: "Rutovité (Rutaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/choisya-ternata1.jpg",
+    "vzdyzelene_kry/choisya-ternata2.jpg",
+    "vzdyzelene_kry/choisya-ternata3.jpg",
+  ]
+},
+
+{
   id: "ilex-aquifolium",
   latin: "Ilex aquifolium",
   name: "Cezmína ostrolistá",
@@ -166,6 +183,19 @@ const vzdyzeleneKry = [
     "vzdyzelene_kry/lonicera-pileata-list.jpg"
   ]
 },
+
+{
+  id: "magnolia-grandiflora",
+  latin: "Magnolia grandiflora",
+  name: "Magnólia veľkokvetá",
+  family: "Magnóliovité (Magnoliaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/magnolia-grandiflora1.jpg",
+    "vzdyzelene_kry/magnolia-grandiflora2.jpg",
+  ]
+},
+
 {
   id: "mahonia-aquifolium",
   latin: "Mahonia aquifolium",
@@ -174,9 +204,23 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/mahonia-aquifolium.jpg",
-    "vzdyzelene_kry/mahonia-aquifolium-list.jpg"
+    "vzdyzelene_kry/mahonia-aquifolium-list.jpg",
+    "vzdyzelene_kry/mahonia-aquifolium3.jpg",
   ]
   
+},
+
+{
+  id: "photinia-davidiana",
+  latin: "Photinia davidiana",
+  name: "Fotínia Dávidova",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/photinia-davidiana1.jpg",
+    "vzdyzelene_kry/photinia-davidiana2.jpg",
+    "vzdyzelene_kry/photinia-davidiana3.jpg",
+  ]
 },
 
 
@@ -243,7 +287,8 @@ const vzdyzeleneKry = [
   images: [
     "vzdyzelene_kry/rosmarinus-officinalis1.jpg",
     "vzdyzelene_kry/rosmarinus-officinalis2.jpg",
-    "vzdyzelene_kry/rosmarinus-officinalis3.jpg",
+    "vzdyzelene_kry/rosmarinus-officinalis3.jpg",    
+    "vzdyzelene_kry/rosmarinus-officinalis4.jpg",
   ]
 },
 
@@ -259,6 +304,7 @@ const vzdyzeleneKry = [
     "vzdyzelene_kry/skimmia-japonica1.jpg",
     "vzdyzelene_kry/skimmia-japonica2.jpg",
     "vzdyzelene_kry/skimmia-japonica3.jpg",
+    "vzdyzelene_kry/skimmia-japonica4.jpg",
   ]
 },
 
@@ -270,7 +316,9 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/viburnum-rhytidophyllum.jpg",
-    "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg"
+    "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg",
+    "vzdyzelene_kry/viburnum-rhytidophyllum3.jpg",
+    "vzdyzelene_kry/viburnum-rhytidophyllum4.jpg",
   ]
 },
 
