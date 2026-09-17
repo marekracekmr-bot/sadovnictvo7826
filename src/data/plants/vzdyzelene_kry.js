@@ -108,6 +108,19 @@ const vzdyzeleneKry = [
   ]
   
 },
+
+{
+  id: "ephedra-gracilis",
+  latin: "Ephedra gracilis",
+  name: "Chvojník štíhly",
+  family: "Chvojníkovité (Ephedraceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/ephedra-gracilis1.jpg",
+    "vzdyzelene_kry/ephedra-gracilis2.jpg",
+  ]
+},
+
 {
   id: "erica-carnea",
   name: "Vresovec mäsový",
@@ -223,6 +236,18 @@ const vzdyzeleneKry = [
   ]
 },
 
+{
+  id: "photinia-fraseri",
+  latin: "Photinia × fraseri",
+  name: "Fotínia Fraserova",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/photinia-fraseri.jpg",
+    "vzdyzelene_kry/photinia-fraseri1.jpg",
+    "vzdyzelene_kry/photinia-fraseri2.jpg",
+  ]
+},
 
 {
   id: "pieris-japonica",
@@ -334,18 +359,7 @@ const vzdyzeleneKry = [
   ]
 },
 
-{
-  id: "photinia-fraseri",
-  latin: "Photinia × fraseri",
-  name: "Fotínia Fraserova",
-  family: "Ružovité (Rosaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/photinia-fraseri.jpg",
-    "vzdyzelene_kry/photinia-fraseri1.jpg",
-    "vzdyzelene_kry/photinia-fraseri2.jpg",
-  ]
-},
+
 
 {
   id: "pachysandra-terminalis",
