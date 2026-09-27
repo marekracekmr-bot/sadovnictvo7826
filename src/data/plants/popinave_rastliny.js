@@ -55,6 +55,19 @@ const popinaveRastliny = [
   ]
 },
 
+{
+  id: "campsis-radicans",
+  name: "Trubkovec koreňujúci",
+  latin: "Campsis radicans",
+  family: "Trubačovité (Bignoniaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Campsis-radicans1.jpg",
+    "popinave_rastliny/Campsis-radicans2.jpg",
+    "popinave_rastliny/Campsis-radicans3.jpg",
+  ]
+},
+
 ];
 
 export default popinaveRastliny;
