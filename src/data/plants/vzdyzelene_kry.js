@@ -110,18 +110,6 @@ const vzdyzeleneKry = [
 },
 
 {
-  id: "ephedra-gracilis",
-  latin: "Ephedra gracilis",
-  name: "Chvojník štíhly",
-  family: "Chvojníkovité (Ephedraceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/ephedra-gracilis1.jpg",
-    "vzdyzelene_kry/ephedra-gracilis2.jpg",
-  ]
-},
-
-{
   id: "erica-carnea",
   name: "Vresovec mäsový",
   latin: "Erica carnea",
@@ -146,18 +134,6 @@ const vzdyzeleneKry = [
   
 },
 
-{
-  id: "choisya-ternata",
-  latin: "Choisya ternata",
-  name: "Šoazia trojpočetná",
-  family: "Rutovité (Rutaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/choisya-ternata1.jpg",
-    "vzdyzelene_kry/choisya-ternata2.jpg",
-    "vzdyzelene_kry/choisya-ternata3.jpg",
-  ]
-},
 
 {
   id: "ilex-aquifolium",
@@ -223,18 +199,6 @@ const vzdyzeleneKry = [
   
 },
 
-{
-  id: "photinia-davidiana",
-  latin: "Photinia davidiana",
-  name: "Fotínia Dávidova",
-  family: "Ružovité (Rosaceae)",
-  category: "vzdyzelene_kry",
-  images: [
-    "vzdyzelene_kry/photinia-davidiana1.jpg",
-    "vzdyzelene_kry/photinia-davidiana2.jpg",
-    "vzdyzelene_kry/photinia-davidiana3.jpg",
-  ]
-},
 
 {
   id: "photinia-fraseri",
@@ -342,11 +306,21 @@ const vzdyzeleneKry = [
   images: [
     "vzdyzelene_kry/viburnum-rhytidophyllum.jpg",
     "vzdyzelene_kry/viburnum-rhytidophyllum-list.jpg",
-    "vzdyzelene_kry/viburnum-rhytidophyllum3.jpg",
-    "vzdyzelene_kry/viburnum-rhytidophyllum4.jpg",
   ]
 },
 
+{
+  id: "viburnum-pragense",
+  latin: "Viburnum × pragense",
+  name: "Kalina pražská",
+  family: "Zemolezovité (Caprifoliaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/viburnum-pragense1.jpg",
+    "vzdyzelene_kry/viburnum-pragense2.jpg",
+    "vzdyzelene_kry/viburnum-pragense3.jpg",
+  ]
+},
 {
   id: "vinca-minor",
   latin: "Vinca minor",
@@ -359,7 +333,17 @@ const vzdyzeleneKry = [
   ]
 },
 
-
+{
+  id: "ephedra-gracilis",
+  latin: "Ephedra gracilis",
+  name: "Chvojník štíhly",
+  family: "Chvojníkovité (Ephedraceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/ephedra-gracilis1.jpg",
+    "vzdyzelene_kry/ephedra-gracilis2.jpg",
+  ]
+},
 
 {
   id: "pachysandra-terminalis",
@@ -371,6 +355,32 @@ const vzdyzeleneKry = [
     "vzdyzelene_kry/pachysandra-terminalis.jpg",
     "vzdyzelene_kry/pachysandra-terminalis1.jpg",
     "vzdyzelene_kry/pachysandra-terminalis2.jpg",
+  ]
+},
+
+{
+  id: "choisya-ternata",
+  latin: "Choisya ternata",
+  name: "Šoazia trojpočetná",
+  family: "Rutovité (Rutaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/choisya-ternata1.jpg",
+    "vzdyzelene_kry/choisya-ternata2.jpg",
+    "vzdyzelene_kry/choisya-ternata3.jpg",
+  ]
+},
+
+{
+  id: "photinia-davidiana",
+  latin: "Photinia davidiana",
+  name: "Fotínia Dávidova",
+  family: "Ružovité (Rosaceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/photinia-davidiana1.jpg",
+    "vzdyzelene_kry/photinia-davidiana2.jpg",
+    "vzdyzelene_kry/photinia-davidiana3.jpg",
   ]
 },
 
