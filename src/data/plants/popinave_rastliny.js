@@ -52,6 +52,7 @@ const popinaveRastliny = [
     "popinave_rastliny/Wisteria-sinensis2.jpg",
     "popinave_rastliny/Wisteria-sinensis3.jpg",
     "popinave_rastliny/Wisteria-sinensis4.jpg",
+    "popinave_rastliny/Wisteria-sinensis5.jpg",
   ]
 },
 
