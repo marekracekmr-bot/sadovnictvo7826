@@ -142,6 +142,7 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/brslen-japonsky1.jpg",
+    "vzdyzelene_kry/brslen-japonsky2.jpg",
   ]
 },
 
