@@ -181,7 +181,8 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/lonicera-pileata.jpg",
-    "vzdyzelene_kry/lonicera-pileata-list.jpg"
+    "vzdyzelene_kry/lonicera-pileata-list.jpg",
+    "vzdyzelene_kry/lonicera-pileata3.jpg",
   ]
 },
 
