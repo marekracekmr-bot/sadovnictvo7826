@@ -37,6 +37,7 @@ const popinaveRastliny = [
   images: [
     "popinave_rastliny/Parthenocissus-quinquefolia1.jpg",
     "popinave_rastliny/Parthenocissus-quinquefolia2.jpg",
+    "popinave_rastliny/Parthenocissus-quinquefolia3.jpg",
   ]
 
 },
