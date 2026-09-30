@@ -143,6 +143,9 @@ const vzdyzeleneKry = [
   images: [
     "vzdyzelene_kry/brslen-japonsky1.jpg",
     "vzdyzelene_kry/brslen-japonsky2.jpg",
+    "vzdyzelene_kry/brslen-japonsky3.jpg",
+    "vzdyzelene_kry/brslen-japonsky4.jpg",
+    "vzdyzelene_kry/brslen-japonsky5.jpg",
   ]
 },
 
