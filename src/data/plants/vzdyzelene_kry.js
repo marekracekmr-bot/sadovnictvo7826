@@ -134,6 +134,17 @@ const vzdyzeleneKry = [
   
 },
 
+{
+  id: "euonymus-japonicus",
+  name: "Bršlen japonský",
+  latin: "Euonymus japonicus",
+  family: "Bršlenovité (Celastraceae)",
+  category: "vzdyzelene_kry",
+  images: [
+    "vzdyzelene_kry/brslen-japonsky1.jpg",
+  ]
+},
+
 
 {
   id: "ilex-aquifolium",
