@@ -29,6 +29,20 @@ const popinaveRastliny = [
    },
 
    {
+  id: "lonicera-henryi",
+  name: "Zemolez Henryho",
+  latin: "Lonicera henryi",
+  family: "Zemolezovité (Caprifoliaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Lonicera-henryi1.jpg",
+    "popinave_rastliny/Lonicera-henryi2.jpg",
+    "popinave_rastliny/Lonicera-henryi3.jpg",
+    "popinave_rastliny/Lonicera-henryi4.jpg",
+  ]
+},
+
+   {
   id: "parthenocissus-quinquefolia",
   name: "Pavinič päťlaločný",
   latin: "Parthenocissus quinquefolia",
