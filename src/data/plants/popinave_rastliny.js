@@ -1,6 +1,19 @@
 const popinaveRastliny = [
   // Sem budeš pridávať rastliny
 
+{
+  id: "campsis-radicans",
+  name: "Trubkovec koreňujúci",
+  latin: "Campsis radicans",
+  family: "Trubačovité (Bignoniaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Campsis-radicans1.jpg",
+    "popinave_rastliny/Campsis-radicans2.jpg",
+    "popinave_rastliny/Campsis-radicans3.jpg",
+  ]
+},
+
   {
   id: "celastrus-scandens",
   name: "Bršlenec popínavý",
@@ -12,6 +25,19 @@ const popinaveRastliny = [
     "popinave_rastliny/Celastrus-scandens2.jpg",
   ]
 
+},
+
+{
+  id: "clematis-hybrida",
+  name: "Plamienok hybridný",
+  latin: "Clematis × hybrida",
+  family: "Iskerníkovité (Ranunculaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Clematis-hybrida1.jpg",
+    "popinave_rastliny/Clematis-hybrida2.jpg",
+    "popinave_rastliny/Clematis-hybrida3.jpg",
+  ]
 },
 
   {
@@ -39,6 +65,19 @@ const popinaveRastliny = [
     "popinave_rastliny/Lonicera-henryi2.jpg",
     "popinave_rastliny/Lonicera-henryi3.jpg",
     "popinave_rastliny/Lonicera-henryi4.jpg",
+  ]
+},
+
+{
+  id: "parthenocissus-tricuspidata",
+  name: "Pavinič trojlaločný",
+  latin: "Parthenocissus tricuspidata",
+  family: "Viničovité (Vitaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Parthenocissus-tricuspidata1.jpg",
+    "popinave_rastliny/Parthenocissus-tricuspidata2.jpg",
+    "popinave_rastliny/Parthenocissus-tricuspidata3.jpg",
   ]
 },
 
@@ -71,18 +110,7 @@ const popinaveRastliny = [
   ]
 },
 
-{
-  id: "campsis-radicans",
-  name: "Trubkovec koreňujúci",
-  latin: "Campsis radicans",
-  family: "Trubačovité (Bignoniaceae)",
-  category: "popinave",
-  images: [
-    "popinave_rastliny/Campsis-radicans1.jpg",
-    "popinave_rastliny/Campsis-radicans2.jpg",
-    "popinave_rastliny/Campsis-radicans3.jpg",
-  ]
-},
+
 
 ];
 
