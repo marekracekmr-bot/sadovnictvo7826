@@ -22,7 +22,20 @@ const ihlicnany = [
     "ihlicnany/jedla-kaukazska-list.jpg",
   ]
  
+},
+
+{
+  id: "picea-abies",
+  name: "Smrek obyčajný",
+  latin: "Picea abies",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/picea-abies1.jpg",
+    "ihlicnany/picea-abies2.jpg",
+  ]
 }
+
 ];
 
 export default ihlicnany;
