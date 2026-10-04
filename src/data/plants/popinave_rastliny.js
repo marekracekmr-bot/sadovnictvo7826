@@ -2,6 +2,31 @@ const popinaveRastliny = [
   // Sem budeš pridávať rastliny
 
 {
+  id: "akebia-quinata",
+  name: "Akebia päťpočetná",
+  latin: "Akebia quinata",
+  family: "Lardizabalovité (Lardizabalaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Akebia-quinata1.jpg",
+    "popinave_rastliny/Akebia-quinata2.jpg",
+  ]
+},
+
+{
+  id: "aristolochia-macrophylla",
+  name: "Vlkokvet veľkolistý",
+  latin: "Aristolochia macrophylla",
+  family: "Vlkokvetovité (Aristolochiaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Aristolochia-macrophylla1.jpg",
+    "popinave_rastliny/Aristolochia-macrophylla2.jpg",
+    "popinave_rastliny/Aristolochia-macrophylla3.jpg",
+  ]
+},
+
+{
   id: "campsis-radicans",
   name: "Trubkovec koreňujúci",
   latin: "Campsis radicans",
@@ -53,6 +78,18 @@ const popinaveRastliny = [
   ]
      
    },
+
+   {
+  id: "humulus-lupulus",
+  name: "Chmeľ obyčajný",
+  latin: "Humulus lupulus",
+  family: "Konopovité (Cannabaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Humulus-lupulus1.jpg",
+    "popinave_rastliny/Humulus-lupulus2.jpg",
+  ]
+},
 
    {
   id: "lonicera-henryi",
