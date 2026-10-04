@@ -91,6 +91,19 @@ const popinaveRastliny = [
   ]
 },
 
+{
+  id: "hydrangea-anomala-subsp-petiolaris",
+  name: "Hortenzia popínavá",
+  latin: "Hydrangea anomala subsp. petiolaris",
+  family: "Hortenziovité (Hydrangeaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/Hydrangea-anomala-subsp-petiolaris1.jpg",
+    "popinave_rastliny/Hydrangea-anomala-subsp-petiolaris2.jpg",
+    "popinave_rastliny/Hydrangea-anomala-subsp-petiolaris3.jpg",
+  ]
+},
+
    {
   id: "lonicera-henryi",
   name: "Zemolez Henryho",
