@@ -34,7 +34,21 @@ const ihlicnany = [
     "ihlicnany/picea-abies1.jpg",
     "ihlicnany/picea-abies2.jpg",
   ]
-}
+},
+
+{
+  id: "picea-abies-virgata",
+  name: "Smrek obyčajný 'Hadí'",
+  latin: "Picea abies 'Virgata'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/picea-abies-virgata1.jpg",
+    "ihlicnany/picea-abies-virgata2.jpg",
+    "ihlicnany/picea-abies-virgata3.jpg",
+    "ihlicnany/picea-abies-virgata4.jpg",
+  ]
+},
 
 ];
 
