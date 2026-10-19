@@ -11,6 +11,21 @@ const ihlicnany = [
     "ihlicnany/jedla-biela2.jpg"
   ]
   },
+
+{
+  id: "abies-concolor",
+  name: "Jedľa srienistá",
+  latin: "Abies concolor",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/abies-concolor1.jpg",
+    "ihlicnany/abies-concolor2.jpg",
+    "ihlicnany/abies-concolor3.jpg",
+    "ihlicnany/abies-concolor4.jpg",
+  ]
+},
+
   {
   id: "abies-nordmanniana",
   name: "Jedľa Nordmannova (kaukazská)",
