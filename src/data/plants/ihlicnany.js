@@ -65,6 +65,21 @@ const ihlicnany = [
   ]
 },
 
+{
+  id: "pinus-ponderosa",
+  name: "Borovica ťažká",
+  latin: "Pinus ponderosa",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/pinus-ponderosa1.jpg",
+    "ihlicnany/pinus-ponderosa2.jpg",
+    "ihlicnany/pinus-ponderosa3.jpg",
+    "ihlicnany/pinus-ponderosa4.jpg",
+    "ihlicnany/pinus-ponderosa5.jpg",
+  ]
+},
+
 ];
 
 export default ihlicnany;
