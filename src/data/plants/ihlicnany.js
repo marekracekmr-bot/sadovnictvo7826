@@ -68,6 +68,19 @@ const ihlicnany = [
 },
 
 {
+  id: "picea-pungens",
+  name: "Smrek pichľavý",
+  latin: "Picea pungens",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/picea-pungens1.jpg",
+    "ihlicnany/picea-pungens2.jpg",
+    "ihlicnany/picea-pungens3.jpg",
+  ]
+},
+
+{
   id: "pinus-ponderosa",
   name: "Borovica ťažká",
   latin: "Pinus ponderosa",
