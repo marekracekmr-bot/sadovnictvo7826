@@ -8,7 +8,9 @@ const ihlicnany = [
     images: [
     "ihlicnany/jedla-biela.jpg",
     "ihlicnany/jedla-biela1.jpg",
-    "ihlicnany/jedla-biela2.jpg"
+    "ihlicnany/jedla-biela2.jpg",
+    "ihlicnany/jedla-biela3.jpg",
+    "ihlicnany/jedla-biela4.jpg",
   ]
   },
   {
