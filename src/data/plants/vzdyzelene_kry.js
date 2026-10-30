@@ -218,7 +218,7 @@ const vzdyzeleneKry = [
 {
 id: "osmanthus-heterophyllus",
 latin: "Osmanthus heterophyllus",
-name: "Osmanthus rôznolistý",
+name: "Osmant rôznolistý",
 family: "Olivovité (Oleaceae)",
 category: "vzdyzelene_kry",
 images: [
