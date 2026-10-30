@@ -215,6 +215,18 @@ const vzdyzeleneKry = [
   
 },
 
+{
+id: "osmanthus-heterophyllus",
+latin: "Osmanthus heterophyllus",
+name: "Osmanthus rôznolistý",
+family: "Olivovité (Oleaceae)",
+category: "vzdyzelene_kry",
+images: [
+"vzdyzelene_kry/osmanthus-heterophyllus.jpg",
+"vzdyzelene_kry/osmanthus-heterophyllus1.jpg",
+"vzdyzelene_kry/osmanthus-heterophyllus2.jpg",
+]
+},
 
 {
   id: "photinia-fraseri",
