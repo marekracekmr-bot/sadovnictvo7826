@@ -52,7 +52,8 @@ const vzdyzeleneKry = [
     height: "0,4 m",
     images: [
     "vzdyzelene_kry/calluna.jpg",
-    "vzdyzelene_kry/calluna-list.jpg"
+    "vzdyzelene_kry/calluna-list.jpg",
+    "vzdyzelene_kry/calluna-vulgaris3.jpg",
   ]
     
   },
