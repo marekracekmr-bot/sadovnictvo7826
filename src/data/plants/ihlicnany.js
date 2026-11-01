@@ -95,6 +95,20 @@ const ihlicnany = [
   ]
 },
 
+{
+  id: "pinus-strobus-nana",
+  name: "Borovica hladká 'Nana'",
+  latin: "Pinus strobus 'Nana'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/pinus-strobus-nana1.jpg",
+    "ihlicnany/pinus-strobus-nana2.jpg",
+    "ihlicnany/pinus-strobus-nana3.jpg",
+    "ihlicnany/pinus-strobus-nana4.jpg",
+  ]
+},
+
 ];
 
 export default ihlicnany;
