@@ -92,6 +92,20 @@ const ihlicnany = [
 },
 
 {
+  id: "pinus-mugo",
+  name: "Borovica horská (Kosodrevina)",
+  latin: "Pinus mugo",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/pinus-mugo1.jpg",
+    "ihlicnany/pinus-mugo2.jpg",
+    "ihlicnany/pinus-mugo3.jpg",
+    "ihlicnany/pinus-mugo4.jpg",
+  ]
+},
+
+{
   id: "pinus-ponderosa",
   name: "Borovica ťažká",
   latin: "Pinus ponderosa",
