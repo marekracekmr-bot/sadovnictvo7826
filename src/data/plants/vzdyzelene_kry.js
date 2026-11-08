@@ -158,8 +158,10 @@ const vzdyzeleneKry = [
   family: "Cezmínovité (Aquifoliaceae)",
   category: "vzdyzelene_kry",
   images: [
-    "vzdyzelene_kry/ilex-aquifolium.jpg",
-    "vzdyzelene_kry/ilex-aquifolium-list.jpg"
+    "vzdyzelene_kry/ilex-aquifolium1.jpg",
+    "vzdyzelene_kry/ilex-aquifolium2.jpg",
+    "vzdyzelene_kry/ilex-aquifolium3.jpg",
+    "vzdyzelene_kry/ilex-aquifolium4.jpg",
   ]
   
 },
@@ -323,6 +325,7 @@ images: [
     "vzdyzelene_kry/skimmia-japonica2.jpg",
     "vzdyzelene_kry/skimmia-japonica3.jpg",
     "vzdyzelene_kry/skimmia-japonica4.jpg",
+    "vzdyzelene_kry/skimmia-japonica5.jpg",
   ]
 },
 
