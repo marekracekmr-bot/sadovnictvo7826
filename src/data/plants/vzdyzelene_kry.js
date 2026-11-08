@@ -130,7 +130,8 @@ const vzdyzeleneKry = [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/brslen-fortunei.jpg",
-    "vzdyzelene_kry/brslen-fortunei-list.jpg"
+    "vzdyzelene_kry/brslen-fortunei-list.jpg",
+    "vzdyzelene_kry/euonymus-fortunei3.jpg",
   ]
   
 },

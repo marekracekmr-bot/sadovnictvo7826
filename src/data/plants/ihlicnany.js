@@ -115,6 +115,7 @@ const ihlicnany = [
     "ihlicnany/pinus-mugo2.jpg",
     "ihlicnany/pinus-mugo3.jpg",
     "ihlicnany/pinus-mugo4.jpg",
+    "ihlicnany/pinus-mugo5.jpg",
   ]
 },
 
