@@ -54,6 +54,19 @@ const ihlicnany = [
 },
 
 {
+  id: "picea-abies-nidiformis",
+  name: "Smrek obyčajný 'Nidiformis'",
+  latin: "Picea abies 'Nidiformis'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/picea-abies-nidiformis1.jpg",
+    "ihlicnany/picea-abies-nidiformis2.jpg",
+    "ihlicnany/picea-abies-nidiformis3.jpg",
+  ]
+},
+
+{
   id: "picea-abies-virgata",
   name: "Smrek obyčajný 'Hadí'",
   latin: "Picea abies 'Virgata'",
