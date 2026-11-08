@@ -28,17 +28,17 @@ const ihlicnany = [
   ]
 },
 
-  {
+ {
   id: "abies-nordmanniana",
   name: "Jedľa Nordmannova (kaukazská)",
   latin: "Abies nordmanniana",
   family: "Borovicovité (Pinaceae)",
   category: "ihlicnany",
   images: [
-    "ihlicnany/jedla-kaukazska.jpg",
-    "ihlicnany/jedla-kaukazska-list.jpg",
+    "ihlicnany/abies-nordmanniana1.jpg",
+    "ihlicnany/abies-nordmanniana2.jpg",
+    "ihlicnany/abies-nordmanniana3.jpg",
   ]
- 
 },
 
 {
