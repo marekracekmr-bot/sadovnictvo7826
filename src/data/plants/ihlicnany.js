@@ -81,6 +81,17 @@ const ihlicnany = [
 },
 
 {
+  id: "picea-pungens-iseli-fastigiata",
+  name: "Smrek pichľavý 'Iseli Fastigiata'",
+  latin: "Picea pungens 'Iseli Fastigiata'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/picea-pungens-iseli-fastigiata1.jpg",
+  ]
+},
+
+{
   id: "pinus-ponderosa",
   name: "Borovica ťažká",
   latin: "Pinus ponderosa",
