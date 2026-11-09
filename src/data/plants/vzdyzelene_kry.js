@@ -21,8 +21,9 @@ const vzdyzeleneKry = [
     category: "vzdyzelene_kry",
     height: "2 m",
     images: [
-    "vzdyzelene_kry/berberis-julianae.jpg",
-    "vzdyzelene_kry/berberis-julianae-list.jpg"
+    "vzdyzelene_kry/berberis-julianae1.jpg",
+    "vzdyzelene_kry/berberis-julianae2.jpg",
+    "vzdyzelene_kry/berberis-julianae3.jpg",
   ]
    
   },
