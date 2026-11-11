@@ -2,6 +2,20 @@ const popinaveRastliny = [
   // Sem budeš pridávať rastliny
 
 {
+  id: "actinidia-kolomikta",
+  name: "Aktinídia kolomitková",
+  latin: "Actinidia kolomikta",
+  family: "Aktinídiovité (Actinidiaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Actinidia-kolomikta1.jpg",
+    "popinave_rastliny/1Actinidia-kolomikta2.jpg",
+    "popinave_rastliny/1Actinidia-kolomikta3.jpg",
+    "popinave_rastliny/1Actinidia-kolomikta4.jpg",
+  ]
+},
+
+{
   id: "akebia-quinata",
   name: "Akebia päťpočetná",
   latin: "Akebia quinata",
