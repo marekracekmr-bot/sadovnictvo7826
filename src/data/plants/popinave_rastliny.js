@@ -173,6 +173,19 @@ const popinaveRastliny = [
 },
 
 {
+  id: "rosa-hybrida",
+  name: "Ruža pestovaná (popínavá)",
+  latin: "Rosa × hybrida",
+  family: "Ružovité (Rosaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Rosa-hybrida1.jpg",
+    "popinave_rastliny/1Rosa-hybrida2.jpg",
+    "popinave_rastliny/1Rosa-hybrida3.jpg",
+  ]
+},
+
+{
   id: "rosa-multiflora",
   name: "Ruža mnohokvetá",
   latin: "Rosa multiflora",
