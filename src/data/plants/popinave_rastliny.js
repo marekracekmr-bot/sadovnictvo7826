@@ -160,6 +160,32 @@ const popinaveRastliny = [
 },
 
 {
+  id: "polygonum-baldschuanicum",
+  name: "Pohánkovec baldčuánsky (čínsky)",
+  latin: "Polygonum baldschuanicum",
+  family: "Rdestovité (Polygonaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Polygonum-baldschuanicum1.jpg",
+    "popinave_rastliny/1Polygonum-baldschuanicum2.jpg",
+    "popinave_rastliny/1Polygonum-baldschuanicum3.jpg",
+  ]
+},
+
+{
+  id: "vitis-vinifera-purpurea",
+  name: "Vinič hroznorodý 'Purpurea'",
+  latin: "Vitis vinifera 'Purpurea'",
+  family: "Viničovité (Vitaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Vitis-vinifera-Purpurea1.jpg",
+    "popinave_rastliny/1Vitis-vinifera-Purpurea2.jpg",
+    "popinave_rastliny/1Vitis-vinifera-Purpurea3.jpg",
+  ]
+},
+
+{
   id: "wisteria-sinensis",
   name: "Vistéria čínska",
   latin: "Wisteria sinensis",
