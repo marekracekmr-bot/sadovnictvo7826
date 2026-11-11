@@ -173,6 +173,19 @@ const popinaveRastliny = [
 },
 
 {
+  id: "rosa-multiflora",
+  name: "Ruža mnohokvetá",
+  latin: "Rosa multiflora",
+  family: "Ružovité (Rosaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Rosa-multiflora1.jpg",
+    "popinave_rastliny/1Rosa-multiflora2.jpg",
+    "popinave_rastliny/1Rosa-multiflora3.jpg",
+  ]
+},
+
+{
   id: "vitis-vinifera-purpurea",
   name: "Vinič hroznorodý 'Purpurea'",
   latin: "Vitis vinifera 'Purpurea'",
