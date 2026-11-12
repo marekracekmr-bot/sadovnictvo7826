@@ -186,6 +186,19 @@ const popinaveRastliny = [
 },
 
 {
+  id: "rosa-banksiae",
+  name: "Ruža Banksovej",
+  latin: "Rosa banksiae",
+  family: "Ružovité (Rosaceae)",
+  category: "popinave",
+  images: [
+    "popinave_rastliny/1Rosa-banksiae1.jpg",
+    "popinave_rastliny/1Rosa-banksiae2.jpg",
+    "popinave_rastliny/1Rosa-banksiae3.jpg",
+  ]
+},
+
+{
   id: "rosa-multiflora",
   name: "Ruža mnohokvetá",
   latin: "Rosa multiflora",
