@@ -11,6 +11,7 @@ const opadaveStromy = [
   ]
     
   },
+
   {
     id: "acer-platanoides",
     name: "Javor mliečny",
@@ -24,6 +25,20 @@ const opadaveStromy = [
     
   ]
   },
+
+{
+    id: "acer-platanoides-globosum",
+    name: "Javor mliečny 'Globosum'",
+    latin: "Acer platanoides 'Globosum'",
+    family: "Mydlovníkovité (Sapindaceae)",
+    category: "opadave_stromy",
+    images: [
+      "opadave_stromy/acer-platanoides-globosum1.jpg",
+      "opadave_stromy/acer-platanoides-globosum2.jpg",
+      "opadave_stromy/acer-platanoides-globosum3.jpg",
+    ]
+  },
+
   {
     id: "acer-pseudoplatanus",
     name: "Javor horský",
