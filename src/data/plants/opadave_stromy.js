@@ -8,6 +8,7 @@ const opadaveStromy = [
     images: [
     "opadave_stromy/javor-polny.jpg",
     "opadave_stromy/javor-polny-list.jpg",
+    "opadave_stromy/acer-campestre3.jpg",
   ]
     
   },
@@ -36,6 +37,7 @@ const opadaveStromy = [
       "opadave_stromy/acer-platanoides-globosum1.jpg",
       "opadave_stromy/acer-platanoides-globosum2.jpg",
       "opadave_stromy/acer-platanoides-globosum3.jpg",
+      "opadave_stromy/acer-platanoides-globosum4.jpg",
     ]
   },
 
@@ -49,6 +51,7 @@ const opadaveStromy = [
       "opadave_stromy/acer-pseudoplatanus.jpg",
       "opadave_stromy/acer-pseudoplatanus2.jpg",
       "opadave_stromy/acer-pseudoplatanus3.jpg",
+      "opadave_stromy/acer-pseudoplatanus4.jpg",
     
   ]
    
