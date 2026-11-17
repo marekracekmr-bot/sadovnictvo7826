@@ -23,8 +23,24 @@ const opadaveStromy = [
       "opadave_stromy/acer-platanoides.jpg",
       "opadave_stromy/acer-platanoides2.jpg",
       "opadave_stromy/acer-platanoides3.jpg",
+      "opadave_stromy/acer-platanoides4.jpg",
     
   ]
+  },
+
+  {
+    id: "acer-platanoides-crimson-king",
+    name: "Javor mliečny 'Crimson King'",
+    latin: "Acer platanoides 'Crimson King'",
+    family: "Mydlovníkovité (Sapindaceae)",
+    category: "opadave_stromy",
+    images: [
+      "opadave_stromy/acer-platanoides-crimson-king1.jpg",
+      "opadave_stromy/acer-platanoides-crimson-king2.jpg",
+      "opadave_stromy/acer-platanoides-crimson-king3.jpg",
+      "opadave_stromy/acer-platanoides-crimson-king4.jpg",
+      "opadave_stromy/acer-platanoides-crimson-king5.jpg",
+    ]
   },
 
 {
