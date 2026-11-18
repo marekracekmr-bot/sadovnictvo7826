@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Quiz from "./components/Quiz";
 import Quiz4 from "./components/Quiz4";
@@ -53,7 +52,12 @@ function App() {
     {
       name: "Buriny",
       value: "buriny",
-      icon: "🌾"
+      icon: "🌵"
+    },
+    {
+      name: "Črepníkové kvety okrasné listom",
+      value: "crep_kvet_okrasne_listom",
+      icon: "🪴"
     }
   ];
 
@@ -464,15 +468,6 @@ function App() {
 
   // =========================================
   // VÝBER KATEGÓRIE
-  //
-  // Po výbere kategórie sa zobrazí iba
-  // menu možností.
-  //
-  // Tlačidlá používajú rovnakú triedu
-  // "categories" ako hlavná stránka,
-  // takže majú rovnaký vzhľad.
-  //
-  // Zoznam rastlín sa tu už nezobrazuje.
   // =========================================
 
   if (category && !mode) {
