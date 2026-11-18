@@ -93,18 +93,7 @@ const popinaveRastliny = [
      
    },
 
-   {
-  id: "humulus-lupulus",
-  name: "Chmeľ obyčajný",
-  latin: "Humulus lupulus",
-  family: "Konopovité (Cannabaceae)",
-  category: "popinave",
-  images: [
-    "popinave_rastliny/Humulus-lupulus1.jpg",
-    "popinave_rastliny/Humulus-lupulus2.jpg",
-  ]
-},
-
+  
 {
   id: "hydrangea-anomala-subsp-petiolaris",
   name: "Hortenzia popínavá",
