@@ -39,6 +39,19 @@ const crepKvetOkrasneListom = [
     ],
   },
 
+  {
+    id: "ficus-elastica",
+    name: "Fikus kaučukový",
+    latin: "Ficus elastica",
+    family: "Morušovité (Moraceae)",
+    category: "crep_kvet_okrasne_listom",
+    images: [
+      "crep_kvet_okrasne_listom/ficus-elastica1.jpg",
+      "crep_kvet_okrasne_listom/ficus-elastica2.jpg",
+      "crep_kvet_okrasne_listom/ficus-elastica3.jpg",
+    ],
+  },
+
 ];
 
 export default crepKvetOkrasneListom;
