@@ -14,6 +14,19 @@ const crepKvetOkrasneListom = [
   },
 
   {
+    id: "coleus-blumei",
+    name: "Koleus (Africká žihľava)",
+    latin: "Coleus blumei",
+    family: "Hluchavkovité (Lamiaceae)",
+    category: "crep_kvet_okrasne_listom",
+    images: [
+      "crep_kvet_okrasne_listom/coleus-blumei1.jpg",
+      "crep_kvet_okrasne_listom/coleus-blumei2.jpg",
+      "crep_kvet_okrasne_listom/coleus-blumei3.jpg",
+    ],
+  },
+
+  {
     id: "cyperus-alternifolius",
     name: "Šachor striedavolistý",
     latin: "Cyperus alternifolius",
