@@ -40,6 +40,20 @@ const crepKvetOkrasneListom = [
   },
 
   {
+    id: "ficus-benjamina",
+    name: "Fikus malolistý",
+    latin: "Ficus benjamina",
+    family: "Morušovité (Moraceae)",
+    category: "crep_kvet_okrasne_listom",
+    images: [
+      "crep_kvet_okrasne_listom/ficus-benjamina1.jpg",
+      "crep_kvet_okrasne_listom/ficus-benjamina2.jpg",
+      "crep_kvet_okrasne_listom/ficus-benjamina3.jpg",
+      "crep_kvet_okrasne_listom/ficus-benjamina4.jpg",
+    ],
+  },
+
+  {
     id: "ficus-elastica",
     name: "Fikus kaučukový",
     latin: "Ficus elastica",
@@ -49,6 +63,32 @@ const crepKvetOkrasneListom = [
       "crep_kvet_okrasne_listom/ficus-elastica1.jpg",
       "crep_kvet_okrasne_listom/ficus-elastica2.jpg",
       "crep_kvet_okrasne_listom/ficus-elastica3.jpg",
+    ],
+  },
+
+  {
+    id: "ficus-lyrata",
+    name: "Fikus lýrovitolistý",
+    latin: "Ficus lyrata",
+    family: "Morušovité (Moraceae)",
+    category: "crep_kvet_okrasne_listom",
+    images: [
+      "crep_kvet_okrasne_listom/ficus-lyrata1.jpg",
+      "crep_kvet_okrasne_listom/ficus-lyrata2.jpg",
+      "crep_kvet_okrasne_listom/ficus-lyrata3.jpg",
+    ],
+  },
+
+  {
+    id: "ficus-pumila",
+    name: "Fikus popínavý",
+    latin: "Ficus pumila",
+    family: "Morušovité (Moraceae)",
+    category: "crep_kvet_okrasne_listom",
+    images: [
+      "crep_kvet_okrasne_listom/ficus-pumila1.jpg",
+      "crep_kvet_okrasne_listom/ficus-pumila2.jpg",
+      "crep_kvet_okrasne_listom/ficus-pumila3.jpg",
     ],
   },
 
