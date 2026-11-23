@@ -243,6 +243,7 @@ images: [
     "vzdyzelene_kry/photinia-fraseri.jpg",
     "vzdyzelene_kry/photinia-fraseri1.jpg",
     "vzdyzelene_kry/photinia-fraseri2.jpg",
+    "vzdyzelene_kry/photinia-fraseri4.jpg",
   ]
 },
 
@@ -268,7 +269,8 @@ images: [
   category: "vzdyzelene_kry",
   images: [
     "vzdyzelene_kry/prunus-laurocerasus.jpg",
-    "vzdyzelene_kry/prunus-laurocerasus-list.jpg"
+    "vzdyzelene_kry/prunus-laurocerasus-list.jpg",
+    "vzdyzelene_kry/prunus-laurocerasus3.jpg",
   ]
   
 },

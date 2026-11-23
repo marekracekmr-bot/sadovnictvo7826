@@ -89,6 +89,8 @@ const popinaveRastliny = [
     "popinave_rastliny/Hedera-helix.jpg",
     "popinave_rastliny/Hedera-helix1.jpg",
     "popinave_rastliny/Hedera-helix2.jpg",
+    "popinave_rastliny/Hedera-helix4.jpg",
+    "popinave_rastliny/Hedera-helix5.jpg",
   ]
      
    },
