@@ -69,9 +69,25 @@ const opadaveStromy = [
       "opadave_stromy/acer-pseudoplatanus3.jpg",
       "opadave_stromy/acer-pseudoplatanus4.jpg",
     
-  ]
-   
+  ]   
   },
+
+{
+    id: "betula-pendula",
+    name: "Breza previsnutá",
+    latin: "Betula pendula",
+    family: "Brezovité (Betulaceae)",
+    category: "opadave_stromy",
+    images: [
+      "opadave_stromy/betula-pendula1.jpg",
+      "opadave_stromy/betula-pendula2.jpg",
+      "opadave_stromy/betula-pendula3.jpg",
+      "opadave_stromy/betula-pendula4.jpg",
+    ]
+  },
+
+
+
   ];
 
 export default opadaveStromy;
