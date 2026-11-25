@@ -176,6 +176,24 @@ const ihlicnany = [
   ]
 },
 
+{
+  id: "taxus-baccata",
+  name: "Tis obyčajný",
+  latin: "Taxus baccata",
+  family: "Tisovité (Taxaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/taxus-baccata1.jpg",
+    "ihlicnany/taxus-baccata2.jpg",
+    "ihlicnany/taxus-baccata3.jpg",
+    "ihlicnany/taxus-baccata4.jpg",
+    "ihlicnany/taxus-baccata5.jpg",
+    "ihlicnany/taxus-baccata6.jpg",
+  ]
+},
+
+
+
 ];
 
 export default ihlicnany;
