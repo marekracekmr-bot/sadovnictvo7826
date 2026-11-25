@@ -42,6 +42,34 @@ const ihlicnany = [
 },
 
 {
+  id: "cedrus-atlantica-glauca",
+  name: "Céder atlaský 'Glauca'",
+  latin: "Cedrus atlantica 'Glauca'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/cedrus-atlantica-glauca1.jpg",
+    "ihlicnany/cedrus-atlantica-glauca2.jpg",
+    "ihlicnany/cedrus-atlantica-glauca3.jpg",
+    "ihlicnany/cedrus-atlantica-glauca4.jpg",
+  ]
+},
+
+{
+  id: "cedrus-atlantica-glauca-pendula",
+  name: "Céder atlaský 'Glauca Pendula'",
+  latin: "Cedrus atlantica 'Glauca Pendula'",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/cedrus-atlantica-glauca-pendula1.jpg",
+    "ihlicnany/cedrus-atlantica-glauca-pendula2.jpg",
+    "ihlicnany/cedrus-atlantica-glauca-pendula3.jpg",
+    "ihlicnany/cedrus-atlantica-glauca-pendula4.jpg",
+  ]
+},
+
+{
   id: "picea-abies",
   name: "Smrek obyčajný",
   latin: "Picea abies",
