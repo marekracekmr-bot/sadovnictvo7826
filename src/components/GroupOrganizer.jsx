@@ -947,7 +947,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // ZOBRAZENIE SKÓRE A MENA (MAX 8 ZNAKOV)
+  // ZOBRAZENIE SKÓRE, PERCENTA A MENA
   // =========================================
 
   function getPlayerScoreText(
@@ -967,10 +967,18 @@ function GroupOrganizer({ category, goBack }) {
     const total =
       totalQuestions;
 
+    const evaluatedCount = correct + wrong;
+
+    const percentage =
+      evaluatedCount > 0
+        ? Math.round((correct / evaluatedCount) * 100)
+        : 0;
+
     return {
       correct,
       wrong,
-      total
+      total,
+      percentage
     };
 
   }
@@ -980,7 +988,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // STAV TESTU
+  // STAV TESTU A ZORADENIE HRÁČOV
   // =========================================
 
   const currentQuestion =
@@ -1007,6 +1015,10 @@ function GroupOrganizer({ category, goBack }) {
 
   const testFinished =
     room?.status === "finished";
+
+  const sortedPlayers = [...players].sort(
+    (a, b) => Number(b.score || 0) - Number(a.score || 0)
+  );
 
   // =========================================
   // ORGANIZÁTOR – ČAKÁREŇ / TEST
@@ -1210,7 +1222,7 @@ function GroupOrganizer({ category, goBack }) {
                 }}
               >
 
-                {players.map(
+                {sortedPlayers.map(
                   (
                     player,
                     index
@@ -1265,6 +1277,10 @@ function GroupOrganizer({ category, goBack }) {
                           <strong>
                             {score.total}
                           </strong>
+                          {" "}
+                          <span style={{ color: "#333", fontWeight: "bold" }}>
+                            ({score.percentage} %)
+                          </span>
                         </span>
 
                       </div>
@@ -1312,7 +1328,7 @@ function GroupOrganizer({ category, goBack }) {
                     }}
                   >
 
-                    {players.map(
+                    {sortedPlayers.map(
                       (
                         player,
                         index
@@ -1367,6 +1383,10 @@ function GroupOrganizer({ category, goBack }) {
                               <strong>
                                 {score.total}
                               </strong>
+                              {" "}
+                              <span style={{ color: "#333", fontWeight: "bold" }}>
+                                ({score.percentage} %)
+                              </span>
                             </span>
 
                           </div>
@@ -1442,7 +1462,7 @@ function GroupOrganizer({ category, goBack }) {
                 }}
               >
 
-                {players.map(
+                {sortedPlayers.map(
                   (
                     player,
                     index
@@ -1502,6 +1522,10 @@ function GroupOrganizer({ category, goBack }) {
                           <strong>
                             {score.total}
                           </strong>
+                          {" "}
+                          <span style={{ color: "#222", fontWeight: "bold" }}>
+                            ({score.percentage} %)
+                          </span>
                         </span>
 
                       </div>
