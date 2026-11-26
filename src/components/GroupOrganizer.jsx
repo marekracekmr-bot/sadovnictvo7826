@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 import plants from "../data/plants";
@@ -69,6 +68,16 @@ function GroupOrganizer({ category, goBack }) {
     opadave_stromy: {
       name: "Opadavé listnaté stromy",
       icon: "🌳"
+    },
+
+    buriny: {
+      name: "Buriny",
+      icon: "🌵"
+    },
+
+    crep_kvet_okrasne_listom: {
+      name: "Črepníkové kvety okrasné listom",
+      icon: "🪴"
     }
   };
 
@@ -341,10 +350,6 @@ function GroupOrganizer({ category, goBack }) {
 
     setError("");
 
-    // =======================================
-    // KONTROLA HESLA
-    // =======================================
-
     if (!organizerPassword.trim()) {
 
       setError(
@@ -381,10 +386,6 @@ function GroupOrganizer({ category, goBack }) {
 
         return;
       }
-
-      // =======================================
-      // KONTROLA TESTU
-      // =======================================
 
       if (!testType) {
 
@@ -425,10 +426,6 @@ function GroupOrganizer({ category, goBack }) {
         return;
       }
 
-      // =======================================
-      // GENEROVANIE KÓDU
-      // =======================================
-
       let code =
         generateRoomCode();
 
@@ -465,23 +462,10 @@ function GroupOrganizer({ category, goBack }) {
 
       }
 
-      // =======================================
-      // OTÁZKY
-      // =======================================
-
       const questionData =
         createQuestionData(
           numberOfQuestions
         );
-
-      console.log(
-        "SKUPINOVÝ TEST – otázky:",
-        questionData
-      );
-
-      // =======================================
-      // VYTVORENIE MIESTNOSTI
-      // =======================================
 
       const {
         data,
@@ -518,11 +502,6 @@ function GroupOrganizer({ category, goBack }) {
       if (insertError) {
         throw insertError;
       }
-
-      console.log(
-        "SKUPINOVÝ TEST – miestnosť vytvorená:",
-        data
-      );
 
       setWrongAnswers({});
 
@@ -610,11 +589,6 @@ function GroupOrganizer({ category, goBack }) {
         throw updateError;
       }
 
-      console.log(
-        "TEST SPUSTENÝ:",
-        data
-      );
-
       setWrongAnswers({});
 
       processedAnswersRef.current =
@@ -675,26 +649,11 @@ function GroupOrganizer({ category, goBack }) {
       return;
     }
 
-    console.log(
-      "VYHODNOCUJEM OTÁZKU:",
-      currentQuestion
-    );
-
-    console.log(
-      "SPRÁVNA ODPOVEĎ:",
-      correctPlantId
-    );
-
-    // ---------------------------------------
-    // Vyhodnotenie každého hráča
-    // ---------------------------------------
-
     for (const player of players) {
 
       const answerKey =
         `${player.id}-${currentQuestion}`;
 
-      // Už sme túto odpoveď vyhodnotili
       if (
         processedAnswersRef.current.has(
           answerKey
@@ -707,16 +666,7 @@ function GroupOrganizer({ category, goBack }) {
         answerKey
       );
 
-      // -------------------------------------
-      // Hráč neodpovedal
-      // -------------------------------------
-
       if (!player.answered) {
-
-        console.log(
-          "HRÁČ NESTIHOL ODPOVEDAŤ:",
-          player.name
-        );
 
         setWrongAnswers(
           (previous) => ({
@@ -729,10 +679,6 @@ function GroupOrganizer({ category, goBack }) {
         continue;
       }
 
-      // -------------------------------------
-      // Kontrola odpovede
-      // -------------------------------------
-
       const isCorrect =
         String(
           player.current_answer
@@ -741,16 +687,7 @@ function GroupOrganizer({ category, goBack }) {
           correctPlantId
         );
 
-      // -------------------------------------
-      // SPRÁVNA ODPOVEĎ
-      // -------------------------------------
-
       if (isCorrect) {
-
-        console.log(
-          "SPRÁVNA ODPOVEĎ:",
-          player.name
-        );
 
         const newScore =
           Number(
@@ -783,7 +720,6 @@ function GroupOrganizer({ category, goBack }) {
           continue;
         }
 
-        // Okamžite aktualizujeme lokálny zoznam hráčov
         setPlayers(
           (previous) =>
             previous.map(
@@ -794,19 +730,7 @@ function GroupOrganizer({ category, goBack }) {
             )
         );
 
-      }
-
-      // -------------------------------------
-      // NESPRÁVNA ODPOVEĎ
-      // -------------------------------------
-
-      else {
-
-        console.log(
-          "NESPRÁVNA ODPOVEĎ:",
-          player.name,
-          player.current_answer
-        );
+      } else {
 
         setWrongAnswers(
           (previous) => ({
@@ -854,31 +778,14 @@ function GroupOrganizer({ category, goBack }) {
 
     try {
 
-      // =====================================
-      // NAJPRV VYHODNOTIŤ ODPOVEDE
-      // =====================================
-
       await evaluateCurrentQuestion();
-
-      // =====================================
-      // POSLEDNÁ OTÁZKA
-      // =====================================
 
       if (
         currentQuestion >=
         totalQuestions
       ) {
-
-        console.log(
-          "POSLEDNÁ OTÁZKA VYHODNOTENÁ."
-        );
-
         return;
       }
-
-      // =====================================
-      // VYNULOVANIE ODPOVEDÍ HRÁČOV
-      // =====================================
 
       const {
         error: resetError
@@ -907,10 +814,6 @@ function GroupOrganizer({ category, goBack }) {
         throw resetError;
       }
 
-      // =====================================
-      // ĎALŠIA OTÁZKA
-      // =====================================
-
       const nextQuestionNumber =
         currentQuestion + 1;
 
@@ -937,11 +840,6 @@ function GroupOrganizer({ category, goBack }) {
       if (updateError) {
         throw updateError;
       }
-
-      console.log(
-        "SKUPINOVÝ TEST – ďalšia otázka:",
-        nextQuestionNumber
-      );
 
       setRoom(data);
 
@@ -990,10 +888,6 @@ function GroupOrganizer({ category, goBack }) {
           room.total_questions || 0
         );
 
-      // =====================================
-      // POSLEDNÁ OTÁZKA
-      // =====================================
-
       if (
         room.status === "running" &&
         currentQuestion === totalQuestions
@@ -1002,10 +896,6 @@ function GroupOrganizer({ category, goBack }) {
         await evaluateCurrentQuestion();
 
       }
-
-      // =====================================
-      // UKONČENIE MIESTNOSTI
-      // =====================================
 
       const {
         data,
@@ -1034,11 +924,6 @@ function GroupOrganizer({ category, goBack }) {
         throw updateError;
       }
 
-      console.log(
-        "SKUPINOVÝ TEST – ukončený:",
-        data
-      );
-
       setRoom(data);
 
     } catch (err) {
@@ -1062,7 +947,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // ZOBRAZENIE SKÓRE
+  // ZOBRAZENIE SKÓRE A MENA (MAX 8 ZNAKOV)
   // =========================================
 
   function getPlayerScoreText(
@@ -1088,6 +973,10 @@ function GroupOrganizer({ category, goBack }) {
       total
     };
 
+  }
+
+  function formatPlayerName(name) {
+    return String(name || "").trim().slice(0, 8);
   }
 
   // =========================================
@@ -1139,24 +1028,25 @@ function GroupOrganizer({ category, goBack }) {
 
         <div
           style={{
-            margin: "30px auto",
-            padding: "25px",
-            maxWidth: "500px",
+            margin: "15px auto",
+            padding: "16px",
+            maxWidth: "520px",
             border: "2px solid #ccc",
-            borderRadius: "12px"
+            borderRadius: "12px",
+            background: "#fff"
           }}
         >
 
-          <p>
+          <p style={{ margin: "4px 0" }}>
             Kód spoločného testu:
           </p>
 
           <div
             style={{
-              fontSize: "48px",
+              fontSize: "40px",
               fontWeight: "bold",
               letterSpacing: "8px",
-              margin: "20px 0"
+              margin: "8px 0"
             }}
           >
             {roomCode}
@@ -1164,23 +1054,11 @@ function GroupOrganizer({ category, goBack }) {
 
           <hr />
 
-          <p>
-            <strong>
-              Test:
-            </strong>{" "}
-            Test {testType}
-          </p>
-
-          <p>
-            <strong>
-              Počet otázok:
-            </strong>{" "}
+          <p style={{ margin: "4px 0" }}>
+            <strong>Test:</strong> Test {testType} &nbsp;|&nbsp;
+            <strong>Otázky:</strong>{" "}
             {room?.total_questions ||
-              (
-                allPlants
-                  ? categoryPlants.length
-                  : testLimit
-              )}
+              (allPlants ? categoryPlants.length : testLimit)}
           </p>
 
           {/* =================================
@@ -1192,7 +1070,7 @@ function GroupOrganizer({ category, goBack }) {
 
               <hr />
 
-              <h2>
+              <h2 style={{ margin: "8px 0" }}>
                 📝 Otázka{" "}
                 {currentQuestion} /{" "}
                 {totalQuestions}
@@ -1200,9 +1078,10 @@ function GroupOrganizer({ category, goBack }) {
 
               {currentQuestionPlant && (
                 <div
+                  key={`org-question-${currentQuestion}`}
                   style={{
-                    margin: "15px 0",
-                    padding: "15px",
+                    margin: "10px 0",
+                    padding: "10px",
                     border:
                       "2px solid #2196f3",
                     borderRadius:
@@ -1212,21 +1091,18 @@ function GroupOrganizer({ category, goBack }) {
                   }}
                 >
 
-                  <p>
+                  <p style={{ margin: "0 0 4px 0", fontSize: "14px" }}>
                     Ktorá rastlina je:
                   </p>
 
                   <div
                     style={{
-                      fontSize: "22px",
-                      marginTop: "8px"
+                      fontSize: "22px"
                     }}
                   >
-
-                    <i>
+                    <i translate="no">
                       {currentQuestionPlant.latin}
                     </i>
-
                   </div>
 
                 </div>
@@ -1234,33 +1110,23 @@ function GroupOrganizer({ category, goBack }) {
 
               <div
                 style={{
-                  margin: "20px 0",
-                  padding: "20px",
+                  margin: "10px 0",
+                  padding: "8px 12px",
                   border:
                     "2px solid #4caf50",
                   borderRadius:
-                    "12px"
+                    "10px",
+                  fontSize: "15px"
                 }}
               >
-
-                <p>
-                  Odpovedalo:{" "}
-                  <strong>
-                    {answeredPlayers}
-                  </strong>{" "}
-                  z{" "}
-                  <strong>
-                    {players.length}
-                  </strong>
-                </p>
-
-                <p>
-                  Organizátor môže
-                  pokračovať aj bez toho,
-                  aby odpovedali všetci
-                  hráči.
-                </p>
-
+                Odpovedalo:{" "}
+                <strong>
+                  {answeredPlayers}
+                </strong>{" "}
+                z{" "}
+                <strong>
+                  {players.length}
+                </strong>
               </div>
 
               <button
@@ -1272,9 +1138,9 @@ function GroupOrganizer({ category, goBack }) {
                 }
                 style={{
                   fontSize:
-                    "18px",
+                    "16px",
                   padding:
-                    "12px 24px"
+                    "10px 20px"
                 }}
               >
 
@@ -1290,10 +1156,7 @@ function GroupOrganizer({ category, goBack }) {
               {currentQuestion >=
                 totalQuestions && (
                 <>
-
                   <br />
-                  <br />
-
                   <button
                     onClick={
                       finishTest
@@ -1303,9 +1166,10 @@ function GroupOrganizer({ category, goBack }) {
                     }
                     style={{
                       fontSize:
-                        "18px",
+                        "16px",
                       padding:
-                        "12px 24px"
+                        "10px 20px",
+                      marginTop: "6px"
                     }}
                   >
 
@@ -1314,7 +1178,6 @@ function GroupOrganizer({ category, goBack }) {
                       : "🏁 Ukončiť test"}
 
                   </button>
-
                 </>
               )}
 
@@ -1334,20 +1197,16 @@ function GroupOrganizer({ category, goBack }) {
                 🏁 Test je ukončený
               </h2>
 
-              <p>
-                Test bol dokončený.
-              </p>
-
               <h3>
                 👥 Výsledky hráčov
               </h3>
 
               <div
                 style={{
-                  marginTop:
-                    "20px",
-                  textAlign:
-                    "left"
+                  marginTop: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "4px"
                 }}
               >
 
@@ -1368,64 +1227,45 @@ function GroupOrganizer({ category, goBack }) {
                           player.id
                         }
                         style={{
-                          padding:
-                            "12px",
-                          marginBottom:
-                            "8px",
-                          border:
-                            "1px solid #ccc",
-                          borderRadius:
-                            "8px",
-                          background:
-                            "#f5f5f5"
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          padding: "6px 10px",
+                          border: "1px solid #ccc",
+                          borderRadius: "6px",
+                          background: "#f5f5f5",
+                          fontSize: "15px"
                         }}
                       >
 
                         <strong>
                           {index + 1}.{" "}
-                          {player.name}
+                          {formatPlayerName(player.name)}
                         </strong>
 
-                        <div
-                          style={{
-                            marginTop:
-                              "5px"
-                          }}
-                        >
-
-                          Skóre:{" "}
-
+                        <span>
                           <span
                             style={{
-                              color:
-                                "green",
-                              fontWeight:
-                                "bold"
+                              color: "green",
+                              fontWeight: "bold"
                             }}
                           >
                             {score.correct}
                           </span>
-
                           {" / "}
-
                           <span
                             style={{
-                              color:
-                                "red",
-                              fontWeight:
-                                "bold"
+                              color: "red",
+                              fontWeight: "bold"
                             }}
                           >
                             {score.wrong}
                           </span>
-
                           {" / "}
-
                           <strong>
                             {score.total}
                           </strong>
-
-                        </div>
+                        </span>
 
                       </div>
                     );
@@ -1448,7 +1288,7 @@ function GroupOrganizer({ category, goBack }) {
 
                 <hr />
 
-                <h3>
+                <h3 style={{ margin: "8px 0" }}>
                   👥 Pripojení hráči:{" "}
                   {players.length}
                 </h3>
@@ -1456,38 +1296,19 @@ function GroupOrganizer({ category, goBack }) {
                 {players.length === 0 ? (
 
                   <div>
-
                     <p>
-                      ⏳ Zatiaľ sa
-                      nepripojil žiadny
-                      hráč.
+                      ⏳ Zatiaľ sa nepripojil žiadny hráč.
                     </p>
-
-                    <p>
-                      Hráči sa môžu
-                      pripojiť pomocou
-                      kódu:
-                    </p>
-
-                    <strong
-                      style={{
-                        fontSize:
-                          "24px"
-                      }}
-                    >
-                      {roomCode}
-                    </strong>
-
                   </div>
 
                 ) : (
 
                   <div
                     style={{
-                      marginTop:
-                        "20px",
-                      textAlign:
-                        "left"
+                      marginTop: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "4px"
                     }}
                   >
 
@@ -1508,64 +1329,45 @@ function GroupOrganizer({ category, goBack }) {
                               player.id
                             }
                             style={{
-                              padding:
-                                "12px",
-                              marginBottom:
-                                "8px",
-                              border:
-                                "1px solid #ccc",
-                              borderRadius:
-                                "8px",
-                              background:
-                                "#f5f5f5"
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              padding: "6px 10px",
+                              border: "1px solid #ccc",
+                              borderRadius: "6px",
+                              background: "#f5f5f5",
+                              fontSize: "15px"
                             }}
                           >
 
                             <strong>
                               {index + 1}.{" "}
-                              {player.name}
+                              {formatPlayerName(player.name)}
                             </strong>
 
-                            <div
-                              style={{
-                                marginTop:
-                                  "5px"
-                              }}
-                            >
-
-                              Skóre:{" "}
-
+                            <span>
                               <span
                                 style={{
-                                  color:
-                                    "green",
-                                  fontWeight:
-                                    "bold"
+                                  color: "green",
+                                  fontWeight: "bold"
                                 }}
                               >
                                 {score.correct}
                               </span>
-
                               {" / "}
-
                               <span
                                 style={{
-                                  color:
-                                    "red",
-                                  fontWeight:
-                                    "bold"
+                                  color: "red",
+                                  fontWeight: "bold"
                                 }}
                               >
                                 {score.wrong}
                               </span>
-
                               {" / "}
-
                               <strong>
                                 {score.total}
                               </strong>
-
-                            </div>
+                            </span>
 
                           </div>
                         );
@@ -1619,114 +1421,96 @@ function GroupOrganizer({ category, goBack }) {
             )}
 
           {/* =================================
-              HRÁČI POČAS TESTU
+              HRÁČI POČAS TESTU (HUSTÝ ZOZNAM)
               ================================= */}
 
           {testRunning && (
             <div
               style={{
-                marginTop:
-                  "25px",
-                textAlign:
-                  "left"
+                marginTop: "14px",
+                textAlign: "left"
               }}
             >
 
               <hr />
 
-              <h3>
-                👥 Hráči
-              </h3>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "4px"
+                }}
+              >
 
-              {players.map(
-                (
-                  player,
-                  index
-                ) => {
+                {players.map(
+                  (
+                    player,
+                    index
+                  ) => {
 
-                  const score =
-                    getPlayerScoreText(
-                      player
-                    );
+                    const score =
+                      getPlayerScoreText(
+                        player
+                      );
 
-                  return (
-                    <div
-                      key={
-                        player.id
-                      }
-                      style={{
-                        padding:
-                          "12px",
-                        marginBottom:
-                          "8px",
-                        border:
-                          "1px solid #ccc",
-                        borderRadius:
-                          "8px",
-                        background:
-                          player.answered
-                            ? "#e8f5e9"
-                            : "#f5f5f5"
-                      }}
-                    >
-
-                      <strong>
-                        {index + 1}.{" "}
-                        {player.name}
-                      </strong>
-
+                    return (
                       <div
+                        key={
+                          player.id
+                        }
                         style={{
-                          marginTop:
-                            "5px"
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          padding: "5px 10px",
+                          border: player.answered
+                            ? "1px solid #66bb6a"
+                            : "1px solid #ef5350",
+                          borderRadius: "6px",
+                          background: player.answered
+                            ? "#c8e6c9"
+                            : "#ffcdd2",
+                          fontSize: "15px",
+                          lineHeight: "1.2"
                         }}
                       >
 
-                        Skóre:{" "}
-
-                        <span
-                          style={{
-                            color:
-                              "green",
-                            fontWeight:
-                              "bold"
-                          }}
-                        >
-                          {score.correct}
-                        </span>
-
-                        {" / "}
-
-                        <span
-                          style={{
-                            color:
-                              "red",
-                            fontWeight:
-                              "bold"
-                          }}
-                        >
-                          {score.wrong}
-                        </span>
-
-                        {" / "}
-
                         <strong>
-                          {score.total}
+                          {index + 1}.{" "}
+                          {formatPlayerName(player.name)}
                         </strong>
 
+                        <span>
+                          <span
+                            style={{
+                              color: "#1b5e20",
+                              fontWeight: "bold"
+                            }}
+                          >
+                            {score.correct}
+                          </span>
+                          {" / "}
+                          <span
+                            style={{
+                              color: "#b71c1c",
+                              fontWeight: "bold"
+                            }}
+                          >
+                            {score.wrong}
+                          </span>
+                          {" / "}
+                          <strong>
+                            {score.total}
+                          </strong>
+                        </span>
+
                       </div>
+                    );
 
-                      <div>
-                        {player.answered
-                          ? "✅ Odpovedal"
-                          : "⏳ Ešte neodpovedal"}
-                      </div>
+                  }
+                )}
 
-                    </div>
-                  );
-
-                }
-              )}
+              </div>
 
             </div>
           )}

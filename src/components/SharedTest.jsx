@@ -49,6 +49,16 @@ function SharedTest({ category, goBack }) {
     opadave_stromy: {
       name: "Opadavé listnaté stromy",
       icon: "🌳"
+    },
+
+    buriny: {
+      name: "Buriny",
+      icon: "🌵"
+    },
+
+    crep_kvet_okrasne_listom: {
+      name: "Črepníkové kvety okrasné listom",
+      icon: "🪴"
     }
   };
 
@@ -135,7 +145,9 @@ function SharedTest({ category, goBack }) {
 
   async function joinRoom() {
 
-    if (!name.trim()) {
+    const trimmedName = name.trim().slice(0, 8);
+
+    if (!trimmedName) {
       setMessage("Zadaj svoje meno.");
       return;
     }
@@ -182,8 +194,6 @@ function SharedTest({ category, goBack }) {
         return;
       }
 
-      // Spoločný test zatiaľ robíme iba podľa Quiz.jsx,
-      // teda Test 1.
       if (Number(roomData.test_type) !== 1) {
 
         setMessage(
@@ -201,7 +211,7 @@ function SharedTest({ category, goBack }) {
         .insert([
           {
             room_id: roomData.id,
-            name: name.trim(),
+            name: trimmedName,
             score: 0,
             current_answer: null,
             answered: false,
@@ -303,23 +313,11 @@ function SharedTest({ category, goBack }) {
           },
           (payload) => {
 
-            console.log(
-              "PLAYER REALTIME:",
-              payload.new
-            );
-
             setRoom(payload.new);
 
           }
         )
-        .subscribe((status) => {
-
-          console.log(
-            "PLAYER REALTIME STATUS:",
-            status
-          );
-
-        });
+        .subscribe();
 
     return () => {
 
@@ -359,23 +357,11 @@ function SharedTest({ category, goBack }) {
           },
           (payload) => {
 
-            console.log(
-              "PLAYER DATA REALTIME:",
-              payload.new
-            );
-
             setPlayer(payload.new);
 
           }
         )
-        .subscribe((status) => {
-
-          console.log(
-            "PLAYER REALTIME STATUS:",
-            status
-          );
-
-        });
+        .subscribe();
 
     return () => {
 
@@ -412,7 +398,6 @@ function SharedTest({ category, goBack }) {
     setPhotoIndex(0);
     createOptions(currentPlant);
 
-    // Čas sa spustí pri prvej otázke
     if (
       Number(room.current_question) === 1 &&
       !testStartTime
@@ -658,15 +643,16 @@ function SharedTest({ category, goBack }) {
         </h1>
 
         <p>
-          Tvoje meno
+          Tvoje meno (max. 8 písmen)
         </p>
 
         <input
           type="text"
+          maxLength={8}
           placeholder="Zadaj meno"
           value={name}
           onChange={(e) =>
-            setName(e.target.value)
+            setName(e.target.value.slice(0, 8))
           }
           style={{
             fontSize: "18px",
@@ -875,12 +861,14 @@ function SharedTest({ category, goBack }) {
 
           </div>
 
-          <h2 key={`question-${currentQuestion}`}>
+          <h2 key={`player-question-${currentQuestion}`}>
+
             Ktorá rastlina je{" "}
+
             <i translate="no">
               {currentPlant.latin}
-            </i>
-            ?
+            </i>?
+
           </h2>
 
           <p>
@@ -989,7 +977,7 @@ function SharedTest({ category, goBack }) {
 
                   <div className="answer-latin">
 
-                    <i>
+                    <i translate="no">
                       {
                         answerResult
                           .selected
@@ -1012,7 +1000,7 @@ function SharedTest({ category, goBack }) {
                       <div
                         className="answer-latin"
                       >
-                        <i>
+                        <i translate="no">
                           {
                             answerResult
                               .correctPlant
