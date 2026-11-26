@@ -43,6 +43,19 @@ const opadaveStromy = [
     ]
   },
 
+  {
+  id: "acer-platanoides-drummondii",
+  name: "Javor mliečny 'Drummondii'",
+  latin: "Acer platanoides 'Drummondii'",
+  family: "Mydlovníkovité (Sapindaceae)",
+  category: "listnace",
+  images: [
+    "listnace/acer-platanoides-drummondii1.jpg",
+    "listnace/acer-platanoides-drummondii2.jpg",
+    "listnace/acer-platanoides-drummondii3.jpg",
+  ]
+},
+
 {
     id: "acer-platanoides-globosum",
     name: "Javor mliečny 'Globosum'",
