@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 import plants from "../data/plants";
 import GroupOrganizer from "./GroupOrganizer";
+import { validateCleanText } from "../utils/profanityFilter";
 
 function SharedTest({ category, goBack }) {
 
@@ -149,6 +150,12 @@ function SharedTest({ category, goBack }) {
 
     if (!trimmedName) {
       setMessage("Zadaj svoje meno.");
+      return;
+    }
+
+    const nameError = validateCleanText(trimmedName, "Meno");
+    if (nameError) {
+      setMessage(nameError);
       return;
     }
 
