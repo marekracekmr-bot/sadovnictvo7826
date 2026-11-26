@@ -29,10 +29,11 @@ function GroupOrganizer({ category, goBack }) {
 
   const [error, setError] = useState("");
 
+  // Počet nesprávnych odpovedí z predošlých uzavretých kôl
   const [wrongAnswers, setWrongAnswers] =
     useState({});
 
-  // Zabráni dvojitému vyhodnoteniu tej istej odpovede
+  // Zabráni dvojitému zápisu tej istej otázky do DB pri prechode na ďalšiu otázku
   const processedAnswersRef =
     useRef(new Set());
 
@@ -253,7 +254,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // REALTIME – HRÁČI A MIESTNOSŤ
+  // REALTIME + ZÁLOŽNÝ POLLING – HRÁČI A MIESTNOSŤ
   // =========================================
 
   useEffect(() => {
@@ -265,6 +266,7 @@ function GroupOrganizer({ category, goBack }) {
     loadRoom(roomId);
     loadPlayers(roomId);
 
+    // Okamžitá aktualizácia pri zmene v tabuľke hráčov (napr. kliknutie na odpoveď)
     const playersChannel =
       supabase
         .channel(
@@ -279,20 +281,21 @@ function GroupOrganizer({ category, goBack }) {
             filter:
               `room_id=eq.${roomId}`
           },
-          () => {
+          (payload) => {
 
-            loadPlayers(roomId);
+            if (payload.eventType === "UPDATE" && payload.new) {
+              setPlayers((prev) =>
+                prev.map((p) =>
+                  p.id === payload.new.id ? payload.new : p
+                )
+              );
+            } else {
+              loadPlayers(roomId);
+            }
 
           }
         )
-        .subscribe((status) => {
-
-          console.log(
-            "ORGANIZÁTOR – Realtime hráči:",
-            status
-          );
-
-        });
+        .subscribe();
 
     const roomChannel =
       supabase
@@ -310,25 +313,20 @@ function GroupOrganizer({ category, goBack }) {
           },
           (payload) => {
 
-            console.log(
-              "ORGANIZÁTOR – Zmena miestnosti:",
-              payload.new
-            );
-
             setRoom(payload.new);
 
           }
         )
-        .subscribe((status) => {
+        .subscribe();
 
-          console.log(
-            "ORGANIZÁTOR – Realtime miestnosť:",
-            status
-          );
-
-        });
+    // Záložná kontrola každú 1 sekundu pre prípad slabého signálu v triede
+    const fallbackInterval = setInterval(() => {
+      loadPlayers(roomId);
+    }, 1000);
 
     return () => {
+
+      clearInterval(fallbackInterval);
 
       supabase.removeChannel(
         playersChannel
@@ -617,7 +615,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // VYHODNOTENIE AKTUÁLNEJ OTÁZKY
+  // VYHODNOTENIE AKTUÁLNEJ OTÁZKY DO DATABÁZY
   // =========================================
 
   async function evaluateCurrentQuestion() {
@@ -947,48 +945,7 @@ function GroupOrganizer({ category, goBack }) {
   }
 
   // =========================================
-  // ZOBRAZENIE SKÓRE, PERCENTA A MENA
-  // =========================================
-
-  function getPlayerScoreText(
-    player
-  ) {
-
-    const correct =
-      Number(
-        player.score || 0
-      );
-
-    const wrong =
-      Number(
-        wrongAnswers[player.id] || 0
-      );
-
-    const total =
-      totalQuestions;
-
-    const evaluatedCount = correct + wrong;
-
-    const percentage =
-      evaluatedCount > 0
-        ? Math.round((correct / evaluatedCount) * 100)
-        : 0;
-
-    return {
-      correct,
-      wrong,
-      total,
-      percentage
-    };
-
-  }
-
-  function formatPlayerName(name) {
-    return String(name || "").trim().slice(0, 8);
-  }
-
-  // =========================================
-  // STAV TESTU A ZORADENIE HRÁČOV
+  // STAV TESTU
   // =========================================
 
   const currentQuestion =
@@ -1016,9 +973,78 @@ function GroupOrganizer({ category, goBack }) {
   const testFinished =
     room?.status === "finished";
 
-  const sortedPlayers = [...players].sort(
-    (a, b) => Number(b.score || 0) - Number(a.score || 0)
-  );
+  // =========================================
+  // OKAMŽITÝ PREPOČET SKÓRE, PERCENTA A MENA
+  // =========================================
+
+  function getPlayerScoreText(
+    player
+  ) {
+
+    let correct =
+      Number(
+        player.score || 0
+      );
+
+    let wrong =
+      Number(
+        wrongAnswers[player.id] || 0
+      );
+
+    // Ak test beží, aktuálna otázka ešte nebola uložená do DB a hráč už klikol na odpoveď,
+    // okamžite ju započítame do zobrazeného skóre a percenta
+    const answerKey =
+      `${player.id}-${currentQuestion}`;
+
+    if (
+      testRunning &&
+      player.answered &&
+      !processedAnswersRef.current.has(answerKey) &&
+      currentQuestionPlant
+    ) {
+      const isCurrentCorrect =
+        String(player.current_answer) ===
+        String(currentQuestionPlant.id);
+
+      if (isCurrentCorrect) {
+        correct += 1;
+      } else {
+        wrong += 1;
+      }
+    }
+
+    const total =
+      totalQuestions;
+
+    const evaluatedCount = correct + wrong;
+
+    const percentage =
+      evaluatedCount > 0
+        ? Math.round((correct / evaluatedCount) * 100)
+        : 0;
+
+    return {
+      correct,
+      wrong,
+      total,
+      percentage
+    };
+
+  }
+
+  function formatPlayerName(name) {
+    return String(name || "").trim().slice(0, 8);
+  }
+
+  // Zoraď hráčov okamžite podľa aktuálne prepočítaného počtu správnych odpovedí
+  const sortedPlayers = [...players].sort((a, b) => {
+    const scoreA = getPlayerScoreText(a);
+    const scoreB = getPlayerScoreText(b);
+    if (scoreB.correct !== scoreA.correct) {
+      return scoreB.correct - scoreA.correct;
+    }
+    return scoreB.percentage - scoreA.percentage;
+  });
 
   // =========================================
   // ORGANIZÁTOR – ČAKÁREŇ / TEST
