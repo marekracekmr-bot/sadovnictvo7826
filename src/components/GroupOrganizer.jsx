@@ -266,7 +266,6 @@ function GroupOrganizer({ category, goBack }) {
     loadRoom(roomId);
     loadPlayers(roomId);
 
-    // Okamžitá aktualizácia pri zmene v tabuľke hráčov (napr. kliknutie na odpoveď)
     const playersChannel =
       supabase
         .channel(
@@ -319,7 +318,6 @@ function GroupOrganizer({ category, goBack }) {
         )
         .subscribe();
 
-    // Záložná kontrola každú 1 sekundu pre prípad slabého signálu v triede
     const fallbackInterval = setInterval(() => {
       loadPlayers(roomId);
     }, 1000);
@@ -986,20 +984,16 @@ function GroupOrganizer({ category, goBack }) {
         player.score || 0
       );
 
-    let wrong =
-      Number(
-        wrongAnswers[player.id] || 0
-      );
-
-    // Ak test beží, aktuálna otázka ešte nebola uložená do DB a hráč už klikol na odpoveď,
-    // okamžite ju započítame do zobrazeného skóre a percenta
     const answerKey =
       `${player.id}-${currentQuestion}`;
+
+    const isCurrentEvaluated =
+      processedAnswersRef.current.has(answerKey);
 
     if (
       testRunning &&
       player.answered &&
-      !processedAnswersRef.current.has(answerKey) &&
+      !isCurrentEvaluated &&
       currentQuestionPlant
     ) {
       const isCurrentCorrect =
@@ -1008,15 +1002,25 @@ function GroupOrganizer({ category, goBack }) {
 
       if (isCurrentCorrect) {
         correct += 1;
-      } else {
-        wrong += 1;
       }
     }
 
     const total =
       totalQuestions;
 
-    const evaluatedCount = correct + wrong;
+    // Počet doteraz položených/vyhodnotených otázok testu
+    let evaluatedCount = 0;
+
+    if (testFinished) {
+      evaluatedCount = total;
+    } else if (testRunning && currentQuestion > 0) {
+      evaluatedCount =
+        player.answered || isCurrentEvaluated
+          ? currentQuestion
+          : currentQuestion - 1;
+    }
+
+    const wrong = Math.max(0, evaluatedCount - correct);
 
     const percentage =
       evaluatedCount > 0
