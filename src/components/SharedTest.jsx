@@ -875,14 +875,12 @@ function SharedTest({ category, goBack }) {
 
           </div>
 
-          <h2>
-
+          <h2 key={`question-${currentQuestion}`}>
             Ktorá rastlina je{" "}
-
-            <i>
+            <i translate="no">
               {currentPlant.latin}
-            </i>?
-
+            </i>
+            ?
           </h2>
 
           <p>
