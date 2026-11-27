@@ -14,6 +14,20 @@ const ihlicnany = [
   ]
   },
 
+  {
+  id: "abies-cephalonica",
+  name: "Jedľa grécka",
+  latin: "Abies cephalonica",
+  family: "Borovicovité (Pinaceae)",
+  category: "ihlicnany",
+  images: [
+    "ihlicnany/abies-cephalonica1.jpg",
+    "ihlicnany/abies-cephalonica2.jpg",
+    "ihlicnany/abies-cephalonica3.jpg",
+    "ihlicnany/abies-cephalonica4.jpg",
+  ]
+},
+
 {
   id: "abies-concolor",
   name: "Jedľa srienistá",

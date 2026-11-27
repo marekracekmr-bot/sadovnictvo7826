@@ -50,9 +50,9 @@ const opadaveStromy = [
   family: "Mydlovníkovité (Sapindaceae)",
   category: "opadave_stromy",
   images: [
-    "listnace/acer-platanoides-drummondii1.jpg",
-    "listnace/acer-platanoides-drummondii2.jpg",
-    "listnace/acer-platanoides-drummondii3.jpg",
+    "opadave_stromy/acer-platanoides-drummondii1.jpg",
+    "opadave_stromy/acer-platanoides-drummondii2.jpg",
+    "opadave_stromy/acer-platanoides-drummondii3.jpg",
   ]
 },
 
